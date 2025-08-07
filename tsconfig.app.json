@@ -1,0 +1,21 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "types": [
+      "vue-vine/macros",
+      "rolldown-vite/client",
+      "naive-ui/volar"
+    ],
+    "noEmit": true
+  },
+  "include": [
+    "client/env.d.ts",
+    "client/**/*",
+    "auto-imports.d.ts",
+    "components.d.ts",
+    "client/**/*.vue",
+    "bridge"
+  ],
+  "exclude": ["client/**/__tests__/*"]
+}

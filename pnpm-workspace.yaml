@@ -1,0 +1,4 @@
+lockfileIncludeTarballUrl: false
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild

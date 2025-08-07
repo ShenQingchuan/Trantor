@@ -1,0 +1,90 @@
+.trantor-blog-article {
+  h1 {
+    --at-apply: 'text-4xl font-bold my-10';
+  }
+  h2 {
+    --at-apply: 'text-3xl font-bold my-6';
+  }
+  h3 {
+    --at-apply: 'text-2xl font-bold my-6';
+  }
+  h4 {
+    --at-apply: 'text-xl font-bold my-6';
+  }
+  h5 {
+    --at-apply: 'text-lg font-bold my-4';
+  }
+  h6 {
+    --at-apply: 'text-base font-bold my-4';
+  }
+  p {
+    --at-apply: 'mb-4 lh-7';
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    --at-apply: 'lh-[1.5]';
+  }
+
+  :not(pre) code {
+    --at-apply: 'bg-gray-400/20 px-3 py-1 mx-1 rounded-md whitespace-nowrap transition duration-100 font-mono';
+  }
+
+  pre {
+    --at-apply: 'bg-gray-400/10 px-6 py-4 my-4 rounded-md overflow-x-auto';
+
+    code {
+      --at-apply: 'font-mono';
+    }
+  }
+  blockquote {
+    --at-apply: 'border-l-2 border-gray-300/50 pl-6 py-4 my-4 bg-gray-400/10';
+
+    p {
+      --at-apply: 'mb-2 last:mb-0';
+    }
+  }
+
+  p a,
+  li a {
+    --at-apply: 'text-emerald-500 hover:text-emerald-600 cursor-pointer break-words my-2';
+  }
+
+  ul {
+    --at-apply: 'list-disc pl-6 my-4 flex flex-col gap-2';
+  }
+  ol {
+    --at-apply: 'list-decimal pl-6 my-4 flex flex-col gap-2';
+  }
+  ul li,
+  ol li {
+    --at-apply: 'mb-1 lh-8';
+  }
+
+  hr {
+    --at-apply: 'my-10 border-1.12 border-gray-500/10';
+  }
+}
+
+.dark .trantor-blog-article {
+  pre {
+    --at-apply: 'bg-gray-700/10';
+  }
+}
+
+.dark pre.shiki {
+  background-color: var(--shiki-dark-bg, inherit) !important;
+}
+
+.dark .shiki span {
+  color: var(--shiki-dark, inherit) !important;
+}
+
+html:not(.dark) .shiki span {
+  color: var(--shiki-light, inherit) !important;
+}

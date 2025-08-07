@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/node22/tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.server.tsbuildinfo",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    
+    "types": ["node"],
+    "outDir": "./dist/",
+    "skipLibCheck": true
+  },
+  "include": [
+    "server",
+    "bridge"
+  ]
+}

@@ -1,0 +1,49 @@
+:root {
+  --p-indigo-50: #eef2ff;
+  --p-indigo-100: #e0e7ff;
+  --p-indigo-200: #c7d2fe;
+  --p-indigo-300: #a5b4fc;
+  --p-indigo-400: #818cf8;
+  --p-indigo-500: #6366f1;
+  --p-indigo-600: #4f46e5;
+  --p-indigo-700: #4338ca;
+  --p-indigo-800: #3730a3;
+  --p-indigo-900: #312e81;
+  --p-indigo-950: #1e1b4b;
+
+  --p-slate-50: #f8fafc;
+  --p-slate-100: #f1f5f9;
+  --p-slate-200: #e2e8f0;
+  --p-slate-300: #cbd5e1;
+  --p-slate-400: #94a3b8;
+  --p-slate-500: #64748b;
+  --p-slate-600: #475569;
+  --p-slate-700: #334155;
+  --p-slate-800: #1e293b;
+  --p-slate-900: #0f172a;
+  --p-slate-950: #020617;
+
+  --p-sky-50: #f0f9ff;
+  --p-sky-100: #e0f2fe;
+  --p-sky-200: #bae6fd;
+  --p-sky-300: #7dd3fc;
+  --p-sky-400: #38bdf8;
+  --p-sky-500: #0ea5e9;
+  --p-sky-600: #0284c7;
+  --p-sky-700: #0369a1;
+  --p-sky-800: #075985;
+  --p-sky-900: #0c4a6e;
+  --p-sky-950: #082f49;
+
+  --p-cyan-50: #ecfeff;
+  --p-cyan-100: #cffafe;
+  --p-cyan-200: #a5f3fc;
+  --p-cyan-300: #67e8f9;
+  --p-cyan-400: #22d3ee;
+  --p-cyan-500: #06b6d4;
+  --p-cyan-600: #0891b2;
+  --p-cyan-700: #0e7490;
+  --p-cyan-800: #155e75;
+  --p-cyan-900: #164e63;
+  --p-cyan-950: #083344;
+}
