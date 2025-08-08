@@ -309,7 +309,7 @@ export function Greeting() {
       {{ $t('welcome') }}<br>
       {{ $t('this_is_shenqingchuan_blog') }}
     </span>
-    <span class="my-1 text-xl text-zinc-400">
+    <span class="my-1 text-xl text-zinc-600 dark:text-zinc-400">
       {{ $t('learn_explore_create') }}
     </span>
   </div>
@@ -418,12 +418,12 @@ export function WhoAmI() {
         <div class="cursor-silent text-2xl">
           {{ $t('front_end_developer') }}
           <br class="visible sm:hidden">
-          <div class="inline-block text-xl text-zinc-600 sm:ml-2 dark:text-zinc-300">
+          <div class="inline-block text-xl text-secondary sm:ml-2 dark:text-zinc-300">
             <div class="i-material-symbols:location-on-rounded inline-block transform-translate-y-0.5 text-base" /> {{ $t('current_location') }}
           </div>
         </div>
 
-        <div class="cursor-silent mb-6 mt-2 col-flex text-base text-zinc-600">
+        <div class="cursor-silent mb-6 mt-2 col-flex text-base text-secondary">
           <div class="mb-1 row-flex">
             <div class="i-lucide:code-xml mr-2 icon-div" />{{ $t('fanatical_oss_enthusiast') }}
           </div>
@@ -441,7 +441,7 @@ export function WhoAmI() {
             <FutuLogo class="ml-2 inline-block w-16 transform-translate-y--0.5" />
           </a>
         </div>
-        <div class="flex whitespace-nowrap text-sm text-zinc-600">
+        <div class="flex whitespace-nowrap text-sm text-secondary">
           <span class="cursor-silent">{{ $t('previous_experience_in') }}</span>
           <a class="cursor-pointer" href="https://www.bytedance.com" target="_blank">
             <BytedanceLogo class="ml-2 inline-block w-16 transform-translate-y--0.2" />
@@ -456,7 +456,7 @@ export function WhoAmI() {
           <div class="cursor-silent whitespace-nowrap">
             {{ $t('author_of') }}
           </div>
-          <LinkBtn class="text-emerald-300 after:border-emerald-300 light:text-emerald-600 light:after:border-emerald-600" href="https://vue-vine.dev" target="_blank">
+          <LinkBtn class="font-bold text-emerald-500 after:border-emerald-300 light:text-emerald-600 light:after:border-emerald-600" href="https://vue-vine.dev" target="_blank">
             <template #icon>
               <img class="w-6 transform-translate-y--0.5" src="https://vue-vine.dev/vine-logo.png" alt="Vue Vine">
             </template>
@@ -464,7 +464,7 @@ export function WhoAmI() {
               Vue Vine
             </div>
           </LinkBtn>
-          <div class="row-flex transform-translate-x-6 select-none whitespace-nowrap break-all text-sm text-zinc-600 phone-hidden md:flex-basis-auto">
+          <div class="row-flex transform-translate-x-6 select-none whitespace-nowrap break-all text-sm text-secondary phone-hidden md:flex-basis-auto">
             <div class="i-lucide:arrow-left mx-1 inline-block" />
             Made with
             <div class="i-twemoji:sparkling-heart mx-1 inline-block text-base" />
@@ -480,17 +480,17 @@ export function WhoAmI() {
         </div>
 
         <div class="mt-1 row-flex flex-wrap gap-1 text-base">
-          <div class="cursor-silent whitespace-nowrap text-zinc-600">
+          <div class="cursor-silent whitespace-nowrap text-secondary">
             {{ $t('former_maintainer_of') }}
           </div>
           <div class="row-flex flex-nowrap gap-1">
-            <LinkBtn class="text-violet-300 after:border-violet-300 light:text-violet-600 light:after:border-violet-600" href="https://cn.vite.dev" target="_blank">
+            <LinkBtn class="font-bold text-violet-500 after:border-violet-300 light:text-violet-600 light:after:border-violet-600" href="https://cn.vite.dev" target="_blank">
               <template #icon>
                 <div class="i-logos:vitejs inline-block text-base" />
               </template>
               <span class="phone-hidden">Vite</span> {{ $t('chinese_docs') }}
             </LinkBtn>
-            <LinkBtn class="text-orange-500 after:border-orange-500 light:text-orange-600 light:after:border-orange-600" href="https://cn.rollupjs.org" target="_blank">
+            <LinkBtn class="font-bold text-orange-500 after:border-orange-500 light:text-orange-600 light:after:border-orange-600" href="https://cn.rollupjs.org" target="_blank">
               <template #icon>
                 <div class="i-logos:rollupjs inline-block text-base" />
               </template>

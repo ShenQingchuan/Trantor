@@ -137,7 +137,7 @@ export function PageArticles() {
             @click.prevent="router.push(articlePath(article))"
           >
             <div
-              class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-shadow-md hover:text-shadow-color-blueGray-300/60"
+              class="overflow-hidden text-ellipsis whitespace-nowrap hover:(text-sky-700 dark:text-sky-300)"
             >
               {{ article.title }}
             </div>

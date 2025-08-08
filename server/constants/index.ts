@@ -1,8 +1,8 @@
 import { join } from 'node:path'
 import { env } from 'node:process'
 
-export const STATIC_ROOT = join(import.meta.dirname, '../../../static')
-export const CONTENT_DIR = join(import.meta.dirname, '../../../content')
+export const STATIC_ROOT = join(import.meta.dirname, (env.NODE_ENV === 'production' ? '../../../static' : '../../static'))
+export const CONTENT_DIR = join(import.meta.dirname, (env.NODE_ENV === 'production' ? '../../../content' : '../../content'))
 
 // 基本配置
 export const SERVER_HTTP_PORT = env.SERVER_HTTP_PORT ? Number(env.SERVER_HTTP_PORT) : undefined
