@@ -26,11 +26,20 @@ WORKDIR /app
 # Install curl for health checks
 RUN apk add --no-cache curl
 
-# Copy built assets and dependencies from build stage
+# Enable corepack for pnpm
+RUN corepack enable
+
+# Copy package files for production dependency installation
+COPY package.json pnpm-lock.yaml .npmrc ./
+
+# Install only production dependencies
+RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
+    pnpm install --frozen-lockfile --prod
+
+# Copy built assets from build stage
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/static ./static
 COPY --from=build /app/content ./content
-COPY --from=build /app/node_modules ./node_modules
 
 # Environment variables (基础配置)
 ENV NODE_ENV=production
