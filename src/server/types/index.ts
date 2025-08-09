@@ -2,10 +2,8 @@ import type { StreamableHTTPTransport } from '@hono/mcp'
 import type { HttpBindings } from '@hono/node-server'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { Context, Hono } from 'hono'
-import type { LRUCache } from 'lru-cache'
 import type MarkdownIt from 'markdown-it'
 import type OpenAI from 'openai'
-import type { ArticleMetadata } from '../../bridge/types/articles'
 
 export interface ServerContext extends Context {
   Variables: {
@@ -16,14 +14,7 @@ export interface ServerContext extends Context {
       initialized: boolean
       connectTransport: () => Promise<void>
     }
-    markdownIt: {
-      md: MarkdownIt
-      fileListCache: LRUCache<string, ArticleMetadata>
-      contentCache: LRUCache<string, {
-        content: string
-        metadata: ArticleMetadata | null
-      }>
-    }
+    markdownIt: MarkdownIt
   }
   Bindings: HttpBindings
 }

@@ -50,6 +50,7 @@ export function PageArticles() {
       </div>
       <div class="col-flex gap-4">
         <div
+          v-if="state.data.articles.length > 0"
           v-for="article in state.data.articles"
           :key="article.title"
           class="article-item w-full col-flex gap-2 sm:row-flex"
@@ -75,6 +76,9 @@ export function PageArticles() {
           >
             {{ articleDate(article) }}
           </p>
+        </div>
+        <div v-else class="text-center text-2xl text-zinc-500:50 font-500 h-100">
+          {{ $t('articles_list_empty') }}
         </div>
       </div>
     </div>

@@ -24,4 +24,5 @@ export default {
   valorant_lover: 'Valorant 忠实玩家',
   article_posted_on: '文章写于',
   articles_loading: '文章加载中 ...',
+  articles_list_empty: '暂无文章',
 }

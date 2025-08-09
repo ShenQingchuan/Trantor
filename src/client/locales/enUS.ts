@@ -24,4 +24,5 @@ export default {
   valorant_lover: 'Valorant fanatical player',
   article_posted_on: 'Posted on',
   articles_loading: 'Loading articles ...',
+  articles_list_empty: 'No articles yet',
 }

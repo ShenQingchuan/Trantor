@@ -1,8 +1,8 @@
 import { existsSync } from 'node:fs'
 import { readFile, stat } from 'node:fs/promises'
 import { join } from 'node:path'
-import { createTrantorMiddleware } from '../utils/setup.js'
 import { STATIC_ROOT } from '../constants/index.js'
+import { createTrantorMiddleware } from '../utils/setup.js'
 
 export const spaHistoryRoutesMiddleware = createTrantorMiddleware(async (c, next) => {
   const path = c.req.path
