@@ -10,12 +10,8 @@
     "noEmit": true
   },
   "include": [
-    "client/env.d.ts",
-    "client/**/*",
-    "auto-imports.d.ts",
-    "components.d.ts",
-    "client/**/*.vue",
-    "bridge"
+    "src/client",
+    "src/bridge"
   ],
-  "exclude": ["client/**/__tests__/*"]
+  "exclude": ["src/client/**/__tests__/*"]
 }

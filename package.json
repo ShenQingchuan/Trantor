@@ -3,14 +3,14 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "scripts": {
     "dev": "run-p dev:client dev:server",
     "dev:client": "vite",
-    "dev:server": "tsx watch --env-file=.env.local server/main.ts",
+    "dev:server": "tsx watch --env-file=.env.local src/server/main.ts",
     "serve": "run-p serve:client serve:server-build serve:server-run",
     "serve:client": "vite build --watch",
-    "serve:server-run": "nodemon --env-file=.env.local dist/server/main.js",
+    "serve:server-run": "env $(cat .env.local) nodemon --config nodemon.json",
     "serve:server-build": "pnpm tsc -b ./tsconfig.server.json --watch",
     "build": "run-p build:client build:server",
     "build:vite": "vite build",
@@ -27,6 +27,7 @@
     "@hono/node-server": "^1.17.1",
     "@modelcontextprotocol/sdk": "^1.17.0",
     "@nrsk/unindent": "^1.1.0",
+    "@pinia/colada": "^0.17.1",
     "@shikijs/markdown-it": "^3.9.2",
     "@vueuse/core": "^13.5.0",
     "@vueuse/motion": "^3.0.3",
@@ -49,7 +50,7 @@
     "vue": "^3.5.17",
     "vue-i18n": "^11.1.3",
     "vue-router": "^4.5.1",
-    "vue-vine": "^1.7.0",
+    "vue-vine": "^1.7.1",
     "zod": "3.23.8"
   },
   "devDependencies": {
@@ -86,6 +87,6 @@
     "vite-plugin-mkcert": "^1.17.8",
     "vite-plugin-vue-devtools": "^8.0.0",
     "vitest": "^3.2.4",
-    "vue-vine-tsc": "^1.7.0"
+    "vue-vine-tsc": "^1.7.1"
   }
 }

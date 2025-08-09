@@ -28,6 +28,7 @@ export default defineConfig({
         'client/components',
         'client/composables',
       ],
+      dts: './src/client/auto-imports.d.ts',
     }),
   ],
   clearScreen: false,
@@ -38,6 +39,6 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: './static',
+    outDir: './dist/static',
   },
 })

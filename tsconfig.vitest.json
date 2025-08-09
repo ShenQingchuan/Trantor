@@ -7,6 +7,6 @@
     "types": ["node", "jsdom"],
     "noEmit": true
   },
-  "include": ["client/**/__tests__/*", "client/env.d.ts"],
+  "include": ["src/**/__tests__/*.spec.ts", "src/**/*.d.ts"],
   "exclude": []
 }

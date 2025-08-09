@@ -1,0 +1,6 @@
+{
+  "restartable": "rs",
+  "watch": ["dist/server/"],
+  "delay": "1000",
+  "exec": "node dist/server/main.js"
+}

@@ -1,4 +1,4 @@
-import type { ArticleMetadata, ArticleResponse } from '../../bridge/types/articles'
+import type { ArticleMetadata, ArticleResponse } from '../../bridge/types/articles.js'
 import Shiki from '@shikijs/markdown-it'
 import { LRUCache } from 'lru-cache'
 import markdownit from 'markdown-it'

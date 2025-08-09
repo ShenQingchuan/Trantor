@@ -1,4 +1,4 @@
-import type { ChatRequestBody } from '../../../bridge/types/chatFlow'
+import type { ChatRequestBody } from '../../../bridge/types/chatFlow.js'
 import { env } from 'node:process'
 import { streamSSE } from 'hono/streaming'
 import { handlerFactory } from '../handler-factory.js'

@@ -1,4 +1,4 @@
-import type { ArticleMetadata } from '../../../bridge/types/articles'
+import type { ArticleMetadata } from '../../../bridge/types/articles.js'
 import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import frontMatter from 'front-matter'

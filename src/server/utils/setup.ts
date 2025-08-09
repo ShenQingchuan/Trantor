@@ -45,8 +45,10 @@ function startGreeting() {
 ${boxHeader}
 │ ${'🎈 Trantor Node 服务端已启动'.padEnd(boxHeader.length - 10)} │
 │ ${httpLine.padEnd(boxHeader.length - 4)} │
-${httpsLine ? `│ ${httpsLine.padEnd(boxHeader.length - 4)} │` : ''}
-${boxFooter}
+${
+  (httpsLine ? `│ ${httpsLine.padEnd(boxHeader.length - 4) + '\n'} │` : '') +
+  boxFooter
+}
 `)
 }
 

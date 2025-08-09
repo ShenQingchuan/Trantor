@@ -9,7 +9,7 @@ import { llmClientMiddleware } from './middlewares/llmClient.js'
 import { loggerMiddleware } from './middlewares/logger.js'
 import { markdownItMiddleware } from './middlewares/markdownIt.js'
 import { mcpMiddleware } from './middlewares/mcp.js'
-import { spaHistoryRoutesMiddleware } from './middlewares/spa-history-routes.js'
+import { spaHistoryRoutesMiddleware } from './middlewares/toSpaHistoryRouter.js'
 import { serveServer } from './utils/setup.js'
 
 const app = new Hono<ServerContext>()

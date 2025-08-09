@@ -5,13 +5,12 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    
     "types": ["node"],
-    "outDir": "./dist/",
+    "outDir": "./dist",
     "skipLibCheck": true
   },
   "include": [
-    "server",
+    "src/server",
     "bridge"
   ]
 }

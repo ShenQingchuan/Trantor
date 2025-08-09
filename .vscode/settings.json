@@ -1,0 +1,5 @@
+{
+  "i18n-ally.localesPaths": ["src/client/locales"],
+  "i18n-ally.displayLanguage": "zhCN",
+  "i18n-ally.enabledParsers": ["ts", "json", "json5", "yaml"]
+}

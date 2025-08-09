@@ -39,7 +39,6 @@ RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
 # Copy built assets from build stage
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/content ./content
-COPY --from=build /app/static ./static
 
 # Environment variables (基础配置)
 ENV NODE_ENV=production
