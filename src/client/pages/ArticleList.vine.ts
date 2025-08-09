@@ -4,7 +4,6 @@ import { format } from 'date-fns'
 import { NSkeleton } from 'naive-ui'
 import { ofetch } from 'ofetch'
 import { randomSkeletonWidth } from '../utils/shared'
-import '../styles/blog-article.scss'
 
 export function PageArticles() {
   const router = useRouter()

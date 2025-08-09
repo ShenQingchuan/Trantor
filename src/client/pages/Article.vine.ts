@@ -1,10 +1,11 @@
-import type { NSkeleton } from 'naive-ui'
 import type { ArticleResponse } from '../../bridge/types/articles'
 import { useQuery } from '@pinia/colada'
 import { useDark } from '@vueuse/core'
 import { format } from 'date-fns'
+import { NSkeleton } from 'naive-ui'
 import { ofetch } from 'ofetch'
 import { randomSkeletonWidth } from '../utils/shared'
+import '../styles/blog-article.scss'
 
 function BackToArticleList() {
   const router = useRouter()
@@ -26,7 +27,7 @@ export function PageArticleContent() {
   const isDark = useDark()
 
   const { state, asyncStatus } = useQuery<ArticleResponse>({
-    key: ['articleContent'],
+    key: [`articleContent-${articlePath}`],
     query: () => ofetch(`/api/articles/${articlePath}?theme=${isDark.value ? 'dark' : 'light'}`).then(res => res.data),
   })
 
