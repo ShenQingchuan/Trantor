@@ -1,7 +1,8 @@
 import { join } from 'node:path'
 import { env } from 'node:process'
 
-export const STATIC_ROOT = join(import.meta.dirname, '../../static')
+export const isDev = env.NODE_ENV === 'development'
+export const STATIC_ROOT = join(import.meta.dirname, isDev ? '../../../dist/static' : '../../static')
 export const CONTENT_DIR = join(import.meta.dirname, '../../../content')
 
 // 基本配置

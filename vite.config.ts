@@ -1,9 +1,9 @@
 import { env } from 'node:process'
 import vue from '@vitejs/plugin-vue'
 import { config } from 'dotenv'
-import { defineConfig } from 'rolldown-vite'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 import mkcert from 'vite-plugin-mkcert'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -13,8 +13,19 @@ if (env.NODE_ENV === 'development') {
   config({ path: '.env.local' })
 }
 
+const ToolLibsModules = [
+  'nanoid',
+  'naive-ui',
+  'lodash-es',
+  'date-fns',
+  'ofetch',
+  '@nrsk/unindent',
+  'ts-retry',
+]
+
 // https://vite.dev/config/
 export default defineConfig({
+  clearScreen: false,
   plugins: [
     vue(),
     mkcert(),
@@ -31,7 +42,6 @@ export default defineConfig({
       dts: './src/client/auto-imports.d.ts',
     }),
   ],
-  clearScreen: false,
   server: {
     https: {},
     proxy: {
@@ -40,5 +50,12 @@ export default defineConfig({
   },
   build: {
     outDir: './dist/static',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          toolLibs: ToolLibsModules,
+        },
+      },
+    },
   },
 })

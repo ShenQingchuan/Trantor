@@ -14,7 +14,6 @@ export const spaHistoryRoutesMiddleware = createTrantorMiddleware(async (c, next
 
   // 检查是否为静态文件请求
   const filePath = join(STATIC_ROOT, path)
-
   // 如果文件存在且不是目录，则继续到静态文件服务
   if (existsSync(filePath)) {
     const stats = await stat(filePath)

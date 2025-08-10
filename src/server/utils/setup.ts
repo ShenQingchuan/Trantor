@@ -5,6 +5,7 @@ import fs from 'node:fs'
 import { createSecureServer } from 'node:http2'
 import process, { env } from 'node:process'
 import { serve } from '@hono/node-server'
+import consola from 'consola'
 import { Hono } from 'hono'
 import { createMiddleware } from 'hono/factory'
 import { SERVER_HTTP_PORT, SERVER_HTTPS_PORT, SSL_CERT_PATH, SSL_KEY_PATH } from '../constants/index.js'
@@ -35,21 +36,14 @@ function handleShutdownGracefully(
 }
 
 function startGreeting() {
-  const boxHeader = '╒══════════════════════════════════════════════════════╕'
-  const boxFooter = '╘══════════════════════════════════════════════════════╛'
-
-  const httpLine = SERVER_HTTP_PORT ? `🔗 HTTP:  http://localhost:${SERVER_HTTP_PORT}` : ''
-  const httpsLine = SERVER_HTTPS_PORT ? `🔒 HTTPS: https://localhost:${SERVER_HTTPS_PORT}` : ''
-
-  process.stdout.write(`
-${boxHeader}
-│ ${'🎈 Trantor Node 服务端已启动'.padEnd(boxHeader.length - 10)} │
-│ ${httpLine.padEnd(boxHeader.length - 4)} │
-${
-  (httpsLine ? `│ ${httpsLine.padEnd(boxHeader.length - 4) + '\n'} │` : '') +
-  boxFooter
-}
-`)
+  consola.log('🎈 - Trantor Node 服务端已启动')
+  consola.log(`🏕  - 当前环境: ${env.NODE_ENV}`)
+  if (SERVER_HTTP_PORT) {
+    consola.log(`🔗 HTTP:  http://localhost:${SERVER_HTTP_PORT}`)
+  }
+  if (SERVER_HTTPS_PORT) {
+    consola.log(`🔒 HTTPS: https://localhost:${SERVER_HTTPS_PORT}`)
+  }
 }
 
 function createHttpsServer(app: TrantorHono): ServerType | null {

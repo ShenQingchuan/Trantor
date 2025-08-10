@@ -18,8 +18,9 @@ const app = new Hono<ServerContext>()
 app.use(loggerMiddleware)
 app.use(mcpMiddleware)
 app.use(llmClientMiddleware)
-app.use(spaHistoryRoutesMiddleware)
 app.use(markdownItMiddleware)
+app.use(spaHistoryRoutesMiddleware)
+app.use(serveStatic({ root: STATIC_ROOT }))
 
 // API 路由注册
 const apiRouter = new Hono<ServerContext>()
@@ -38,9 +39,5 @@ apiRouter.route('/llm', llmRouter)
 apiRouter.route('/articles', articlesRouter)
 
 app.route('/api', apiRouter)
-
-app.use('*', serveStatic({
-  root: STATIC_ROOT,
-}))
 
 serveServer(app)
