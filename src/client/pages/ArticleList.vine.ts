@@ -42,7 +42,7 @@ export function PageArticles() {
     </div>
     <div
       v-else-if="state.data"
-      class="trantor-articles h-full w-full col-flex flex-1 gap-4 p-16 md:px-20%"
+      class="trantor-articles h-full w-full col-flex flex-1 gap-4 p-10 lg:p-16 lg:px-20%"
     >
       <div class="mb-4 text-3xl font-bold">
         {{ $t('articles_list_title') }}
@@ -56,11 +56,11 @@ export function PageArticles() {
         >
           <a
             :href="articlePath(article)"
-            class="article-title sm:w-full md:max-w-4/6 row-flex gap-2 text-xl"
+            class="article-title sm:w-full lg:max-w-6/8 row-flex gap-2 text-xl"
             @click.prevent="router.push(articlePath(article))"
           >
             <div
-              class="overflow-hidden text-ellipsis whitespace-nowrap hover:(text-sky-700 dark:text-sky-300)"
+              class="overflow-hidden text-ellipsis xl:whitespace-nowrap hover:(text-sky-700 dark:text-sky-300)"
             >
               {{ article.title }}
             </div>
