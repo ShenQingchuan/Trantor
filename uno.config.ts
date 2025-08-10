@@ -25,6 +25,10 @@ export default defineConfig({
       lg: '1024px',
       xl: '1280px',
     },
+    scale: {
+      130: '1.3',
+      160: '1.6',
+    },
   },
   presets: [
     presetWind3(),
