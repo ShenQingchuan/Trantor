@@ -4,7 +4,7 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "types": [
       "vue-vine/macros",
-      "rolldown-vite/client",
+      "vite/client",
       "naive-ui/volar"
     ],
     "noEmit": true
