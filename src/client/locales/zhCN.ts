@@ -13,7 +13,7 @@ export default {
   nav_home: '首页',
   nav_articles: '文章',
   nav_memo: '随想',
-  nav_mindpalace: '心寰',
+  nav_myos: '心寰',
   not_found: '页面不存在',
   go_back: '返回',
   oops_something_went_wrong: '哎呀，好像出了点问题',
@@ -25,20 +25,20 @@ export default {
   article_posted_on: '文章写于',
   articles_loading: '文章加载中 ...',
   articles_list_empty: '暂无文章',
-  
+
   // 通用
   common_cancel: '取消',
   common_confirm: '确认',
   common_login: '登录',
   common_logout: '退出',
-  
+
   // OS相关
   os_logged_in: '已登录',
   os_not_logged_in: '未登录',
   os_password_prompt: '请输入密码以继续',
-  os_login_title: 'Trantor OS',
+  os_login_title: 'My OS',
   os_validating: '验证中...',
-  
+
   // 认证相关（保留OS登录界面需要的）
   auth_password_placeholder: '输入系统密码',
   auth_password_required: '请输入密码',

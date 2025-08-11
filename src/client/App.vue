@@ -12,7 +12,7 @@ useFavicon(isDark.value ? '/favicon-dark.ico' : '/favicon.ico')
 
 <template>
   <NConfigProvider :theme="theme">
-    <NMessageProvider>
+    <NMessageProvider placement="bottom-right">
       <div class="min-w-screen min-h-screen col-flex pt-30 flex-1">
         <MobileHeader />
         <DesktopHeader />

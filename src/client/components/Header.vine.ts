@@ -32,10 +32,10 @@ export function AppToggleActions() {
 
   return vine`
     <div
-      class="fixed top-24 right-6 z-2 h-max row-flex gap-2 border-1px border-zinc/10 rounded-lg bg-zinc-100/20 p-1 backdrop-blur md:right-12 md:top-12 dark:bg-zinc-600/10"
+      class="fixed top-24 right-6 z-99 h-max row-flex gap-2 border-1px border-zinc/20 rounded-full bg-zinc-100/20 p-1 backdrop-blur md:right-12 md:top-12 dark:bg-zinc-600/10"
     >
       <button
-        class="h-8 w-8 flex items-center rounded-md p-2 transition duration-300 hover:bg-zinc-300/20 light:bg-neutral-50/1"
+        class="h-8 w-8 flex items-center rounded-full p-2 transition duration-300 hover:bg-zinc-300/20 light:bg-neutral-50/1"
         @click="toggleThemeMode"
       >
         <Transition name="fade-rotate-slide" mode="out-in">
@@ -44,7 +44,7 @@ export function AppToggleActions() {
         </Transition>
       </button>
       <button
-        class="h-8 w-8 flex items-center rounded-md p-2 font-mono transition duration-300 hover:bg-zinc-300/20 light:bg-neutral-50/1"
+        class="h-8 w-8 flex items-center rounded-full p-2 font-mono transition duration-300 hover:bg-zinc-300/20 light:bg-neutral-50/1"
         @click="toggleLocale"
       >
         <span class="text-sm">{{ localeLabel }}</span>
@@ -52,7 +52,7 @@ export function AppToggleActions() {
       <!-- 登录状态按钮 -->
       <button
         v-if="authStore.isAuthenticated"
-        class="h-8 px-2 flex items-center rounded-md transition duration-300 hover:bg-red-300/20 light:bg-neutral-50/1"
+        class="h-8 px-2 flex items-center rounded-full transition duration-300 hover:bg-red-300/20 light:bg-neutral-50/1"
         @click="handleLogout"
         :title="t('common_logout')"
       >
@@ -79,7 +79,7 @@ function AnimatedSignature(props: {
   const onSignatureRender: VNodeRef = (el) => {
     const graphElement = el as SVGElement
     signatureGraphRef.value = graphElement
-    const totalLength = graphElement.querySelector<SVGPathElement>('path')?.getTotalLength()
+    const totalLength = graphElement?.querySelector<SVGPathElement>('path')?.getTotalLength()
     if (!totalLength)
       return
 
@@ -149,67 +149,12 @@ export function DesktopHeader() {
   const headerNavs = [
     { label: () => t('nav_home'), path: '/', icon: 'i-lucide:tree-palm' },
     { label: () => t('nav_articles'), path: '/articles', icon: 'i-lucide:notebook-text' },
-    { label: () => t('nav_mindpalace'), path: '/os', icon: 'i-lucide:monitor' },
+    { label: () => t('nav_myos'), path: '/os', icon: 'i-icon-park-twotone:camp' },
     { label: () => t('nav_memo'), path: '/memo', icon: 'i-lucide:feather' },
   ]
   function isActiveNavItem(item: NavItem) {
     return item.path === route.path
   }
-
-  vineStyle.scoped(scss`
-    .trantor-header-nav {
-      --header-nav-border-color-light: #4242421a;
-      --header-nav-border-color-dark: #b5b5b537;
-      --header-nav-item-text-color-light: var(--p-cyan-500);
-      --header-nav-item-text-hover-color-light: var(--p-cyan-600);
-      --header-nav-item-text-color-dark: var(--p-cyan-300);
-      --header-nav-item-text-hover-color-dark: var(--p-cyan-400);
-    
-      transition:
-        background-color 600ms ease-in-out,
-        border-color 400ms linear 600ms;
-    
-      &-item {
-        &__icon {
-          opacity: 0;
-          width: 0;
-          transition: opacity ease 500ms;
-        }
-    
-        &.is-active &__icon {
-          width: 1rem;
-          opacity: 1;
-        }
-      }
-    }
-    
-    html.light {
-      .trantor-header-nav {
-        background-color: #fff;
-        border: 1px solid var(--header-nav-border-color-light);
-      }
-      .trantor-header-nav-item.is-active {
-        color: var(--p-cyan-500);
-      }
-      .trantor-header-nav-item:hover {
-        color: var(--p-cyan-600);
-        text-shadow: 0px 0px 40px var(--p-cyan-600);
-      }
-    }
-    html.dark {
-      .trantor-header-nav {
-        background-color: #18181b;
-        border: 1px solid var(--header-nav-border-color-dark);
-      }
-      .trantor-header-nav-item.is-active {
-        color: var(--p-cyan-500);
-      }
-      .trantor-header-nav-item:hover {
-        color: var(--p-cyan-400);
-        text-shadow: 0px 0px 40px var(--p-cyan-400);
-      }
-    }
-  `)
 
   return vine`
     <AnimatedSignature
@@ -220,18 +165,21 @@ export function DesktopHeader() {
     />
 
     <nav
-      class="trantor-header-nav phone-hidden absolute top-40px w-fit row-flex select-none flex-center self-center rounded-full px-6 py-2 shadow-2xl z-99 dark:border-none border-(0.5px solid zinc/36)"
+      class="trantor-header-nav phone-hidden absolute top-40px w-fit row-flex select-none flex-center self-center rounded-full px-6 py-2 z-99 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl backdrop-saturate-150 border border-gray-200/60 dark:border-gray-700/60 shadow-lg transition-shadow duration-300"
     >
       <div
         v-for="navItem in headerNavs"
         :key="navItem.path"
         class="trantor-header-nav-item mx-4 row-flex cursor-pointer transition-all transition-duration-600"
         :class="{
-          'is-active': isActiveNavItem(navItem),
+          'text-cyan-600/80 font-bold': isActiveNavItem(navItem),
         }"
         @click="router.push(navItem.path)"
       >
-        <div class="trantor-header-nav-item__icon" :class="[navItem.icon]" />
+        <div
+          class="trantor-header-nav-item__icon transition-opacity transition-duration-600"
+          :class="[navItem.icon, isActiveNavItem(navItem) ? '' : 'hidden']"
+        />
         <span class="ml-2">{{ navItem.label() }}</span>
       </div>
     </nav>
@@ -248,7 +196,7 @@ export function MobileHeader() {
   const headerNavs = [
     { path: '/', icon: 'i-lucide:tree-palm' },
     { path: '/articles', icon: 'i-lucide:notebook-text' },
-    { path: '/os', icon: 'i-lucide:monitor' },
+    { path: '/os', icon: 'i-icon-park-twotone:camp' },
     { path: '/memo', icon: 'i-lucide:feather' },
   ]
   function isActiveNavItem(item: NavItem) {
@@ -258,7 +206,16 @@ export function MobileHeader() {
   vineStyle.scoped(`
     .trantor-header-nav-item.is-active {
       color: var(--p-indigo-400);
-    }  
+    }
+    .trantor-mobile-nav {
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    html.dark .trantor-mobile-nav {
+      background-color: rgba(24, 24, 27, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
   `)
 
   return vine`
@@ -270,7 +227,7 @@ export function MobileHeader() {
     />
 
     <nav
-      class="trantor-header-nav desktop-hidden absolute right-4 top-13 w-fit row-flex select-none flex-center self-center rounded-full py-2 z-99"
+      class="trantor-header-nav trantor-mobile-nav desktop-hidden absolute right-4 top-13 w-fit row-flex select-none flex-center self-center rounded-full px-4 py-2 z-99"
     >
       <div
         v-for="navItem in headerNavs"
