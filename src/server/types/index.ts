@@ -4,6 +4,7 @@ import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import type { Context, Hono } from 'hono'
 import type MarkdownIt from 'markdown-it'
 import type OpenAI from 'openai'
+import type { AuthenticatedUser } from '../../bridge/types/auth.js'
 
 export interface ServerContext extends Context {
   Variables: {
@@ -15,6 +16,8 @@ export interface ServerContext extends Context {
       connectTransport: () => Promise<void>
     }
     markdownIt: MarkdownIt
+    currentUser?: AuthenticatedUser
+    authToken?: string
   }
   Bindings: HttpBindings
 }

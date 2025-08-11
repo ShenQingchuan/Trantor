@@ -175,10 +175,15 @@ export function AuroraBackground() {
 
   function initCanvas() {
     if (!canvas.value || !ctx.value)
-      return
+      return false
 
     const dpr = window.devicePixelRatio || 1
     const rect = canvas.value.getBoundingClientRect()
+
+    // 确保canvas有有效尺寸
+    if (rect.width === 0 || rect.height === 0) {
+      return false
+    }
 
     width.value = rect.width
     height.value = rect.height
@@ -187,26 +192,88 @@ export function AuroraBackground() {
     canvas.value.height = height.value * dpr
 
     ctx.value.scale(dpr, dpr)
+    return true
   }
 
+  // 防抖处理resize事件
+  let resizeTimer: number | null = null
   function handleResize() {
-    initCanvas()
-    createParticles()
+    if (resizeTimer) {
+      clearTimeout(resizeTimer)
+    }
+    
+    resizeTimer = window.setTimeout(() => {
+      const canvasReady = initCanvas()
+      if (canvasReady) {
+        // 不重新创建粒子，而是调整现有粒子的边界约束
+        adjustParticlesToNewSize()
+      }
+      resizeTimer = null
+    }, 100) // 100ms防抖
   }
 
-  onMounted(() => {
-    if (!canvas.value)
-      return
-    const context = canvas.value.getContext('2d', { alpha: true })
-    if (!context)
-      return
+  function adjustParticlesToNewSize() {
+    particles.value.forEach((particle) => {
+      // 如果粒子超出新边界，将其移动到边界内
+      if (particle.x > width.value + particle.size) {
+        particle.x = width.value + particle.size
+      } else if (particle.x < -particle.size) {
+        particle.x = -particle.size
+      }
+      
+      if (particle.y > height.value + particle.size) {
+        particle.y = height.value + particle.size
+      } else if (particle.y < -particle.size) {
+        particle.y = -particle.size
+      }
+    })
+  }
 
-    ctx.value = context
+  // 初始化重试机制
+  async function initializeCanvas(maxRetries = 3): Promise<boolean> {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      if (!canvas.value) {
+        await new Promise(resolve => setTimeout(resolve, 50 * attempt))
+        continue
+      }
 
-    handleResize()
-    render()
+      const context = canvas.value.getContext('2d', { alpha: true })
+      if (!context) {
+        await new Promise(resolve => setTimeout(resolve, 50 * attempt))
+        continue
+      }
 
-    window.addEventListener('resize', handleResize)
+      ctx.value = context
+      
+      // 等待一帧确保DOM布局完成
+      await new Promise(resolve => requestAnimationFrame(resolve))
+      
+      const canvasReady = initCanvas()
+      if (canvasReady) {
+        createParticles()
+        return true
+      }
+      
+      // 重试前等待
+      if (attempt < maxRetries) {
+        console.warn(`Canvas初始化失败，重试 ${attempt}/${maxRetries}`)
+        await new Promise(resolve => setTimeout(resolve, 100 * attempt))
+      }
+    }
+    
+    console.error('Canvas初始化失败，已达最大重试次数')
+    return false
+  }
+
+  onMounted(async () => {
+    // 等待DOM完全渲染和布局计算完成
+    await nextTick()
+    
+    const initialized = await initializeCanvas()
+    if (initialized) {
+      render()
+      window.addEventListener('resize', handleResize)
+    }
   })
 
   // 监听主题变化，重新创建粒子
@@ -217,6 +284,12 @@ export function AuroraBackground() {
   onUnmounted(() => {
     cancelAnimationFrame(animationId)
     window.removeEventListener('resize', handleResize)
+    
+    // 清理resize定时器
+    if (resizeTimer) {
+      clearTimeout(resizeTimer)
+      resizeTimer = null
+    }
   })
 
   vineStyle.scoped(`

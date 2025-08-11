@@ -25,4 +25,22 @@ export default {
   article_posted_on: 'Posted on',
   articles_loading: 'Loading articles ...',
   articles_list_empty: 'No articles yet',
+  
+  // Common
+  common_cancel: 'Cancel',
+  common_confirm: 'Confirm',
+  common_login: 'Login',
+  common_logout: 'Logout',
+  
+  // OS related
+  os_logged_in: 'Logged In',
+  os_not_logged_in: 'Not Logged In',
+  os_password_prompt: 'Enter password to continue',
+  os_login_title: 'Trantor OS',
+  os_validating: 'Validating...',
+  
+  // Auth related (keep for OS login screen)
+  auth_password_placeholder: 'Enter system password',
+  auth_password_required: 'Password is required',
+  auth_password_error: 'Password is incorrect, please try again',
 }

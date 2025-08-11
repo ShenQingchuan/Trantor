@@ -5,7 +5,7 @@
   "private": true,
   "packageManager": "pnpm@10.14.0",
   "scripts": {
-    "dev": "run-p dev:client dev:server serve:client",
+    "dev": "run-p dev:client dev:server",
     "dev:client": "vite",
     "dev:server": "tsx watch --env-file=.env.local src/server/main.ts",
     "serve": "run-p serve:client serve:server-build serve:server-run",

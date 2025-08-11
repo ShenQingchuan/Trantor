@@ -1,9 +1,11 @@
 import type { VNodeRef } from 'vue'
 import { useDark } from '@vueuse/core'
+import { useAuthStore } from '../stores/authStore'
 
-export function AppModeSwitch() {
+export function AppToggleActions() {
+  const { locale, t } = useI18n()
   const isDark = useDark()
-  const { locale } = useI18n()
+  const authStore = useAuthStore()
 
   function toggleThemeMode() {
     isDark.value = !isDark.value
@@ -24,9 +26,13 @@ export function AppModeSwitch() {
     )
   })
 
+  const handleLogout = () => {
+    authStore.logout()
+  }
+
   return vine`
     <div
-      class="fixed bottom-10 right-10 z-2 h-max row-flex gap-2 border-1px border-zinc/10 rounded-lg bg-zinc-100/20 p-1 backdrop-blur md:right-12 md:top-12 dark:bg-zinc-600/10"
+      class="fixed top-24 right-6 z-2 h-max row-flex gap-2 border-1px border-zinc/10 rounded-lg bg-zinc-100/20 p-1 backdrop-blur md:right-12 md:top-12 dark:bg-zinc-600/10"
     >
       <button
         class="h-8 w-8 flex items-center rounded-md p-2 transition duration-300 hover:bg-zinc-300/20 light:bg-neutral-50/1"
@@ -42,6 +48,15 @@ export function AppModeSwitch() {
         @click="toggleLocale"
       >
         <span class="text-sm">{{ localeLabel }}</span>
+      </button>
+      <!-- 登录状态按钮 -->
+      <button
+        v-if="authStore.isAuthenticated"
+        class="h-8 px-2 flex items-center rounded-md transition duration-300 hover:bg-red-300/20 light:bg-neutral-50/1"
+        @click="handleLogout"
+        :title="t('common_logout')"
+      >
+        <div class="i-gridicons:sign-out text-red-400" />
       </button>
     </div>
   `
