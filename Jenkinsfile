@@ -175,6 +175,7 @@ pipeline {
                         -e LLM_API_KEY="${env.LLM_API_KEY}" \
                         -e LLM_BASE_URL="${env.LLM_BASE_URL}" \
                         -e LLM_MODEL_NAME="${env.LLM_MODEL_NAME}" \
+                        -e MYOS_PASSWORD="${env.MYOS_PASSWORD}" \
                         --restart=unless-stopped \
                         --health-cmd="curl -f http://localhost:80/api/ping || exit 1" \
                         --health-interval=30s \
