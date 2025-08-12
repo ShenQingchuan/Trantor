@@ -5,7 +5,6 @@
     "types": [
       "vue-vine/macros",
       "vite/client",
-      "naive-ui/volar"
     ],
     "noEmit": true
   },

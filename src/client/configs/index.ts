@@ -8,13 +8,14 @@ import { createI18n } from 'vue-i18n'
 import enUS from '../locales/enUS'
 import zhCN from '../locales/zhCN'
 import router from './routes'
+
 import '@unocss/reset/tailwind.css'
 import '../styles/transitions.scss'
 import '../styles/app.css'
 import '../styles/colors.css'
+import '../styles/varlet'
 
 export function setupApp(app: App) {
-  const pinia = createPinia()
   const i18n = createI18n({
     legacy: false,
     locale: 'zhCN',
@@ -24,15 +25,15 @@ export function setupApp(app: App) {
     },
   })
 
-  app.use(router)
-
-  app.use(pinia)
+  const pinia = createPinia()
   pinia.use(piniaPluginPersistedstate)
 
-  app.use(PiniaColada)
-
-  app.use(i18n)
-  app.use(MotionPlugin)
+  app
+    .use(router)
+    .use(pinia)
+    .use(PiniaColada)
+    .use(i18n)
+    .use(MotionPlugin)
 
   return app
 }

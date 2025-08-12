@@ -35,23 +35,16 @@ function handleShutdownGracefully(
   process.on('SIGTERM', shutdownWithError)
 }
 
-function startGreeting() {
-  consola.log('🎈 - Trantor Node 服务端已启动')
-  consola.log(`🏕  - 当前环境: ${env.NODE_ENV}`)
-  if (SERVER_HTTP_PORT) {
-    consola.log(`🔗 HTTP:  http://localhost:${SERVER_HTTP_PORT}`)
-  }
-  if (SERVER_HTTPS_PORT) {
-    consola.log(`🔒 HTTPS: https://localhost:${SERVER_HTTPS_PORT}`)
-  }
-}
-
 function createHttpsServer(app: TrantorHono): ServerType | null {
   try {
     // Check if SSL certificates exist
     if (!fs.existsSync(SSL_CERT_PATH) || !fs.existsSync(SSL_KEY_PATH)) {
       console.warn('⚠️  SSL certificates not found, HTTPS server will not start')
       console.warn('   Run: mkcert -install && mkcert localhost 127.0.0.1 ::1')
+      return null
+    }
+    if (!SERVER_HTTPS_PORT) {
+      console.warn('⚠️  HTTPS port not configured, HTTPS server will not start')
       return null
     }
 
@@ -89,25 +82,25 @@ export function serveServer(app: TrantorHono) {
   }
   else {
     // Development: HTTP + HTTPS servers
-    if (SERVER_HTTP_PORT) {
-      httpServer = serve({
-        fetch: app.fetch,
-        port: SERVER_HTTP_PORT,
-      })
-    }
+    httpServer = serve({
+      fetch: app.fetch,
+      port: SERVER_HTTP_PORT,
+    })
+    consola.log(`🔗 HTTP:  http://localhost:${SERVER_HTTP_PORT}`)
 
-    // Start HTTPS server for development (only if HTTPS port is configured)
-    if (SERVER_HTTPS_PORT) {
-      httpsServer = createHttpsServer(app)
+    httpsServer = createHttpsServer(app)
+    if (httpsServer) {
+      consola.log(`🔒 HTTPS: https://localhost:${SERVER_HTTPS_PORT}`)
     }
   }
 
-  handleShutdownGracefully(httpServer, httpsServer || undefined)
+  handleShutdownGracefully(
+    httpServer,
+    httpsServer || undefined,
+  )
 
-  // Only show greeting in development
-  if (env.NODE_ENV !== 'production') {
-    startGreeting()
-  }
+  consola.log('🎈 - Trantor Node 服务端已启动')
+  consola.log(`🏕  - 当前环境: ${env.NODE_ENV}`)
 }
 
 export function createRouter() {

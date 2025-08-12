@@ -15,7 +15,7 @@ if (env.NODE_ENV === 'development') {
 
 const ToolLibsModules = [
   'nanoid',
-  'naive-ui',
+  '@varlet/ui',
   'lodash-es',
   'date-fns',
   'ofetch',

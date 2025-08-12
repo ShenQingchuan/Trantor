@@ -1,29 +1,30 @@
 <script setup lang="ts">
+import { StyleProvider, Themes } from '@varlet/ui'
 import { useDark, useFavicon } from '@vueuse/core'
-import { darkTheme, NConfigProvider, NMessageProvider } from 'naive-ui'
 import { RouterView } from 'vue-router'
 import { AppToggleActions, DesktopHeader, MobileHeader } from './components/Header.vine'
 
 const isDark = useDark()
-const theme = computed(() => isDark.value ? darkTheme : null)
-
 useFavicon(isDark.value ? '/favicon-dark.ico' : '/favicon.ico')
+watchEffect(() => {
+  StyleProvider(
+    isDark.value
+      ? Themes.dark
+      : Themes.md3Light,
+  )
+})
 </script>
 
 <template>
-  <NConfigProvider :theme="theme">
-    <NMessageProvider placement="bottom-right">
-      <div class="min-w-screen min-h-screen col-flex pt-30 flex-1">
-        <MobileHeader />
-        <DesktopHeader />
-        <AppToggleActions />
+  <div class="min-w-screen min-h-screen col-flex pt-30 flex-1">
+    <MobileHeader />
+    <DesktopHeader />
+    <AppToggleActions />
 
-        <RouterView v-slot="{ Component }">
-          <Transition name="fade" mode="out-in">
-            <component :is="Component" />
-          </Transition>
-        </RouterView>
-      </div>
-    </NMessageProvider>
-  </NConfigProvider>
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </Transition>
+    </RouterView>
+  </div>
 </template>

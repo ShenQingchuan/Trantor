@@ -32,14 +32,14 @@ export default {
   common_login: '登录',
   common_logout: '退出',
 
-  // OS相关
+  // MyOS
   os_logged_in: '已登录',
   os_not_logged_in: '未登录',
   os_password_prompt: '请输入密码以继续',
   os_login_title: 'My OS',
   os_validating: '验证中...',
+  os_login_error: '登录失败',
 
-  // 认证相关（保留OS登录界面需要的）
   auth_password_placeholder: '输入系统密码',
   auth_password_required: '请输入密码',
   auth_password_error: '密码错误，请重试',

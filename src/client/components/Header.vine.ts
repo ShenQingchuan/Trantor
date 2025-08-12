@@ -32,7 +32,7 @@ export function AppToggleActions() {
 
   return vine`
     <div
-      class="fixed top-24 right-6 z-99 h-max row-flex gap-2 border-1px border-zinc/20 rounded-full bg-zinc-100/20 p-1 backdrop-blur md:right-12 md:top-12 dark:bg-zinc-600/10"
+      class="fixed top-24 right-6 z-99 h-max row-flex gap-2 border-1px border-zinc/20 rounded-full bg-zinc-100/20 p-1 backdrop-blur sm:right-6 lg:right-12 sm:top-6 dark:bg-zinc-600/10"
     >
       <button
         class="h-8 w-8 flex items-center rounded-full p-2 transition duration-300 hover:bg-zinc-300/20 light:bg-neutral-50/1"
@@ -49,14 +49,13 @@ export function AppToggleActions() {
       >
         <span class="text-sm">{{ localeLabel }}</span>
       </button>
-      <!-- 登录状态按钮 -->
       <button
         v-if="authStore.isAuthenticated"
         class="h-8 px-2 flex items-center rounded-full transition duration-300 hover:bg-red-300/20 light:bg-neutral-50/1"
         @click="handleLogout"
         :title="t('common_logout')"
       >
-        <div class="i-gridicons:sign-out text-red-400" />
+        <div class="i-gridicons:sign-out" />
       </button>
     </div>
   `
@@ -165,7 +164,7 @@ export function DesktopHeader() {
     />
 
     <nav
-      class="trantor-header-nav phone-hidden absolute top-40px w-fit row-flex select-none flex-center self-center rounded-full px-6 py-2 z-99 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl backdrop-saturate-150 border border-gray-200/60 dark:border-gray-700/60 shadow-lg transition-shadow duration-300"
+      class="trantor-header-nav phone-hidden absolute top-6 w-fit row-flex select-none flex-center self-center rounded-full px-6 py-2 z-99 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl backdrop-saturate-150 border border-gray-200/60 dark:border-gray-700/60 shadow-lg transition-shadow duration-300"
     >
       <div
         v-for="navItem in headerNavs"

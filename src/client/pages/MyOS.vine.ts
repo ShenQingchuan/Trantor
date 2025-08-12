@@ -1,9 +1,8 @@
-import { useMessage } from 'naive-ui'
+import { Alert } from '@varlet/ui'
 import { useAuthStore } from '../stores/authStore'
 
 export function PageMyOS() {
   const authStore = useAuthStore()
-  const message = useMessage()
   const { t } = useI18n()
 
   // 快速登录相关状态
@@ -25,7 +24,7 @@ export function PageMyOS() {
 
     if (!authStore.canAccessApp(appId)) {
       // 显示权限错误提示
-      message.error(`无权限访问 ${appName}，请联系管理员`)
+      loginError.value = `无权限访问 ${appName}，请联系管理员`
       return
     }
 
@@ -55,8 +54,7 @@ export function PageMyOS() {
     }
     catch (error: any) {
       console.error('Login failed:', error)
-      loginError.value = error.message || t('auth_password_error')
-      message.error(t('auth_password_error'))
+      loginError.value = t('auth_password_error')
     }
     finally {
       isQuickLoading.value = false
@@ -68,7 +66,7 @@ export function PageMyOS() {
       <!-- 未登录时的居中登录界面 -->
       <div
         v-if="!authStore.isAuthenticated"
-        class="fixed inset-0 z-10 flex items-center justify-center bg-gray-50 dark:bg-gray-900"
+        class="fixed inset-0 z-10 col-flex items-center justify-center bg-gray-50 dark:bg-gray-900"
       >
         <!-- 登录卡片 -->
         <div
@@ -88,7 +86,15 @@ export function PageMyOS() {
           </div>
 
           <!-- 密码输入 -->
-          <form @submit.prevent="handleQuickLogin" class="space-y-4">
+          <form @submit.prevent="handleQuickLogin" class="col-flex gap-4">
+            <Alert
+              v-if="loginError"
+              class="p-3 row-flex"
+              type="danger"
+              :title="t('os_login_error')"
+              :message="loginError"
+            />
+
             <div class="relative">
               <input
                 v-model="loginPassword"
