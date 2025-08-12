@@ -4,7 +4,6 @@
 export interface OSApp {
   id: string // Unique app identifier (e.g., 'chat', 'calendar', 'finder')
   name: string // Display name
-  icon: string // Icon class name
   description?: string // App description
   version: string // App version
   category: 'system' | 'productivity' | 'entertainment' | 'utility'

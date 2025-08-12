@@ -1,4 +1,5 @@
 import type { AuthenticatedUser, AuthToken, OSApp, OSConfig, UserPermission } from '../../../bridge/types/auth.js'
+import process from 'node:process'
 import { nanoid } from 'nanoid'
 
 // Simple in-memory storage (can be replaced with database later)
@@ -26,7 +27,6 @@ class AuthStorage {
       {
         id: 'finder',
         name: 'Finder',
-        icon: 'i-ri:finder-fill',
         description: 'File browser and system navigator',
         version: '1.0.0',
         category: 'system',
@@ -43,8 +43,7 @@ class AuthStorage {
       {
         id: 'chat',
         name: 'AI Chat',
-        icon: 'i-ph:wechat-logo-duotone',
-        description: 'AI-powered conversation interface',
+        description: 'Chat with AI assistant',
         version: '1.0.0',
         category: 'productivity',
         permissions: [
@@ -74,7 +73,6 @@ class AuthStorage {
       {
         id: 'calendar',
         name: 'Calendar',
-        icon: 'i-ph:calendar-dots-fill',
         description: 'Calendar and scheduling application',
         version: '1.0.0',
         category: 'productivity',
@@ -111,7 +109,7 @@ class AuthStorage {
       permissions: this.generateOwnerPermissions(),
     }
     this.users.set(ownerId, ownerUser)
-    
+
     // 为开发环境创建永不过期的token
     if (process.env.NODE_ENV === 'development') {
       this.createDevelopmentToken(ownerId)
@@ -120,21 +118,21 @@ class AuthStorage {
 
   private createDevelopmentToken(userId: string) {
     const devToken: AuthToken = {
-      token: 'dev-token-' + nanoid(16), // 可预测的前缀便于调试
+      token: `dev-token-${nanoid(16)}`, // 可预测的前缀便于调试
       userId,
       name: 'Development Token (永不过期)',
       permissions: this.generateOwnerPermissions(),
       createdAt: new Date(),
-      expiresAt: new Date(2099, 11, 31), // 永远不会过期的日期
+      expiresAt: new Date(2099, 12, 31), // 永远不会过期的日期
     }
-    
+
     this.tokens.set(devToken.token, devToken)
-    
+
     const user = this.users.get(userId)
     if (user) {
       user.tokens.push(devToken)
     }
-    
+
     console.log(`🚀 开发环境Token已创建: ${devToken.token}`)
     console.log(`   在浏览器控制台执行以下代码自动登录:`)
     console.log(`   localStorage.setItem('trantor:auth-token', '${devToken.token}')`)
