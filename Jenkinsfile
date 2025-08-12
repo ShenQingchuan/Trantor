@@ -21,6 +21,8 @@ pipeline {
         LLM_API_KEY = credentials('trantor-llm-api-key')        // Secret text
         LLM_BASE_URL = credentials('trantor-llm-base-url')      // Secret text  
         LLM_MODEL_NAME = credentials('trantor-llm-model-name')  // Secret text
+        // MyOS 系统密码
+        MYOS_PASSWORD = credentials('trantor-myos-password') // Secret text
     }
 
     stages {
