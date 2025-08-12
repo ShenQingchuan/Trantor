@@ -171,7 +171,7 @@ export function DesktopHeader() {
         :key="navItem.path"
         class="trantor-header-nav-item mx-4 row-flex cursor-pointer transition-all transition-duration-600"
         :class="{
-          'text-cyan-600/80 font-bold': isActiveNavItem(navItem),
+          'text-cyan-500/80 font-bold': isActiveNavItem(navItem),
         }"
         @click="router.push(navItem.path)"
       >

@@ -1,8 +1,8 @@
 import type { ArticleResponse } from '../../bridge/types/articles'
 import { useQuery } from '@pinia/colada'
+import { Skeleton } from '@varlet/ui'
 import { useDark } from '@vueuse/core'
 import { format } from 'date-fns'
-import { NSkeleton } from 'naive-ui'
 import { ofetch } from 'ofetch'
 import { randomSkeletonWidth } from '../utils/shared'
 import '../styles/blog-article.scss'
@@ -33,6 +33,10 @@ export function PageArticleContent() {
 
   const formatDate = (date: string) => {
     return format(new Date(date), 'yyyy-MM-dd')
+  }
+
+  const getSkeletonRowsWidth = () => {
+    return Array.from({ length: 16 }, () => randomSkeletonWidth())
   }
 
   return vine`
@@ -87,7 +91,7 @@ export function PageArticleContent() {
           <div class="i-svg-spinners:bars-scale-fade text-2xl" />
           {{ $t('articles_loading') }}
         </div>
-        <NSkeleton v-for="i in 16" :key="i" animated text :style="{ width: randomSkeletonWidth() }" />
+        <Skeleton :rows="16" :rows-width="getSkeletonRowsWidth()" />
       </div>
     </div>
   `

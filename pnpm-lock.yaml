@@ -27,8 +27,8 @@ importers:
         specifier: ^3.9.2
         version: 3.9.2
       '@varlet/ui':
-        specifier: ^3.11.1
-        version: 3.11.1(vue@3.5.18(typescript@5.8.3))
+        specifier: 3.9.1
+        version: 3.9.1(vue@3.5.18(typescript@5.8.3))
       '@vueuse/core':
         specifier: ^13.5.0
         version: 13.6.0(vue@3.5.18(typescript@5.8.3))
@@ -90,8 +90,8 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.18(typescript@5.8.3))
       vue-vine:
-        specifier: ^1.7.1
-        version: 1.7.1(vue@3.5.18(typescript@5.8.3))
+        specifier: ^1.7.2
+        version: 1.7.2(vue@3.5.18(typescript@5.8.3))
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -196,8 +196,8 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.0)(jiti@2.5.1)(jsdom@26.1.0)(lightningcss@1.30.1)(sass@1.90.0)(tsx@4.20.3)(yaml@2.8.1)
       vue-vine-tsc:
-        specifier: ^1.7.1
-        version: 1.7.1(typescript@5.8.3)
+        specifier: ^1.7.2
+        version: 1.7.2(typescript@5.8.3)
 
 packages:
 
@@ -1526,19 +1526,19 @@ packages:
     peerDependencies:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0
 
-  '@varlet/icons@3.11.1':
-    resolution: {integrity: sha512-R67VpGj5KcPL1Z4nYHW7+pbK0IRazKFjjzPkNcxEQpFL+oLYiAhbsseQrHdx2e0VRbqRmZGq5pF07VgKNu9eaA==, tarball: https://registry.npmjs.org/@varlet/icons/-/icons-3.11.1.tgz}
+  '@varlet/icons@3.9.1':
+    resolution: {integrity: sha512-ZEz3Bjao6wx/l1p7EXC5Kz8YTuimy/seGV8eu3bvuXdPA57jXMeJNLaGpm4u/6mLHo1ioltIogFZzDC/OdOrwg==, tarball: https://registry.npmjs.org/@varlet/icons/-/icons-3.9.1.tgz}
 
-  '@varlet/shared@3.11.1':
-    resolution: {integrity: sha512-1Gr6l9JdAPORyvadxvqpoYt4odgCk2MM1JlUo8CiK02m4dei7dnpt+VW6gadbdDYPihHfOYs6Pkrn11GdVJ0OA==, tarball: https://registry.npmjs.org/@varlet/shared/-/shared-3.11.1.tgz}
+  '@varlet/shared@3.9.1':
+    resolution: {integrity: sha512-XLwS/1ri8VKIa5vFgcH05VkhuwpKaA3c67R7Vup5De6Sz+Wj2tQYFwGBRkBwkP3ecT6e7Y/fNMJ9X5wPhUHGvA==, tarball: https://registry.npmjs.org/@varlet/shared/-/shared-3.9.1.tgz}
 
-  '@varlet/ui@3.11.1':
-    resolution: {integrity: sha512-95gNoqgFZN8MHURfjHBN9mHVms5fyKvbn3bQTbcvXct4dVTf7P6kp2sUbp08MywpNZpT6g02ln3oveh79kgVUw==, tarball: https://registry.npmjs.org/@varlet/ui/-/ui-3.11.1.tgz}
+  '@varlet/ui@3.9.1':
+    resolution: {integrity: sha512-jjqaOIZZnCpAzcVlE5uf6NYpW0qb11CJMRAf+mH0HkljqR0FxSYX+Zuf5+U9ruRc9cA07h3ZNX+WxSoW6OPnWg==, tarball: https://registry.npmjs.org/@varlet/ui/-/ui-3.9.1.tgz}
     peerDependencies:
       vue: ^3.2.0
 
-  '@varlet/use@3.11.1':
-    resolution: {integrity: sha512-jjov0/DEXZfLAnMuhE/EVc29P+phRr49tu8Ud8yj65n7K5z/rH1yCC3lQdu5kYHFIk8pYWIHh3kWYea+CrrRiw==, tarball: https://registry.npmjs.org/@varlet/use/-/use-3.11.1.tgz}
+  '@varlet/use@3.9.1':
+    resolution: {integrity: sha512-SnWTF0MFW6Nq0XLkQGzQOt9QnC+Gc20yXvHIakAfSorpjFYTlrULOAODdkSorHzuFyYxy1LHXT+tz6Wt1cwMmw==, tarball: https://registry.npmjs.org/@varlet/use/-/use-3.9.1.tgz}
     peerDependencies:
       vue: ^3.2.0
 
@@ -1611,8 +1611,8 @@ packages:
   '@volar/typescript@2.4.22':
     resolution: {integrity: sha512-6ZczlJW1/GWTrNnkmZxJp4qyBt/SGVlcTuCWpI5zLrdPdCZsj66Aff9ZsfFaT3TyjG8zVYgBMYPuCm/eRkpcpQ==, tarball: https://registry.npmjs.org/@volar/typescript/-/typescript-2.4.22.tgz}
 
-  '@vue-vine/compiler@1.7.1':
-    resolution: {integrity: sha512-K4S9PZH5luNJMLozdzUw16kz4fkpxqKDGKwBQCvSc+/xdQPX9JslMAc4h/5X1krnPTbEEJkJ/Nwl0BejC54zFw==, tarball: https://registry.npmjs.org/@vue-vine/compiler/-/compiler-1.7.1.tgz}
+  '@vue-vine/compiler@1.7.2':
+    resolution: {integrity: sha512-rgQo4IE2K1Aw8NmqVaEVBEEj6NXvKhg5sy3LyKfRj8MPKeH4NszleEPiDtIgxXBHzYwHJ1vqd2KW3ptssM5w8Q==, tarball: https://registry.npmjs.org/@vue-vine/compiler/-/compiler-1.7.2.tgz}
 
   '@vue-vine/eslint-config@1.1.8':
     resolution: {integrity: sha512-odP6OI87aUk8O/cERMfQDhF0xv5Rz0+Uk4lXJafdA47+xqWjiKnoWqM5z0EbZZ+1wfQ9XFCr8D0xq/SyLUB1Ng==, tarball: https://registry.npmjs.org/@vue-vine/eslint-config/-/eslint-config-1.1.8.tgz}
@@ -1623,11 +1623,11 @@ packages:
   '@vue-vine/eslint-plugin@1.1.8':
     resolution: {integrity: sha512-OEapij9ljzirYEhsYPNSgSxuIynuRZjHSIrDjXQFtN1wCcfLQ0SvFpj386aW/ALBfZwEceDlNUTklUIoX0gi9g==, tarball: https://registry.npmjs.org/@vue-vine/eslint-plugin/-/eslint-plugin-1.1.8.tgz}
 
-  '@vue-vine/language-service@1.7.1':
-    resolution: {integrity: sha512-e68yW5AbVPjxoWxy4XNFE13GprYlGtTG/2oDBWgGXPjQ/v3Z4jkg2BDWMty4Vfyy7gFWzh+n4CfTEXsO5BmA8A==, tarball: https://registry.npmjs.org/@vue-vine/language-service/-/language-service-1.7.1.tgz}
+  '@vue-vine/language-service@1.7.2':
+    resolution: {integrity: sha512-dakqO4ymZtaE5/SfZiowPhNFzbYipdvKNrS9Odwes3j//Wl0Zn0W/iZRr/WWYI4baMRPvrMYYOads7bJH/REJQ==, tarball: https://registry.npmjs.org/@vue-vine/language-service/-/language-service-1.7.2.tgz}
 
-  '@vue-vine/vite-plugin@1.7.1':
-    resolution: {integrity: sha512-y4TFU0wA9UUQqzZlEE2IKoDTKD3E51akT8jmKM5F6T511qbn82QdQXRr3UvBPvPCvS3eNHd8+ok2oqixanCVyA==, tarball: https://registry.npmjs.org/@vue-vine/vite-plugin/-/vite-plugin-1.7.1.tgz}
+  '@vue-vine/vite-plugin@1.7.2':
+    resolution: {integrity: sha512-wvHz1DtLSnvQo19yGLfdFs2cJ2kIZb717yIqukCH35yoMlxJrTZjN594PaXmK02VVbnFTjckKueg9/oyLoJ34A==, tarball: https://registry.npmjs.org/@vue-vine/vite-plugin/-/vite-plugin-1.7.2.tgz}
 
   '@vue/babel-helper-vue-transform-on@1.4.0':
     resolution: {integrity: sha512-mCokbouEQ/ocRce/FpKCRItGo+013tHg7tixg3DUNS+6bmIchPt66012kBMm476vyEIJPafrvOf4E5OYj3shSw==, tarball: https://registry.npmjs.org/@vue/babel-helper-vue-transform-on/-/babel-helper-vue-transform-on-1.4.0.tgz}
@@ -4774,12 +4774,12 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
-  vue-vine-tsc@1.7.1:
-    resolution: {integrity: sha512-kQ+2SkKhD33oOEu1xcrFQ84EwK3aEzpZN6XG4UeTCfurn2JZqNx17janN0xAMX6mkHUe+d/k3h6TA1CBUSD5iQ==, tarball: https://registry.npmjs.org/vue-vine-tsc/-/vue-vine-tsc-1.7.1.tgz}
+  vue-vine-tsc@1.7.2:
+    resolution: {integrity: sha512-kjHMLBQCXS466Gs0bS9SY1bBMv1C8D5mtkwCyBM0TORHnDDPTWl+6ub0FL5uze+K8WHqujxx/7+clnK5LNHnKg==, tarball: https://registry.npmjs.org/vue-vine-tsc/-/vue-vine-tsc-1.7.2.tgz}
     hasBin: true
 
-  vue-vine@1.7.1:
-    resolution: {integrity: sha512-3uQ2J2+6Ea1ndygL5Xae4o4X/lu+Xjfcqg4/7+W3Kmy1Xn9q0wGjFC4NzJpxG3HVxjNIxQy85JEO4h8JTagOpw==, tarball: https://registry.npmjs.org/vue-vine/-/vue-vine-1.7.1.tgz}
+  vue-vine@1.7.2:
+    resolution: {integrity: sha512-qAgCSSpFaCmLBkAEQwnh9N5zWaVTVpEE9OURsKyke6lUVfqsK0xKuBJsOS8O6VG9oASRUDRxGQH6V5MI3OrSfQ==, tarball: https://registry.npmjs.org/vue-vine/-/vue-vine-1.7.2.tgz}
     peerDependencies:
       vue: '>=3.2'
 
@@ -6518,25 +6518,25 @@ snapshots:
       unplugin-utils: 0.2.5
       vite: 7.1.0(@types/node@24.2.0)(jiti@2.5.1)(lightningcss@1.30.1)(sass@1.90.0)(tsx@4.20.3)(yaml@2.8.1)
 
-  '@varlet/icons@3.11.1': {}
+  '@varlet/icons@3.9.1': {}
 
-  '@varlet/shared@3.11.1':
+  '@varlet/shared@3.9.1':
     dependencies:
       rattail: 1.0.17
 
-  '@varlet/ui@3.11.1(vue@3.5.18(typescript@5.8.3))':
+  '@varlet/ui@3.9.1(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       '@popperjs/core': 2.11.8
-      '@varlet/icons': 3.11.1
-      '@varlet/shared': 3.11.1
-      '@varlet/use': 3.11.1(vue@3.5.18(typescript@5.8.3))
+      '@varlet/icons': 3.9.1
+      '@varlet/shared': 3.9.1
+      '@varlet/use': 3.9.1(vue@3.5.18(typescript@5.8.3))
       dayjs: 1.11.13
       decimal.js: 10.6.0
       vue: 3.5.18(typescript@5.8.3)
 
-  '@varlet/use@3.11.1(vue@3.5.18(typescript@5.8.3))':
+  '@varlet/use@3.9.1(vue@3.5.18(typescript@5.8.3))':
     dependencies:
-      '@varlet/shared': 3.11.1
+      '@varlet/shared': 3.9.1
       vue: 3.5.18(typescript@5.8.3)
 
   '@vitejs/plugin-vue@6.0.1(vite@7.1.0(@types/node@24.2.0)(jiti@2.5.1)(lightningcss@1.30.1)(sass@1.90.0)(tsx@4.20.3)(yaml@2.8.1))(vue@3.5.18(typescript@5.8.3))':
@@ -6634,7 +6634,7 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
-  '@vue-vine/compiler@1.7.1':
+  '@vue-vine/compiler@1.7.2':
     dependencies:
       '@babel/parser': 7.28.0
       '@babel/types': 7.28.2
@@ -6687,13 +6687,13 @@ snapshots:
       - supports-color
       - typescript
 
-  '@vue-vine/language-service@1.7.1(typescript@5.8.3)':
+  '@vue-vine/language-service@1.7.2(typescript@5.8.3)':
     dependencies:
       '@umami/node': 0.4.0
       '@volar/language-core': 2.4.22
       '@volar/language-server': 2.4.22
       '@volar/typescript': 2.4.22
-      '@vue-vine/compiler': 1.7.1
+      '@vue-vine/compiler': 1.7.2
       '@vue/language-core': 3.0.1(typescript@5.8.3)
       '@vue/shared': 3.5.18
       destr: 2.0.5
@@ -6706,9 +6706,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@vue-vine/vite-plugin@1.7.1':
+  '@vue-vine/vite-plugin@1.7.2':
     dependencies:
-      '@vue-vine/compiler': 1.7.1
+      '@vue-vine/compiler': 1.7.2
 
   '@vue/babel-helper-vue-transform-on@1.4.0': {}
 
@@ -10431,21 +10431,21 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.18(typescript@5.8.3)
 
-  vue-vine-tsc@1.7.1(typescript@5.8.3):
+  vue-vine-tsc@1.7.2(typescript@5.8.3):
     dependencies:
       '@typescript/native-preview': 7.0.0-dev.20250811.1
       '@volar/language-core': 2.4.22
       '@volar/typescript': 2.4.22
-      '@vue-vine/language-service': 1.7.1(typescript@5.8.3)
+      '@vue-vine/language-service': 1.7.2(typescript@5.8.3)
       '@vue/language-core': 3.0.1(typescript@5.8.3)
     transitivePeerDependencies:
       - bufferutil
       - typescript
       - utf-8-validate
 
-  vue-vine@1.7.1(vue@3.5.18(typescript@5.8.3)):
+  vue-vine@1.7.2(vue@3.5.18(typescript@5.8.3)):
     dependencies:
-      '@vue-vine/vite-plugin': 1.7.1
+      '@vue-vine/vite-plugin': 1.7.2
       vue: 3.5.18(typescript@5.8.3)
 
   vue@3.5.18(typescript@5.8.3):

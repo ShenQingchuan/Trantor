@@ -1,7 +1,7 @@
 import type { ArticleMetadata } from '../../bridge/types/articles'
 import { useQuery } from '@pinia/colada'
+import { Skeleton } from '@varlet/ui'
 import { format } from 'date-fns'
-import { NSkeleton } from 'naive-ui'
 import { ofetch } from 'ofetch'
 import { randomSkeletonWidth } from '../utils/shared'
 
@@ -18,6 +18,9 @@ export function PageArticles() {
   const articleDate = (article: ArticleMetadata) => {
     return format(new Date(article.date), 'yyyy-MM-dd')
   }
+  const getSkeletonRowsWidth = () => {
+    return Array.from({ length: 10 }, () => randomSkeletonWidth())
+  }
 
   return vine`
     <div
@@ -30,13 +33,7 @@ export function PageArticles() {
           {{ $t('articles_list_loading') }}
         </div>
         <div class="col-flex gap-4">
-          <NSkeleton
-            v-for="i in 10"
-            :key="i"
-            text
-            animated
-            :style="{ width: randomSkeletonWidth() }"
-          />
+          <Skeleton :rows="10" :rows-width="getSkeletonRowsWidth()" />
         </div>
       </div>
     </div>
