@@ -29,7 +29,6 @@
     "@nrsk/unindent": "^1.1.0",
     "@pinia/colada": "^0.17.1",
     "@shikijs/markdown-it": "^3.9.2",
-    "@varlet/ui": "3.9.1",
     "@vueuse/core": "^13.5.0",
     "@vueuse/motion": "^3.0.3",
     "consola": "^3.4.2",

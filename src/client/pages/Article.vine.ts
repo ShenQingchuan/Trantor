@@ -1,9 +1,9 @@
 import type { ArticleResponse } from '../../bridge/types/articles'
 import { useQuery } from '@pinia/colada'
-import { Skeleton } from '@varlet/ui'
 import { useDark } from '@vueuse/core'
 import { format } from 'date-fns'
 import { ofetch } from 'ofetch'
+import { Skeleton } from '../components/Shared.vine'
 import { randomSkeletonWidth } from '../utils/shared'
 import '../styles/blog-article.scss'
 
@@ -91,7 +91,12 @@ export function PageArticleContent() {
           <div class="i-svg-spinners:bars-scale-fade text-2xl" />
           {{ $t('articles_loading') }}
         </div>
-        <Skeleton :rows="16" :rows-width="getSkeletonRowsWidth()" />
+        <Skeleton
+          :rows="16"
+          :rows-width="getSkeletonRowsWidth()"
+          wrapper-class="gap-4"
+          row-class="h-4 bg-zinc-500/50 rounded"
+        />
       </div>
     </div>
   `

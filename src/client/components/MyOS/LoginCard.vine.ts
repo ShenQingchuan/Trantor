@@ -1,17 +1,48 @@
-import { Alert } from '@varlet/ui'
+import { useAuthStore } from '../../stores/authStore'
+import { Alert } from '../Shared.vine'
 
-interface LoginCardProps {
-  isQuickLoading: boolean
-  loginError: string
-}
-
-export function LoginCard(props: LoginCardProps) {
-  const emits = vineEmits(['submit'])
-  const loginPassword = vineModel<string>()
-
+export function LoginCard() {
+  const authStore = useAuthStore()
   const { t } = useI18n()
+
+  // 快速登录相关状态
+  const loginPassword = ref('')
+  const isQuickLoading = ref(false)
+  const loginError = ref('')
+
+  const errAlertTitle = computed(() => t('os_login_error'))
+  const errAlertMessage = computed(() => t(loginError.value))
+
+  // 快速登录处理
+  const handleQuickLogin = async () => {
+    if (!loginPassword.value.trim()) {
+      loginError.value = t('auth_password_required')
+      return
+    }
+
+    isQuickLoading.value = true
+    loginError.value = ''
+
+    try {
+      // 使用owner用户名和密码登录
+      await authStore.login({
+        username: 'owner',
+        password: loginPassword.value,
+      })
+      // 登录成功，清理状态
+      loginPassword.value = ''
+    }
+    catch (error: any) {
+      console.error('Login failed:', error)
+      loginError.value = 'auth_password_error'
+    }
+    finally {
+      isQuickLoading.value = false
+    }
+  }
+
   const handleSubmit = () => {
-    emits('submit')
+    handleQuickLogin()
   }
 
   return vine`
@@ -39,8 +70,8 @@ export function LoginCard(props: LoginCardProps) {
             v-if="loginError"
             class="p-3 row-flex"
             type="danger"
-            :title="t('os_login_error')"
-            :message="loginError"
+            :title="errAlertTitle"
+            :message="errAlertMessage"
           />
 
           <div class="relative">

@@ -13,7 +13,6 @@ import '@unocss/reset/tailwind.css'
 import '../styles/transitions.scss'
 import '../styles/app.css'
 import '../styles/colors.css'
-import '../styles/varlet'
 
 export function setupApp(app: App) {
   const i18n = createI18n({

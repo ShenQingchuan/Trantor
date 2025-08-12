@@ -1,8 +1,8 @@
 import type { ArticleMetadata } from '../../bridge/types/articles'
 import { useQuery } from '@pinia/colada'
-import { Skeleton } from '@varlet/ui'
 import { format } from 'date-fns'
 import { ofetch } from 'ofetch'
+import { Skeleton } from '../components/Shared.vine'
 import { randomSkeletonWidth } from '../utils/shared'
 
 export function PageArticles() {
@@ -33,7 +33,12 @@ export function PageArticles() {
           {{ $t('articles_list_loading') }}
         </div>
         <div class="col-flex gap-4">
-          <Skeleton :rows="10" :rows-width="getSkeletonRowsWidth()" />
+          <Skeleton
+            :rows="10"
+            :rows-width="getSkeletonRowsWidth()"
+            wrapper-class="gap-4"
+            row-class="h-4 bg-zinc-500/50 rounded"
+          />
         </div>
       </div>
     </div>

@@ -1,18 +1,10 @@
 <script setup lang="ts">
-import { StyleProvider, Themes } from '@varlet/ui'
 import { useDark, useFavicon } from '@vueuse/core'
 import { RouterView } from 'vue-router'
 import { AppToggleActions, DesktopHeader, MobileHeader } from './components/Header.vine'
 
 const isDark = useDark()
 useFavicon(isDark.value ? '/favicon-dark.ico' : '/favicon.ico')
-watchEffect(() => {
-  StyleProvider(
-    isDark.value
-      ? Themes.dark
-      : Themes.md3Light,
-  )
-})
 </script>
 
 <template>
