@@ -50,9 +50,14 @@ export default defineConfig({
     ['col-flex', 'flex flex-col'],
     ['flex-center', 'items-center justify-center'],
     ['cursor-silent', 'select-none pointer-events-none cursor-default'],
+    // 兼容旧有命名（注意：命名语义可能与实际表现不完全一致）
     ['phone-hidden', 'w-0 h-0 invisible opacity-0 sm:visible sm:w-auto sm:h-auto sm:opacity-100'],
     ['tablet-hidden', 'w-0 h-0 invisible opacity-0 md:visible md:w-auto md:h-auto md:opacity-100'],
     ['desktop-hidden', 'w-auto h-auto visible opacity-100 sm:hidden sm:w-0 sm:h-0 sm:opacity-0'],
+    // 推荐新语义化命名
+    ['phone-only', 'visible sm:hidden'],
+    ['desktop-only', 'hidden lg:visible'],
+    ['tablet-only', 'hidden sm:visible lg:hidden'],
     ['text-secondary', 'text-zinc-600/80 dark:text-zinc-400/80'],
     [/^badge-color-(\w+)$/, ([, color]) => `bg-${color}-400:20 dark:bg-${color}-400:10 text-${color}-700 dark:text-${color}-300 border-${color}-600:10 dark:border-${color}-300:10`],
   ],

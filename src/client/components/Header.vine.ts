@@ -159,8 +159,8 @@ export function DesktopHeader() {
     <AnimatedSignature
       key="signature-desktop"
       class-names="tablet-hidden absolute sm:left-30 top-24px h-auto animate-fade-in z-99"
-      width="48px"
-      stroke-width="120"
+      width="24px"
+      stroke-width="240"
     />
 
     <nav
@@ -221,8 +221,8 @@ export function MobileHeader() {
     <AnimatedSignature
       key="signature-mobile"
       class-names="desktop-hidden absolute left-10 top-10 h-auto animate-fade-in z-99"
-      width="32px"
-      stroke-width="120"
+      width="24px"
+      stroke-width="240"
     />
 
     <nav

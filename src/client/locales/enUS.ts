@@ -39,6 +39,9 @@ export default {
   os_login_title: 'My OS',
   os_validating: 'Validating...',
 
+  os_mobile_coming_soon: 'Mobile mode coming soon ...',
+  os_mobile_coming_soon_subtitle: 'Stay tuned',
+
   // Auth related (keep for OS login screen)
   auth_password_placeholder: 'Enter system password',
   auth_password_required: 'Password is required',

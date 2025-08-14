@@ -40,6 +40,9 @@ export default {
   os_validating: '验证中...',
   os_login_error: '登录失败',
 
+  os_mobile_coming_soon: '暂未实现移动端模式',
+  os_mobile_coming_soon_subtitle: '敬请期待',
+
   auth_password_placeholder: '输入系统密码',
   auth_password_required: '请输入密码',
   auth_password_error: '密码错误，请重试',

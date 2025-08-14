@@ -1,4 +1,8 @@
-/// <reference types="vite/client" />
+declare global {
+  interface Window {
+    promptEditor?: import('prosekit/core').Editor
+  }
+}
 
 declare module 'vue' {
   interface GlobalDirectives {
@@ -12,12 +16,6 @@ declare module 'vue' {
   }
   interface HTMLAttributes {
     duration?: number // @vueuse/motion duration time
-  }
-}
-
-declare global {
-  interface Window {
-    promptEditor?: import('prosekit/core').Editor
   }
 }
 

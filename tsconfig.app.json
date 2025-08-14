@@ -3,12 +3,13 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "types": [
-      "vue-vine/macros",
       "vite/client",
+      "vue-vine/macros",
     ],
     "noEmit": true
   },
   "include": [
+    "src/client/env.d.mts",
     "src/client",
     "src/bridge"
   ],
