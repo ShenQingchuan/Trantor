@@ -7,12 +7,14 @@ function UserMessageBubble(props: {
   const { isChatStreaming } = storeToRefs(useChatFlowStore())
 
   return vine`
-    <div v-motion-slide-visible-right class="bubble row gap-4 items-center self-end">
+    <div v-motion-slide-visible-right class="bubble row-flex gap-4 items-center self-end">
       <div v-if="isChatStreaming" class="i-svg-spinners:pulse-multiple text-2xl text-slate-500" />
-      <div class="row bg-zinc-100 border-(1px solid zinc-200) rounded-md px-4 py-2 text-zinc-700">
+      <div
+        class="row-flex bg-zinc-100 border-(1px solid zinc-200) rounded-md px-4 py-2 text-zinc-700"
+      >
         {{ message.content }}
       </div>
-      <div class="row justify-center w-10 h-10 rounded-full bg-zinc-200:50 text-zinc-500">
+      <div class="row-flex justify-center w-10 h-10 rounded-full bg-zinc-200:50 text-zinc-500">
         <div class="i-lucide:user-round text-2xl" />
       </div>
     </div>
@@ -26,8 +28,10 @@ function ToolCallBubble(props: {
   const isShowArgs = computed(() => Object.keys(props.message.args).length > 0)
 
   return vine`
-    <div class="bubble text-xs row gap-2 items-center self-start">
-      <div class="row self-start justify-center w-6 h-6 rounded-full bg-slate-200:50 text-slate-500">
+    <div class="bubble text-xs row-flex gap-2 items-center self-start">
+      <div
+        class="row-flex self-start justify-center w-6 h-6 rounded-full bg-slate-200:50 text-slate-500"
+      >
         <div class="i-jam:tools text-sm" />
       </div>
       <div
@@ -38,7 +42,7 @@ function ToolCallBubble(props: {
             : 'bg-slate-100 border-(1px solid slate-200)',
         ]"
       >
-        <div class="row gap-2">
+        <div class="row-flex gap-2">
           <div v-if="message.pending" class="i-svg-spinners:90-ring-with-bg text-lg text-slate-500" />
           <div v-else class="i-line-md:clipboard-check text-lg text-slate-500" />
           <span>{{ message.content }}</span>
@@ -58,19 +62,19 @@ function AssistantMessageBubble(props: {
   message: ChatDisplayMessage & { role: 'assistant' }
 }) {
   return vine`
-    <div v-motion-slide-visible-left class="bubble w-full row gap-4 items-center self-start">
+    <div v-motion-slide-visible-left class="bubble w-full row-flex gap-4 items-center self-start">
       <div
-        class="row self-start justify-center w-10 h-10 rounded-full bg-violet-200:50 text-violet-700"
+        class="row-flex self-start justify-center w-10 h-10 rounded-full bg-violet-200:50 text-violet-700"
       >
         <div class="i-lucide:bot text-xl" />
       </div>
       <div
-        class="row bg-violet-100 w-2/3 border-(1px solid violet-200) rounded-md px-4 py-2 text-zinc-900"
+        class="row-flex bg-violet-100 w-2/3 border-(1px solid violet-200) rounded-md px-4 py-2 text-zinc-900"
       >
-        <div v-if="!message.content" class="row gap-2 font-italic text-sm text-violet-500:40">
+        <div v-if="!message.content" class="row-flex gap-2 font-italic text-sm text-violet-500:40">
           <div class="i-svg-spinners:bars-scale-fade text-2xl" />
         </div>
-        <pre v-else class="row whitespace-pre-line font-sans">{{ message.content }}</pre>
+        <pre v-else class="row-flex whitespace-pre-line font-sans">{{ message.content }}</pre>
       </div>
     </div>
   `

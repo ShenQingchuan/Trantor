@@ -17,7 +17,7 @@ import '../styles/colors.css'
 export function setupApp(app: App) {
   const i18n = createI18n({
     legacy: false,
-    locale: 'zhCN',
+    locale: localStorage.getItem('trantor:locale') || 'zhCN',
     messages: {
       zhCN,
       enUS,

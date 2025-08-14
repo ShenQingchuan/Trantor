@@ -15,6 +15,7 @@ import { useI18n } from 'vue-i18n'
 
 import 'prosekit/basic/style.css'
 import 'prosekit/basic/typography.css'
+import '../../styles/prosekit.scss'
 
 function createExtension() {
   const { t } = useI18n()
@@ -22,15 +23,21 @@ function createExtension() {
     defineBasicExtension(),
     defineMention(),
     definePlaceholder({
-      placeholder: t('prompt_editor__placeholder'),
+      placeholder: t('chat_flow__prompt_editor_placeholder'),
     }),
   )
 }
 type EditorExtension = ReturnType<typeof createExtension>
 
+const MENTION_PATTERN_REGEX = /@[\da-z]*$/i
 function MentionSymbol() {
+  const { t } = useI18n()
   const editor = useEditor<EditorExtension>()
-  const tags = ref<Array<any>>([])
+  const tags = ref<Array<any>>([
+    { id: 1, label: 'John Doe', value: 'john_doe' },
+    { id: 2, label: 'Mike Smith', value: 'mike_smith' },
+    { id: 3, label: 'Jane Miller', value: 'jane_miller' },
+  ])
 
   const handleTagInsert = (id: number, label: string) => {
     editor.value.commands.insertMention({
@@ -43,12 +50,12 @@ function MentionSymbol() {
 
   return vine`
     <AutocompletePopover
-      :regex="/@[\da-z]*$/i"
+      :regex="MENTION_PATTERN_REGEX"
       :class="[
-        'relative block max-h-100 min-w-60 text-white',
+        'relative block max-h-100 min-w-60 text-black dark:text-white',
         'select-none overflow-auto whitespace-nowrap',
-        ' p-1 z-10 rounded-lg border-(1px solid zinc-300)',
-        'bg-neutral-100 shadow-lg',
+        ' p-1 z-10 rounded-lg border-(1px solid zinc-300) dark:border-zinc-700',
+        'bg-neutral-100 dark:bg-neutral-900 shadow-lg',
         '[&:not([data-state])]:hidden',
       ]"
     >
@@ -62,17 +69,17 @@ function MentionSymbol() {
             'data-[focused]:bg-zinc-500 ',
           ]"
         >
-          {{ $t('prompt_editor__no_at_result') }}
+          {{ t('chat_flow__prompt_editor_no_at_result') }}
         </AutocompleteEmpty>
         <AutocompleteItem
           v-for="tag in tags"
           :key="tag.id"
           :class="[
-            'relative flex items-center justify-between text-black',
+            'relative flex items-center justify-between text-black dark:text-white',
             'scroll-my-1 rounded px-3',
             'py-1.5 cursor-default select-none',
             'whitespace-nowrap outline-none ',
-            'data-[focused]:bg-neutral-200 ',
+            'data-[focused]:bg-neutral-200 dark:data-[focused]:bg-neutral-700',
           ]"
           @select="() => handleTagInsert(tag.id, tag.label)"
         >
@@ -83,9 +90,9 @@ function MentionSymbol() {
   `
 }
 
-export default function ProseEditor() {
-  const emits = vineEmits<{ focus: [e: FocusEvent] }>()
-
+export default function ProseEditor(props: {
+  containerClass?: string
+}) {
   const editorRef = useTemplateRef('editorRef')
   const editor = createEditor({
     extension: createExtension(),
@@ -104,9 +111,9 @@ export default function ProseEditor() {
     <ProseKit :editor="editor">
       <div
         ref="editorRef"
-        class="flex-1 outline-none px-4 pt-2 font-sans h-full"
+        class="flex-1 outline-none font-sans h-full"
+        :class="[containerClass]"
         spellcheck="false"
-        @focus="emits('focus', $event)"
       />
 
       <MentionSymbol />

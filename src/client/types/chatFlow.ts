@@ -1,6 +1,6 @@
 import type { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import type { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js'
-import type { ChatCompletionMessageParam, ChatCompletionTool } from 'openai/resources/index.mjs'
+import type { ChatCompletionFunctionTool, ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 
 export type ChatFlowMessageFilter = Array<
   | 'onlyPending'
@@ -29,7 +29,7 @@ export interface ChatFlowContext {
   transport: StreamableHTTPClientTransport | null
 
   messages: ChatCompletionMessageParam[]
-  tools: ChatCompletionTool[]
+  tools: ChatCompletionFunctionTool[]
 }
 
 export interface OpenAIToolCallData {

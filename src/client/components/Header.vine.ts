@@ -17,6 +17,7 @@ export function AppToggleActions() {
         : 'zhCN'
     )
     locale.value = switchTo
+    localStorage.setItem('trantor:locale', switchTo)
   }
   const localeLabel = computed(() => {
     return (

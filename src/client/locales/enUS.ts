@@ -39,11 +39,21 @@ export default {
   os_login_title: 'My OS',
   os_validating: 'Validating...',
 
+  os_app_comming_soon: '{appId} app coming soon, stay tuned',
   os_mobile_coming_soon: 'Mobile mode coming soon ...',
   os_mobile_coming_soon_subtitle: 'Stay tuned',
-
-  // Auth related (keep for OS login screen)
+  os_app_not_implemented: 'Not implemented: {appId}',
   auth_password_placeholder: 'Enter system password',
   auth_password_required: 'Password is required',
   auth_password_error: 'Password is incorrect, please try again',
+
+  chat_flow__send: 'Send',
+  chat_flow__ai_thinking: 'Thinking and organizing data',
+  chat_flow__display_message_tool_call: 'Calling tool {toolName}',
+  chat_flow__display_message_tool_call_result: 'Tool call {toolName} completed',
+  chat_flow__display_message_tool_call_error: 'Tool call {toolName} failed',
+  chat_flow__tool_call_args: 'Tool call arguments',
+
+  chat_flow__prompt_editor_placeholder: 'Say anything here...',
+  chat_flow__prompt_editor_no_at_result: 'No result',
 }

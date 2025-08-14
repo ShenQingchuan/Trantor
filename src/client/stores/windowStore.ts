@@ -43,9 +43,9 @@ export const useWindowStore = defineStore(storeId, () => {
 
     const desiredWidth = options.initial?.width ?? 900
     const desiredHeight = options.initial?.height ?? 600
-    const baseX = options.initial?.x ?? 80
-    const baseY = options.initial?.y ?? 80
-    const desiredX = baseX + stepX * offsetIndex
+    const baseX = options.initial?.x ?? 40
+    const baseY = options.initial?.y ?? 60
+    const desiredXRaw = baseX + stepX * offsetIndex
     const desiredY = baseY + stepY * offsetIndex
 
     const isNarrow = viewportWidth <= 740
@@ -58,7 +58,12 @@ export const useWindowStore = defineStore(storeId, () => {
 
     const maxX = Math.max(0, viewportWidth - initWidth - 8)
     const maxY = Math.max(0, viewportHeight - initHeight - dockReserve)
-    const clampedX = Math.min(Math.max(0, desiredX), maxX)
+    const availableX = Math.max(0, maxX)
+    const slotsX = Math.max(1, Math.floor(availableX / stepX))
+    const normalizedIndexX = slotsX > 0 ? (offsetIndex % (slotsX + 1)) : 0
+    const desiredX = Math.min(Math.max(0, desiredXRaw), maxX)
+    const cascadedX = Math.min(Math.max(0, baseX + stepX * normalizedIndexX), maxX)
+    const clampedX = Math.min(Math.max(0, Math.min(desiredX, cascadedX)), maxX)
     const clampedY = Math.min(Math.max(0, desiredY), maxY)
 
     const w: AppWindowState = {

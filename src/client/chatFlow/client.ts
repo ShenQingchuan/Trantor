@@ -1,4 +1,4 @@
-import type { ChatCompletionMessageParam, ChatCompletionTool } from 'openai/resources/index.mjs'
+import type { ChatCompletionFunctionTool, ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 import type { ChatFlowContext } from '../types/chatFlow'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js'
@@ -67,7 +67,7 @@ export async function connectTrantorMcpServer() {
 
         // 必须用 listTools 来获取工具列表，同时触发 MCP 服务器初始化
         const toolListResp = await ctx.value.mcpClient.listTools()
-        const fetchedTools = toolListResp.tools.map((tool): ChatCompletionTool => {
+        const fetchedTools = toolListResp.tools.map((tool): ChatCompletionFunctionTool => {
           return {
             type: 'function',
             function: {

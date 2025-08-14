@@ -40,10 +40,22 @@ export default {
   os_validating: '验证中...',
   os_login_error: '登录失败',
 
+  os_app_comming_soon: '{appId} 应用即将到来，敬请期待',
+  os_app_not_implemented: '应用暂未实现：{appId}',
   os_mobile_coming_soon: '暂未实现移动端模式',
   os_mobile_coming_soon_subtitle: '敬请期待',
 
   auth_password_placeholder: '输入系统密码',
   auth_password_required: '请输入密码',
   auth_password_error: '密码错误，请重试',
+
+  chat_flow__send: '发送',
+  chat_flow__ai_thinking: '正在思考和整理数据',
+  chat_flow__display_message_tool_call: '正在调用工具 {toolName}',
+  chat_flow__display_message_tool_call_result: '工具 {toolName} 调用完成',
+  chat_flow__display_message_tool_call_error: '工具 {toolName} 调用失败',
+  chat_flow__tool_call_args: '工具调用参数',
+
+  chat_flow__prompt_editor_placeholder: '写下你想说的...',
+  chat_flow__prompt_editor_no_at_result: '暂无结果',
 }

@@ -21,6 +21,10 @@ const ToolLibsModules = [
   '@nrsk/unindent',
   'ts-retry',
 ]
+const ProseKitModules = [
+  'prosekit',
+  'prosemirror-view',
+]
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -53,6 +57,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           toolLibs: ToolLibsModules,
+          prosekit: ProseKitModules,
         },
       },
     },

@@ -35,6 +35,7 @@ export function AuroraBackground() {
   const frame = ref(0)
   const width = ref(0)
   const height = ref(0)
+  const sizeScale = ref(1)
   let animationId = 0
 
   // 简化的噪声实现，避免复杂的类型错误
@@ -66,6 +67,7 @@ export function AuroraBackground() {
 
     const t = frame.value * 0.01 * particle.speed
     const n = noise(particle.x * 0.005, particle.y * 0.005, t) * 8
+    const s = sizeScale.value
 
     // 外层大光晕
     const outerGrd = ctx.value.createRadialGradient(
@@ -74,7 +76,7 @@ export function AuroraBackground() {
       0,
       particle.x,
       particle.y,
-      particle.size * 1.8,
+      particle.size * s * 1.8,
     )
 
     outerGrd.addColorStop(0, `${particle.color}20`)
@@ -85,7 +87,7 @@ export function AuroraBackground() {
     ctx.value.globalAlpha = particle.alpha * opacity.value * 0.6
     ctx.value.fillStyle = outerGrd
     ctx.value.beginPath()
-    ctx.value.arc(particle.x, particle.y, particle.size * 1.8, 0, Math.PI * 2)
+    ctx.value.arc(particle.x, particle.y, particle.size * s * 1.8, 0, Math.PI * 2)
     ctx.value.fill()
 
     // 中层光晕
@@ -95,7 +97,7 @@ export function AuroraBackground() {
       0,
       particle.x,
       particle.y,
-      particle.size * 1.2,
+      particle.size * s * 1.2,
     )
 
     middleGrd.addColorStop(0, `${particle.color}40`)
@@ -106,7 +108,7 @@ export function AuroraBackground() {
     ctx.value.globalAlpha = particle.alpha * opacity.value * 0.8
     ctx.value.fillStyle = middleGrd
     ctx.value.beginPath()
-    ctx.value.arc(particle.x, particle.y, particle.size * 1.2, 0, Math.PI * 2)
+    ctx.value.arc(particle.x, particle.y, particle.size * s * 1.2, 0, Math.PI * 2)
     ctx.value.fill()
 
     // 内层核心光
@@ -116,7 +118,7 @@ export function AuroraBackground() {
       0,
       particle.x,
       particle.y,
-      particle.size * 0.6,
+      particle.size * s * 0.6,
     )
 
     innerGrd.addColorStop(0, `${particle.color}80`)
@@ -127,7 +129,7 @@ export function AuroraBackground() {
     ctx.value.globalAlpha = particle.alpha * opacity.value
     ctx.value.fillStyle = innerGrd
     ctx.value.beginPath()
-    ctx.value.arc(particle.x, particle.y, particle.size * 0.6, 0, Math.PI * 2)
+    ctx.value.arc(particle.x, particle.y, particle.size * s * 0.6, 0, Math.PI * 2)
     ctx.value.fill()
   }
 
@@ -191,7 +193,12 @@ export function AuroraBackground() {
     canvas.value.width = width.value * dpr
     canvas.value.height = height.value * dpr
 
+    ctx.value.setTransform(1, 0, 0, 1, 0, 0)
     ctx.value.scale(dpr, dpr)
+    // 根据视口对角线自适应调整粒子大小缩放，确保小屏时光晕更大、更柔和
+    const diag = Math.hypot(width.value, height.value)
+    const scale = Math.min(2.0, Math.max(1.0, 1200 / Math.max(600, diag)))
+    sizeScale.value = scale
     return true
   }
 

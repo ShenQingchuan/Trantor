@@ -11,3 +11,7 @@ export function randomSkeletonWidth({
 } = {}) {
   return `${Math.max(Math.random() * base, min)}%`
 }
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}

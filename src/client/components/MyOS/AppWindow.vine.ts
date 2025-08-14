@@ -1,7 +1,7 @@
 import type { AppWindowState } from '../../types/windowManager'
 import { useWindowStore } from '../../stores/windowStore'
 
-export function DesktopAppWindow(props: {
+export function DesktopAppWindowContainer(props: {
   winState: AppWindowState
 }) {
   const store = useWindowStore()
@@ -23,6 +23,7 @@ export function DesktopAppWindow(props: {
     window.removeEventListener('mousemove', onDragging)
   }
   const onMouseDownHeader = (e: MouseEvent) => {
+    e.preventDefault()
     if (props.winState.isMaximized)
       return
     isDragging.value = true
@@ -47,6 +48,7 @@ export function DesktopAppWindow(props: {
     window.removeEventListener('mousemove', onResizing)
   }
   const onResizeStart = (e: MouseEvent) => {
+    e.preventDefault()
     isResizing.value = true
     startPos.x = e.clientX
     startPos.y = e.clientY
@@ -92,9 +94,10 @@ export function DesktopAppWindow(props: {
     <div
       v-show="!winState.isMinimized"
       v-motion-fade
-      class="window-shell shadow-lg fixed overflow-hidden rounded-xl border border-zinc-200/30 bg-white/80 dark:bg-zinc-900/70"
+      class="window-shell col-flex shadow-lg fixed overflow-hidden rounded-xl border border-zinc-200/30 bg-white/80 dark:bg-zinc-900/70"
       :class="{
         'outline-1 outline-slate-400': winState.isActive,
+        'select-none': isDragging || isResizing,
       }"
       :style="{
         ...computedStyle,
@@ -121,13 +124,13 @@ export function DesktopAppWindow(props: {
       </div>
 
       <!-- 内容区：插槽自定义 -->
-      <div class="stack wh-full bg-white/70 dark:bg-zinc-950/60">
+      <div class="col-flex wh-full bg-white/70 dark:bg-zinc-950/60 flex-1">
         <slot />
       </div>
 
       <!-- 右下角调整尺寸手柄 -->
       <div
-        class="absolute right-1 bottom-1 w-5 h-5 cursor-se-resize opacity-60"
+        class="absolute right-1 bottom-1 w-5 h-5 cursor-se-resize opacity-0"
         @mousedown.stop="onResizeStart"
       >
         <div class="i-lucide:move-diagonal-2 text-zinc-400" />

@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@vue/language-core': 3.0.1
+
 importers:
 
   .:
@@ -87,7 +90,7 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.18(typescript@5.8.3))
       vue-vine:
-        specifier: ^1.7.2
+        specifier: 1.7.3
         version: 1.7.3(vue@3.5.18(typescript@5.8.3))
       zod:
         specifier: 3.23.8
@@ -193,7 +196,7 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(jiti@2.5.1)(jsdom@26.1.0)(sass@1.90.0)(tsx@4.20.4)(yaml@2.8.1)
       vue-vine-tsc:
-        specifier: ^1.7.2
+        specifier: 1.7.3
         version: 1.7.3(typescript@5.8.3)
 
 packages:
@@ -1377,50 +1380,50 @@ packages:
     resolution: {integrity: sha512-W8FQi6kEh2e8zVhQ0eeRnxdvIoOkAp/CPAahcNio6nO9dsIwb9b34z90KOlheoyuVf6LSOEdjlkxSkapNEc+4A==, tarball: https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.39.1.tgz}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-DFnQ8nWb0/OCuQ7nLShMDq6BTmGHIjUx/tDvvOdCgo+f1CSkur/4lh4ckpohjjqBbtOGEoKR31+u7b2zP5tqaw==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-arm64/-/native-preview-darwin-arm64-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-8eH3yy6Iis/jGVThtKRbyVX3YH85hsY5+6ram8kVfq5NNAZEmLW4wwAjH5Dnpgf3+rCKh4xA8gTCvBA77xFtGw==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-arm64/-/native-preview-darwin-arm64-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-ObGEm8AtXVCHfRth+8WLh12r8iYx1uWBsrtKjW7iPkBsans9pZ53vaEIvDoYC+MuFsVLAb7FFnHcrYCiM72lDg==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-x64/-/native-preview-darwin-x64-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-vgFFpSa+3+xx7V8tzZKo2oHetWDx82sfzSD8dN9uYBAwAYcgPvFRixBVvu+2XoYDvdBQP/EPbUar6U2U1+5bkA==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-x64/-/native-preview-darwin-x64-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-o16fqspXpq2pJHct70tSWFx798SuHrFNCIdm40/o7bmKT4P586T5cuyaW/PoT++iLi2EH4zGn5/qd9CcdnUtDA==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm64/-/native-preview-linux-arm64-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-BQA56yGk8ukxb/wy9h+M8jYysopNDXwAZghjnI0E6bhRstt333ttS+xOkcwEcFkoxwofBsnHMFgBXCvHk10WJg==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm64/-/native-preview-linux-arm64-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-sL11FnCS95Qg+wYjJ0Jv7ReVLZBkTFz8DBA70SZXKdJaLDOHqxT2LnsJPXEoXemAiafvfmRdeOXyLYoX7H99kA==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm/-/native-preview-linux-arm-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-MKfp9lOvP84yZD+QSOcprU2sv1jfj3dx0Zzoo+sOGmKe+1qO38vZo5up/S/Hm4TxNe0YVrTX229uPIgAcorwoA==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm/-/native-preview-linux-arm-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm]
     os: [linux]
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-A2uHS3AA+oZmEAXlezih+8K9n5MZ47Fe/dSO/aD3pv+Y505Ll770LerJCM/uLwZXzIwfSDwZzAeG6xaDSVwdbg==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-x64/-/native-preview-linux-x64-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-s4YaoZQVfAZbwop7Ejp/ZXVM9VT9lKH3Ejb0AGhCmD5iu9ZXptFZY1770TDRpeF8JMshlGPwfaBvFjhwvJAI5A==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-x64/-/native-preview-linux-x64-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [x64]
     os: [linux]
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-ySsmOQ/6GjmHneESdsHD0BvsRz+abPFVknQpaNQrIBdOyjyqP93JqIBjDDRO17txklH6p3Pu/eoUgUWW8rTNWA==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-arm64/-/native-preview-win32-arm64-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-aVeJotuDt0rLSSTkc6ZZ4T25G+MyxLqtP+ME68Yc7Xiayyom2FNVivmoWkICo1LpmayPUAG84Rodubdwewm7bg==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-arm64/-/native-preview-win32-arm64-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-m5ttkCxnePiu9+4VXOIz+UHCJTLc7UX95e4cyoHiw7lSwFNp8IJhRyRdHX1meZtKvldnzdXplSYeAvKZM7vNkA==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-x64/-/native-preview-win32-x64-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-uR0rPt0lHJOBWCZ3YKAkM76yOBWhI2q/I7dLxdaJ0UWx4Bp6ETlTrDUIfsL2uth+oRTFewdrauyGrsQFn2K31Q==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-x64/-/native-preview-win32-x64-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [x64]
     os: [win32]
 
-  '@typescript/native-preview@7.0.0-dev.20250813.1':
-    resolution: {integrity: sha512-numdzvDqiLfsL8m4KVFdeUHpr40a66ePFh5IKGmmHzYAPBgjtrk7cEU6GVfaVVo5U5nFRe33Qzd7bDq06a1IrA==, tarball: https://registry.npmjs.org/@typescript/native-preview/-/native-preview-7.0.0-dev.20250813.1.tgz}
+  '@typescript/native-preview@7.0.0-dev.20250814.1':
+    resolution: {integrity: sha512-prCzviLNfWgE4vLY1BxFzYVsJuO5QtCksY1x1T8s4zaoJjd49xu5esSRqWEu34ybEutrH88XnWmCYqEF4lGyWw==, tarball: https://registry.npmjs.org/@typescript/native-preview/-/native-preview-7.0.0-dev.20250814.1.tgz}
     engines: {node: '>=20.6.0'}
     hasBin: true
 
@@ -1564,8 +1567,8 @@ packages:
   '@vitest/utils@3.2.4':
     resolution: {integrity: sha512-fB2V0JFrQSMsCo9HiSq3Ezpdv4iYaXRG1Sx8edX3MwxfyNn83mKiGzOcH+Fkxt4MHxr3y42fQi1oeAInqgX2QA==, tarball: https://registry.npmjs.org/@vitest/utils/-/utils-3.2.4.tgz}
 
-  '@volar/language-core@2.4.22':
-    resolution: {integrity: sha512-gp4M7Di5KgNyIyO903wTClYBavRt6UyFNpc5LWfyZr1lBsTUY+QrVZfmbNF2aCyfklBOVk9YC4p+zkwoyT7ECg==, tarball: https://registry.npmjs.org/@volar/language-core/-/language-core-2.4.22.tgz}
+  '@volar/language-core@2.4.17':
+    resolution: {integrity: sha512-chmRZMbKmcGpKMoO7Reb70uiLrzo0KWC2CkFttKUuKvrE+VYgi+fL9vWMJ07Fv5ulX0V1TAyyacN9q3nc5/ecA==, tarball: https://registry.npmjs.org/@volar/language-core/-/language-core-2.4.17.tgz}
 
   '@volar/language-core@2.4.23':
     resolution: {integrity: sha512-hEEd5ET/oSmBC6pi1j6NaNYRWoAiDhINbT8rmwtINugR39loROSlufGdYMF9TaKGfz+ViGs1Idi3mAhnuPcoGQ==, tarball: https://registry.npmjs.org/@volar/language-core/-/language-core-2.4.23.tgz}
@@ -1576,8 +1579,8 @@ packages:
   '@volar/language-service@2.4.23':
     resolution: {integrity: sha512-h5mU9DZ/6u3LCB9xomJtorNG6awBNnk9VuCioGsp6UtFiM8amvS5FcsaC3dabdL9zO0z+Gq9vIEMb/5u9K6jGQ==, tarball: https://registry.npmjs.org/@volar/language-service/-/language-service-2.4.23.tgz}
 
-  '@volar/source-map@2.4.22':
-    resolution: {integrity: sha512-L2nVr/1vei0xKRgO2tYVXtJYd09HTRjaZi418e85Q+QdbbqA8h7bBjfNyPPSsjnrOO4l4kaAo78c8SQUAdHvgA==, tarball: https://registry.npmjs.org/@volar/source-map/-/source-map-2.4.22.tgz}
+  '@volar/source-map@2.4.17':
+    resolution: {integrity: sha512-QDybtQyO3Ms/NjFqNHTC5tbDN2oK5VH7ZaKrcubtfHBDj63n2pizHC3wlMQ+iT55kQXZUUAbmBX5L1C8CHFeBw==, tarball: https://registry.npmjs.org/@volar/source-map/-/source-map-2.4.17.tgz}
 
   '@volar/source-map@2.4.23':
     resolution: {integrity: sha512-Z1Uc8IB57Lm6k7q6KIDu/p+JWtf3xsXJqAX/5r18hYOTpJyBn0KXUR8oTJ4WFYOcDzWC9n3IflGgHowx6U6z9Q==, tarball: https://registry.npmjs.org/@volar/source-map/-/source-map-2.4.23.tgz}
@@ -1668,8 +1671,8 @@ packages:
       typescript:
         optional: true
 
-  '@vue/language-core@3.0.5':
-    resolution: {integrity: sha512-gCEjn9Ik7I/seHVNIEipOm8W+f3/kg60e8s1IgIkMYma2wu9ZGUTMv3mSL2bX+Md2L8fslceJ4SU8j1fgSRoiw==, tarball: https://registry.npmjs.org/@vue/language-core/-/language-core-3.0.5.tgz}
+  '@vue/language-core@3.0.1':
+    resolution: {integrity: sha512-sq+/Mc1IqIexWEQ+Q2XPiDb5SxSvY5JPqHnMOl/PlF5BekslzduX8dglSkpC17VeiAQB6dpS+4aiwNLJRduCNw==, tarball: https://registry.npmjs.org/@vue/language-core/-/language-core-3.0.1.tgz}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -1908,8 +1911,8 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==, tarball: https://registry.npmjs.org/callsites/-/callsites-3.1.0.tgz}
     engines: {node: '>=6'}
 
-  caniuse-lite@1.0.30001734:
-    resolution: {integrity: sha512-uhE1Ye5vgqju6OI71HTQqcBCZrvHugk0MjLak7Q+HfoBgoq5Bi+5YnwjP4fjDgrtYr/l8MVRBvzz9dPD4KyK0A==, tarball: https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001734.tgz}
+  caniuse-lite@1.0.30001735:
+    resolution: {integrity: sha512-EV/laoX7Wq2J9TQlyIXRxTJqIw4sxfXS4OYgudGxBYRuTv0q7AM6yMEpU/Vo1I94thg9U6EZ2NfZx9GJq83u7w==, tarball: https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001735.tgz}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==, tarball: https://registry.npmjs.org/ccount/-/ccount-2.0.1.tgz}
@@ -6224,36 +6227,36 @@ snapshots:
       '@typescript-eslint/types': 8.39.1
       eslint-visitor-keys: 4.2.1
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250813.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250814.1':
     optional: true
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250813.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250814.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250813.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250814.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20250813.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20250814.1':
     optional: true
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20250813.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20250814.1':
     optional: true
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250813.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250814.1':
     optional: true
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20250813.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20250814.1':
     optional: true
 
-  '@typescript/native-preview@7.0.0-dev.20250813.1':
+  '@typescript/native-preview@7.0.0-dev.20250814.1':
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20250813.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20250813.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20250813.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20250813.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20250813.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20250813.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20250813.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20250814.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20250814.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20250814.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20250814.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20250814.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20250814.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20250814.1
 
   '@umami/node@0.4.0': {}
 
@@ -6467,9 +6470,9 @@ snapshots:
       loupe: 3.2.0
       tinyrainbow: 2.0.0
 
-  '@volar/language-core@2.4.22':
+  '@volar/language-core@2.4.17':
     dependencies:
-      '@volar/source-map': 2.4.22
+      '@volar/source-map': 2.4.17
 
   '@volar/language-core@2.4.23':
     dependencies:
@@ -6494,7 +6497,7 @@ snapshots:
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
 
-  '@volar/source-map@2.4.22': {}
+  '@volar/source-map@2.4.17': {}
 
   '@volar/source-map@2.4.23': {}
 
@@ -6564,7 +6567,7 @@ snapshots:
       '@volar/language-server': 2.4.23
       '@volar/typescript': 2.4.23
       '@vue-vine/compiler': 1.7.3
-      '@vue/language-core': 3.0.5(typescript@5.8.3)
+      '@vue/language-core': 3.0.1(typescript@5.8.3)
       '@vue/shared': 3.5.18
       destr: 2.0.5
       detect-port: 2.1.0
@@ -6703,16 +6706,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vue/language-core@3.0.5(typescript@5.8.3)':
+  '@vue/language-core@3.0.1(typescript@5.8.3)':
     dependencies:
-      '@volar/language-core': 2.4.22
+      '@volar/language-core': 2.4.17
       '@vue/compiler-dom': 3.5.18
       '@vue/compiler-vue2': 2.7.16
       '@vue/shared': 3.5.18
       alien-signals: 2.0.6
+      minimatch: 10.0.3
       muggle-string: 0.4.1
       path-browserify: 1.0.1
-      picomatch: 4.0.3
     optionalDependencies:
       typescript: 5.8.3
 
@@ -6923,7 +6926,7 @@ snapshots:
 
   browserslist@4.25.2:
     dependencies:
-      caniuse-lite: 1.0.30001734
+      caniuse-lite: 1.0.30001735
       electron-to-chromium: 1.5.200
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.2)
@@ -6973,7 +6976,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  caniuse-lite@1.0.30001734: {}
+  caniuse-lite@1.0.30001735: {}
 
   ccount@2.0.1: {}
 
@@ -10243,11 +10246,11 @@ snapshots:
 
   vue-vine-tsc@1.7.3(typescript@5.8.3):
     dependencies:
-      '@typescript/native-preview': 7.0.0-dev.20250813.1
+      '@typescript/native-preview': 7.0.0-dev.20250814.1
       '@volar/language-core': 2.4.23
       '@volar/typescript': 2.4.23
       '@vue-vine/language-service': 1.7.3(typescript@5.8.3)
-      '@vue/language-core': 3.0.5(typescript@5.8.3)
+      '@vue/language-core': 3.0.1(typescript@5.8.3)
     transitivePeerDependencies:
       - bufferutil
       - typescript
