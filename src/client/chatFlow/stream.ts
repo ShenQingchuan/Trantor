@@ -170,11 +170,13 @@ async function* streamProcessToolCalls(
           chatFlowContext.tools,
         )
 
-        await handleStreamResult(
+        for await (const chunk of handleStreamResult(
           chatFlowContext,
           streamContext,
           nextStream,
-        )
+        )) {
+          yield chunk
+        }
       }
       catch (error) {
         console.error(`工具调用失败: ${toolName}`, error)
@@ -207,11 +209,13 @@ export function createChatStream(
     )
 
     try {
-      await handleStreamResult(
+      for await (const chunk of handleStreamResult(
         context,
         streamContext,
         stream,
-      )
+      )) {
+        yield chunk
+      }
     }
     finally {
       // 当流结束时清除缓存

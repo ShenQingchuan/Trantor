@@ -25,7 +25,7 @@ function AppWindow(props: {
       <component
         :is="appComponent"
         :class="{
-          'col-flex flex-center w-full h-full flex-1': !hasComponent,
+          'col-flex flex-center w-full flex-1': !hasComponent,
         }"
       >
         <div v-if="!hasComponent" class="text-zinc-500 font-italic">

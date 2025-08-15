@@ -107,7 +107,7 @@ export function DesktopAppWindowContainer(props: {
     >
       <!-- 标题栏 -->
       <div
-        class="row-flex items-center gap-2 px-3 select-none bg-zinc-100/60 dark:bg-zinc-800/60"
+        class="row-flex items-center gap-2 px-3 select-none bg-zinc-100/60 dark:bg-zinc-800/60 h-40px"
         @mousedown.stop="onMouseDownHeader"
       >
         <div class="row-flex gap-2 items-center cursor-default py-4">
@@ -124,7 +124,7 @@ export function DesktopAppWindowContainer(props: {
       </div>
 
       <!-- 内容区：插槽自定义 -->
-      <div class="col-flex wh-full bg-white/70 dark:bg-zinc-950/60 flex-1">
+      <div class="col-flex w-full flex-1 h-[calc(100%-40px)] bg-white/70 dark:bg-zinc-950/60">
         <slot />
       </div>
 

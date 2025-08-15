@@ -58,4 +58,7 @@ export default {
 
   chat_flow__prompt_editor_placeholder: '写下你想说的...',
   chat_flow__prompt_editor_no_at_result: '暂无结果',
+  chat_flow__welcome_title: '欢迎使用 AI 助手',
+  chat_flow__welcome_subtitle: '我可以帮助您解答问题、处理任务和提供支持。请输入您的问题开始对话。',
+  chat_flow__tips: '编写提示词是一门技术活，谨记高质量输入才能带来高质量输出。',
 }

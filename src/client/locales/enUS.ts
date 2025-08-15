@@ -56,4 +56,7 @@ export default {
 
   chat_flow__prompt_editor_placeholder: 'Say anything here...',
   chat_flow__prompt_editor_no_at_result: 'No result',
+  chat_flow__welcome_title: 'Welcome to AI Assistant',
+  chat_flow__welcome_subtitle: 'I can help you answer questions, process tasks, and provide support. Please enter your question to start the conversation.',
+  chat_flow__tips: 'Writing prompts needs both details and abstract hierarchy, remember that garbage in, garbage out.',
 }

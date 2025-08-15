@@ -58,9 +58,9 @@ export function PageMyOS() {
         <DesktopWindowManager />
       </template>
 
-      <!-- 手机模式：移动端启动器（九宫格）+ 全屏应用 -->
+      <!-- 手机模式 -->
       <template v-else="authStore.isAuthenticated && isPhoneMode">
-        <div v-motion-fade-visible class="col-flex flex-center wh-full">
+        <div v-motion-fade-visible class="col-flex flex-center w-full h-full">
           <div class="col-flex flex-center gap-2 text-center">
             <div class="i-twemoji:building-construction text-8xl" />
             <div class="mt-4 text-2xl font-bold">{{ t('os_mobile_coming_soon') }}</div>

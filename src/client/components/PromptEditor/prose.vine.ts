@@ -23,6 +23,7 @@ function createExtension() {
     defineBasicExtension(),
     defineMention(),
     definePlaceholder({
+      strategy: 'doc',
       placeholder: t('chat_flow__prompt_editor_placeholder'),
     }),
   )

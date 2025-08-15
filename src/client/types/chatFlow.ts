@@ -10,6 +10,7 @@ export type ChatFlowMessageFilter = Array<
 
 export type ChatDisplayMessage = ({
   id: string
+  streaming?: boolean
 }) & (
   | { role: 'user', content: string }
   | { role: 'assistant', content: string }

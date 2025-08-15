@@ -45,12 +45,15 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
     isChatStreaming.value = true
     isShowGuide.value = false
 
-    chatDisplayMessages.value.push({
+    // 创建用户消息，设置为流式状态
+    let userMessage: ChatDisplayMessage = {
       id: nanoid(),
       content: prompt,
       role: 'user',
-    })
-    await sleep(1000)
+      streaming: true,
+    }
+    chatDisplayMessages.value.push(userMessage)
+    userMessage = chatDisplayMessages.value[chatDisplayMessages.value.length - 1] // 更新引用为响应式 Proxy
 
     const stream = createChatStream(
       chatFlowAIContext.value,
@@ -92,21 +95,40 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
       },
     )
 
+    let hasContent = false
     for await (const chunk of stream) {
-      // 在文字流开始之后再插入一个 pending 状态的 assistant message
+      if (userMessage.streaming) {
+        userMessage.streaming = false
+      }
+
+      hasContent = true
+      
+      // 当收到第一个文本块时，才创建 assistant 消息
       if (!chatLastPendingMessage.value) {
         chatLastPendingMessage.value = {
           id: nanoid(),
           content: '',
           role: 'assistant',
+          streaming: true,
         }
-        chatDisplayMessages.value.push(
-          chatLastPendingMessage.value,
-        )
+        chatDisplayMessages.value.push(chatLastPendingMessage.value)
       }
-
+      
       chatLastPendingMessage.value.content += chunk
       await sleep(50) // 模拟打字机效果
+    }
+
+    // 结束流式状态
+    if (chatLastPendingMessage.value) {
+      chatLastPendingMessage.value.streaming = false
+    }
+
+    // 如果没有任何内容，移除空的 assistant 消息
+    if (!hasContent && chatLastPendingMessage.value?.content === '') {
+      const index = chatDisplayMessages.value.findIndex(m => m.id === chatLastPendingMessage.value?.id)
+      if (index !== -1) {
+        chatDisplayMessages.value.splice(index, 1)
+      }
     }
 
     isChatStreaming.value = false
