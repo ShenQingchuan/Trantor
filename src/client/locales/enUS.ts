@@ -47,6 +47,12 @@ export default {
   auth_password_required: 'Password is required',
   auth_password_error: 'Password is incorrect, please try again',
 
+  os_menu_about: 'About MyOS',
+  os_menu_back_to_blog: 'Back to blog',
+
+  dialog__cancel: 'Cancel',
+  dialog__confirm: 'Confirm',
+
   chat_flow__send: 'Send',
   chat_flow__ai_thinking: 'Thinking and organizing data',
   chat_flow__display_message_tool_call: 'Calling tool {toolName}',
@@ -59,4 +65,37 @@ export default {
   chat_flow__welcome_title: 'Welcome to AI Assistant',
   chat_flow__welcome_subtitle: 'I can help you answer questions, process tasks, and provide support. Please enter your question to start the conversation.',
   chat_flow__tips: 'Writing prompts needs both details and abstract hierarchy, remember that garbage in, garbage out.',
+
+  // Chat menu items
+  chat_menu_session: 'Session',
+  chat_menu_edit: 'Edit',
+  chat_menu_view: 'View',
+  chat_menu_help: 'Help',
+
+  // Session menu
+  chat_session_new: 'New Chat',
+  chat_session_open: 'Open Chat...',
+  chat_session_save: 'Save Chat',
+  chat_session_save_as: 'Save As...',
+  chat_session_close: 'Close Chat',
+
+  // Edit menu
+  chat_edit_undo: 'Undo',
+  chat_edit_redo: 'Redo',
+  chat_edit_copy: 'Copy',
+  chat_edit_paste: 'Paste',
+  chat_edit_clear_history: 'Clear History',
+
+  // View menu
+  chat_view_toggle_sidebar: 'Toggle Sidebar',
+  chat_view_fullscreen: 'Full Screen',
+  chat_view_zoom_in: 'Zoom In',
+  chat_view_zoom_out: 'Zoom Out',
+  chat_view_reset_zoom: 'Reset Zoom',
+
+  // Help menu
+  chat_help_shortcuts: 'Keyboard Shortcuts',
+  chat_help_docs: 'Documentation',
+  chat_help_feedback: 'Feedback',
+  chat_help_about: 'About Chat',
 }

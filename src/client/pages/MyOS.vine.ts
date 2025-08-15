@@ -1,4 +1,5 @@
 import type { OpenWindowOptions } from '../types/windowManager'
+import { DesktopBackground } from '../components/MyOS/DesktopBackground.vine'
 import { Dock } from '../components/MyOS/Dock.vine'
 import { LoginCard } from '../components/MyOS/LoginCard.vine'
 import { StatusBar } from '../components/MyOS/StatusBar.vine'
@@ -61,7 +62,10 @@ export function PageMyOS() {
   }
 
   return vine`
-    <div class="page-my-os col-flex flex-1 flex-center relative">
+    <div class="page-my-os col-flex w-full h-full relative">
+      <!-- 桌面背景 -->
+      <DesktopBackground />
+
       <!-- macOS 风格状态栏 -->
       <StatusBar v-if="!isPhoneMode" />
 

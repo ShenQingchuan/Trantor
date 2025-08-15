@@ -28,7 +28,6 @@ export function Dialog(props: {
   })
 
   return vine`
-    <!-- API Key 设置对话框 -->
     <Teleport to="body">
       <div
         v-if="show"
@@ -44,14 +43,7 @@ export function Dialog(props: {
                 @click="closeDialog()"
                 class="text-gray-400 hover:text-gray-600 transition-colors"
               >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <div class="i-mdi:close text-xl" />
               </button>
             </div>
           </slot>
@@ -66,13 +58,13 @@ export function Dialog(props: {
                 @click="closeDialog('cancel')"
                 class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
               >
-                {{ t('set_api_key_dialog__cancel') }}
+                {{ t('dialog__cancel') }}
               </button>
               <button
                 @click="closeDialog('confirm')"
                 class="px-4 py-2 text-sm font-medium text-white bg-slate-600 rounded-md hover:bg-slate-700 transition-colors"
               >
-                {{ t('set_api_key_dialog__confirm') }}
+                {{ t('dialog__confirm') }}
               </button>
             </div>
           </slot>

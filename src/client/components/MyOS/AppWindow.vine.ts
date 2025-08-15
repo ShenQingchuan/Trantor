@@ -116,7 +116,7 @@ export function DesktopAppWindowContainer(props: {
           <div class="traffic-dot bg-green-400 cursor-pointer" @click.stop="onMaximize" />
         </div>
         <div
-          class="row-flex flex-1 active:cursor-move gap-2 items-center ml-3 text-sm text-zinc-700 dark:text-zinc-200"
+          class="row-flex flex-1 active:cursor-move gap-2 items-center justify-center text-sm text-zinc-700 dark:text-zinc-200"
         >
           <div :class="winState.icon || 'i-lucide:app-window'" />
           <span>{{ winState.title }}</span>

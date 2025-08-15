@@ -7,6 +7,7 @@ import { createI18n } from 'vue-i18n'
 
 import enUS from '../locales/enUS'
 import zhCN from '../locales/zhCN'
+import { initializeMenuProviders } from '../services/menuInitializer'
 import router from './routes'
 
 import '@unocss/reset/tailwind.css'
@@ -33,6 +34,9 @@ export function setupApp(app: App) {
     .use(PiniaColada)
     .use(i18n)
     .use(MotionPlugin)
+
+  // 初始化菜单提供者
+  initializeMenuProviders()
 
   return app
 }

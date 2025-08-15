@@ -1,19 +1,26 @@
-import type { StatusBarAppMenus, StatusBarClockConfig, StatusBarMenuItem, StatusBarTrayIcon } from '../types/statusBar'
+import type { MenuCommand } from '../types/menuSystem'
+import type { StatusBarAppMenuGroups, StatusBarAppMenus, StatusBarClockConfig, StatusBarMenuItem, StatusBarTrayIcon } from '../types/statusBar'
 import { format } from 'date-fns'
 import { zhCN } from 'date-fns/locale'
 import { useRouter } from 'vue-router'
+import { menuCommandRegistry } from '../services/menuCommandRegistry'
+import { menuProviderManager } from '../services/menuProviderManager'
 
 const statusBarStoreId = 'trantor:status-bar-store' as const
 
 export const useStatusBarStore = defineStore(statusBarStoreId, () => {
   const router = useRouter()
+  const { t } = useI18n()
 
   // 基本配置状态
   const visible = ref(true)
-  const height = ref(32) // macOS 状态栏标准高度
+  const height = ref(32)
 
   // 应用菜单
   const appMenus = ref<StatusBarAppMenus>({})
+
+  // 分散式应用菜单组
+  const appMenuGroups = ref<StatusBarAppMenuGroups>({})
 
   // 托盘图标
   const trayIcons = ref<StatusBarTrayIcon[]>([])
@@ -42,6 +49,14 @@ export const useStatusBarStore = defineStore(statusBarStoreId, () => {
     return appMenus.value[activeAppId.value] || []
   })
 
+  // 当前活跃应用的菜单组 - 使用新的提供者系统
+  const currentAppMenuGroups = computed(() => {
+    const groups = menuProviderManager.getMenuGroups(activeAppId.value)
+    return groups
+      .filter(group => group.visible !== false)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  })
+
   // 可见的托盘图标
   const visibleTrayIcons = computed(() => {
     return trayIcons.value.filter(icon => icon.visible !== false)
@@ -66,6 +81,11 @@ export const useStatusBarStore = defineStore(statusBarStoreId, () => {
   // 设置应用菜单
   const setAppMenus = (appId: string, menus: StatusBarMenuItem[]) => {
     appMenus.value[appId] = menus
+  }
+
+  // 设置应用菜单组
+  const setAppMenuGroups = (appId: string, groups: import('../types/statusBar').StatusBarMenuGroup[]) => {
+    appMenuGroups.value[appId] = groups
   }
 
   // 设置当前激活的应用
@@ -106,6 +126,22 @@ export const useStatusBarStore = defineStore(statusBarStoreId, () => {
     Object.assign(clockConfig.value, config)
   }
 
+  // 执行菜单命令
+  const executeCommand = async (commandId: string, payload?: any) => {
+    const command: MenuCommand = {
+      id: commandId,
+      appId: activeAppId.value,
+      payload,
+    }
+
+    try {
+      await menuCommandRegistry.execute(command)
+    }
+    catch (error) {
+      console.error('Failed to execute menu command:', error)
+    }
+  }
+
   // 清理
   const dispose = () => {
     stopTimeUpdater()
@@ -129,56 +165,11 @@ export const useStatusBarStore = defineStore(statusBarStoreId, () => {
   const initialize = () => {
     // 设置默认应用菜单
     setAppMenus('system', [
-      {
-        id: 'about',
-        label: '关于 MyOS',
-        onClick: () => console.log('About MyOS'),
-      },
-      {
-        id: 'preferences',
-        label: '系统偏好设置...',
-        shortcut: '⌘,',
-        onClick: () => console.log('System Preferences'),
-      },
-      { id: 'sep1', separator: true },
-      {
-        id: 'sleep',
-        label: '休眠',
-        onClick: () => console.log('Sleep'),
-      },
+      { id: 'about', icon: 'i-mdi:information-outline', label: t('os_menu_about'), onClick: () => console.log('About MyOS') },
+      { id: 'back-to-blog', icon: 'i-material-symbols:back-to-tab-rounded', label: t('os_menu_back_to_blog'), onClick: () => router.push('/') },
     ])
 
-    setAppMenus('chat', [
-      {
-        id: 'new-chat',
-        label: '新建对话',
-        shortcut: '⌘N',
-        icon: 'i-lucide:plus',
-      },
-      {
-        id: 'save-chat',
-        label: '保存对话',
-        shortcut: '⌘S',
-        icon: 'i-lucide:save',
-      },
-      { id: 'sep1', separator: true },
-      {
-        id: 'clear-history',
-        label: '清空历史',
-        icon: 'i-lucide:trash-2',
-      },
-    ])
-
-    // 注册默认托盘图标
-    registerTrayIcon({
-      id: 'back-to-blog',
-      icon: 'i-material-symbols:back-to-tab-rounded',
-      tooltip: '返回博客',
-      visible: true,
-      onClick: () => {
-        router.push('/')
-      },
-    })
+    // 菜单配置由各应用的 MenuProvider 负责，此处不再硬编码
 
     // 启动时间更新器
     startTimeUpdater()
@@ -193,23 +184,27 @@ export const useStatusBarStore = defineStore(statusBarStoreId, () => {
     visible,
     height,
     appMenus,
+    appMenuGroups,
     trayIcons,
     clockConfig,
     activeAppId,
     currentTime,
     formattedTime,
     currentAppMenus,
+    currentAppMenuGroups,
     visibleTrayIcons,
 
     // 方法
     initialize,
     setVisible,
     setAppMenus,
+    setAppMenuGroups,
     setActiveApp,
     registerTrayIcon,
     unregisterTrayIcon,
     updateTrayIcon,
     setClockConfig,
+    executeCommand,
     dispose,
   }
 })
