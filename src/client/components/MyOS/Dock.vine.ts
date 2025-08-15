@@ -87,7 +87,7 @@ export function Dock(props: DockProps) {
         <AppIcon
           appId="finder"
           appName="Finder"
-          iconClass="i-ri:finder-fill"
+          :iconClass="activeAppId === 'finder' ? 'i-fxemoji:openfolder' : 'i-fxemoji:folder'"
           :isAuthenticated="isAuthenticated"
           :canAccess="authStore.canAccessApp('finder')"
           :isOpen="openByApp.finder"
@@ -99,7 +99,7 @@ export function Dock(props: DockProps) {
         <AppIcon
           appId="chat"
           appName="AI Chat"
-          iconClass="i-ph:wechat-logo-duotone"
+          iconClass="i-fluent-color:chat-multiple-20"
           :isAuthenticated="isAuthenticated"
           :canAccess="authStore.canAccessApp('chat')"
           :isOpen="openByApp.chat"
@@ -111,7 +111,7 @@ export function Dock(props: DockProps) {
         <AppIcon
           appId="calendar"
           appName="Calendar"
-          iconClass="i-ph:calendar-dots-fill"
+          iconClass="i-fluent-color:calendar-48"
           :isAuthenticated="isAuthenticated"
           :canAccess="authStore.canAccessApp('calendar')"
           :isOpen="openByApp.calendar"

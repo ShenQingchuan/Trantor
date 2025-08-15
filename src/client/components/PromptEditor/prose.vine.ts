@@ -1,3 +1,4 @@
+import type { MentionAttrs } from 'prosekit/extensions/mention'
 import { defineBasicExtension } from 'prosekit/basic'
 import { createEditor, union } from 'prosekit/core'
 import { defineMention } from 'prosekit/extensions/mention'
@@ -34,16 +35,12 @@ const MENTION_PATTERN_REGEX = /@[\da-z]*$/i
 function MentionSymbol() {
   const { t } = useI18n()
   const editor = useEditor<EditorExtension>()
-  const tags = ref<Array<any>>([
-    { id: 1, label: 'John Doe', value: 'john_doe' },
-    { id: 2, label: 'Mike Smith', value: 'mike_smith' },
-    { id: 3, label: 'Jane Miller', value: 'jane_miller' },
-  ])
+  const tags = ref<Array<MentionAttrs>>([])
 
-  const handleTagInsert = (id: number, label: string) => {
+  const handleTagInsert = (id: string, value: string) => {
     editor.value.commands.insertMention({
       id: id.toString(),
-      value: `@${label}`,
+      value: `@${value}`,
       kind: 'symbol',
     })
     editor.value.commands.insertText({ text: ' ' })
@@ -82,9 +79,9 @@ function MentionSymbol() {
             'whitespace-nowrap outline-none ',
             'data-[focused]:bg-neutral-200 dark:data-[focused]:bg-neutral-700',
           ]"
-          @select="() => handleTagInsert(tag.id, tag.label)"
+          @select="() => handleTagInsert(tag.id, tag.value)"
         >
-          {{ tag.label }}
+          {{ tag.value }}
         </AutocompleteItem>
       </AutocompleteList>
     </AutocompletePopover>

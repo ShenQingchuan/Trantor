@@ -55,10 +55,10 @@ export function ChatApp() {
       <div
         class="col-flex gap-2 p-4 min-h-100px max-h-200px absolute bottom-0 left-0 right-0 border-t border-zinc-200/50 dark:border-zinc-700/50 bg-zinc-50 dark:bg-zinc-900"
       >
-        <div class="row-flex gap-3 max-w-4xl mx-auto w-full flex-1 relative">
+        <div class="row-flex gap-3 w-full flex-1 relative">
           <ProseEditor
             ref="editorRef"
-            container-class="min-h-[44px] max-h-[120px] overflow-y-auto bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-md px-4 py-3 focus-within:border-violet-400 dark:focus-within:border-violet-500 transition-colors"
+            container-class="w-full min-h-[44px] max-h-[120px] overflow-y-auto bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-md px-4 py-3 focus-within:border-violet-400 dark:focus-within:border-violet-500 transition-colors"
           />
         </div>
         <div class="row-flex">
