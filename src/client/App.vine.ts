@@ -1,5 +1,4 @@
 import { useDark, useFavicon } from '@vueuse/core'
-import { RouterView } from 'vue-router'
 import { AppToggleActions, DesktopHeader, MobileHeader } from './components/Header.vine'
 
 function CommonHeader() {
@@ -11,15 +10,21 @@ function CommonHeader() {
 }
 
 const hiddenHeaderRoutes = new Set([
-  'MyOS', // MyOS 页面需要全屏沉浸感
+  '/os', // MyOS 页面需要全屏沉浸感
 ])
 
 export function App() {
   const isDark = useDark()
   useFavicon(isDark.value ? '/favicon-dark.ico' : '/favicon.ico')
-  const shouldShowHeader = (routeName: string) => {
-    return routeName && !hiddenHeaderRoutes.has(routeName)
-  }
+  const route = useRoute()
+  const shouldShowHeader = computed(() => {
+    // 在初始加载或刷新时，route.path 可能会短暂地是 '/'，在路由同步到实际 URL 之前。
+    // 这会导致页面闪烁。我们可以通过 window.location.pathname 获取首次渲染时的真实路径。
+    const currentPath = route.path === '/' && window.location.pathname !== '/'
+      ? window.location.pathname
+      : route.path
+    return !hiddenHeaderRoutes.has(currentPath)
+  })
 
   return vine`
     <div
@@ -29,7 +34,7 @@ export function App() {
       }"
     >
       <RouterView v-slot="{ route, Component }">
-        <CommonHeader v-if="shouldShowHeader((route as any).name)" />
+        <CommonHeader v-if="shouldShowHeader" />
         <Transition name="fade" mode="out-in">
           <component :is="Component" />
         </Transition>
