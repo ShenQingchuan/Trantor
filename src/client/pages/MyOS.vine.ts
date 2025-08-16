@@ -62,7 +62,7 @@ export function PageMyOS() {
   }
 
   return vine`
-    <div class="page-my-os col-flex w-full h-full relative">
+    <div class="page-my-os col-flex w-full h-full flex-1 relative">
       <!-- 桌面背景 -->
       <DesktopBackground />
 
@@ -70,7 +70,7 @@ export function PageMyOS() {
       <StatusBar v-if="!isPhoneMode" />
 
       <!-- 主内容区域：桌面模式下需要留出状态栏空间 -->
-      <div class="flex-1 col-flex w-full relative" :class="{ 'pt-8': !isPhoneMode }">
+      <div class="flex-1 col-flex w-full h-full relative" :class="{ 'pt-8': !isPhoneMode }">
         <!-- 未登录时的居中登录界面 -->
         <LoginCard v-if="!authStore.isAuthenticated" />
 
@@ -86,8 +86,8 @@ export function PageMyOS() {
 
         <!-- 手机模式 -->
         <template v-else="authStore.isAuthenticated && isPhoneMode">
-          <div v-motion-fade-visible class="col-flex flex-center w-full h-full">
-            <div class="col-flex flex-center gap-2 text-center">
+          <div v-motion-fade-visible class="col-flex flex-1 flex-center w-full h-full">
+            <div class="col-flex flex-center gap-2 text-center flex-1">
               <div class="i-twemoji:building-construction text-8xl" />
               <div class="mt-4 text-2xl font-bold">{{ t('os_mobile_coming_soon') }}</div>
               <div class="text-xl text-zinc-500">{{ t('os_mobile_coming_soon_subtitle') }}</div>

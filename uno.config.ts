@@ -58,7 +58,7 @@ export default defineConfig({
     ['phone-only', 'visible sm:hidden'],
     ['desktop-only', 'hidden lg:visible'],
     ['tablet-only', 'hidden sm:visible lg:hidden'],
-    ['text-secondary', 'text-zinc-600/80 dark:text-zinc-400/80'],
+    ['text-secondary', 'text-zinc-600 dark:text-light-900/80'],
     [/^badge-color-(\w+)$/, ([, color]) => `bg-${color}-400:20 dark:bg-${color}-400:10 text-${color}-700 dark:text-${color}-300 border-${color}-600:10 dark:border-${color}-300:10`],
   ],
   transformers: [

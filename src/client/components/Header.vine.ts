@@ -161,11 +161,11 @@ export function DesktopHeader() {
       key="signature-desktop"
       class-names="tablet-hidden absolute sm:left-30 top-24px h-auto animate-fade-in z-99"
       width="24px"
-      stroke-width="240"
+      stroke-width="180"
     />
 
     <nav
-      class="trantor-header-nav phone-hidden absolute top-6 w-fit row-flex select-none flex-center self-center rounded-full px-6 py-2 z-99 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl backdrop-saturate-150 border border-gray-200/60 dark:border-gray-700/60 shadow-lg transition-shadow duration-300"
+      class="trantor-header-nav phone-hidden absolute top-6 w-fit row-flex select-none flex-center self-center rounded-full px-6 py-2 z-99 bg-zinc-200/20 dark:bg-gray-800/20 backdrop-blur-xl backdrop-saturate-150 border border-gray-200/60 dark:border-gray-700/60 shadow-lg transition-shadow duration-300"
     >
       <div
         v-for="navItem in headerNavs"
@@ -203,38 +203,23 @@ export function MobileHeader() {
     return item.path === route.path
   }
 
-  vineStyle.scoped(`
-    .trantor-header-nav-item.is-active {
-      color: var(--p-indigo-400);
-    }
-    .trantor-mobile-nav {
-      background-color: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    html.dark .trantor-mobile-nav {
-      background-color: rgba(24, 24, 27, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-  `)
-
   return vine`
     <AnimatedSignature
       key="signature-mobile"
       class-names="desktop-hidden absolute left-10 top-10 h-auto animate-fade-in z-99"
-      width="24px"
-      stroke-width="240"
+      width="20px"
+      stroke-width="180"
     />
 
     <nav
-      class="trantor-header-nav trantor-mobile-nav desktop-hidden absolute right-4 top-13 w-fit row-flex select-none flex-center self-center rounded-full px-4 py-2 z-99"
+      class="trantor-header-nav trantor-mobile-nav backdrop-blur-8px border-(1px solid zinc-500/20) dark:border-zinc-600/20 bg-zinc-100/20 dark:bg-zinc-800/20 desktop-hidden absolute right-4 top-13 w-fit row-flex select-none flex-center self-center rounded-full px-4 py-2 z-99"
     >
       <div
         v-for="navItem in headerNavs"
         :key="navItem.path"
         class="trantor-header-nav-item mx-4 row-flex cursor-pointer transition-all transition-duration-600"
         :class="{
-          'is-active': isActiveNavItem(navItem),
+          'text-indigo-400': isActiveNavItem(navItem),
         }"
         @click="$router.push(navItem.path)"
       >

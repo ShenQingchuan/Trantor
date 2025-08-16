@@ -1,4 +1,3 @@
-
 import { useDark, useIntervalFn } from '@vueuse/core'
 
 interface Particle {
@@ -17,13 +16,14 @@ export function AuroraBackground() {
   const speed = vineProp.withDefault(0.3)
   const size = vineProp.withDefault(400)
   const opacity = vineProp.withDefault(0.8)
-  
+
   const isDark = useDark()
   const colors = computed(() => {
     if (isDark.value) {
       // 深色模式：使用优雅的蓝紫色系
       return ['#8B5CF6', '#7C3AED', '#6366F1', '#3B82F6', '#0EA5E9', '#06B6D4']
-    } else {
+    }
+    else {
       // 浅色模式：使用鲜艳的蓝绿色系
       return ['#3B82F6', '#2563EB', '#1D4ED8', '#0891B2', '#0EA5E9', '#06B6D4']
     }
@@ -208,7 +208,7 @@ export function AuroraBackground() {
     if (resizeTimer) {
       clearTimeout(resizeTimer)
     }
-    
+
     resizeTimer = window.setTimeout(() => {
       const canvasReady = initCanvas()
       if (canvasReady) {
@@ -224,13 +224,15 @@ export function AuroraBackground() {
       // 如果粒子超出新边界，将其移动到边界内
       if (particle.x > width.value + particle.size) {
         particle.x = width.value + particle.size
-      } else if (particle.x < -particle.size) {
+      }
+      else if (particle.x < -particle.size) {
         particle.x = -particle.size
       }
-      
+
       if (particle.y > height.value + particle.size) {
         particle.y = height.value + particle.size
-      } else if (particle.y < -particle.size) {
+      }
+      else if (particle.y < -particle.size) {
         particle.y = -particle.size
       }
     })
@@ -251,23 +253,23 @@ export function AuroraBackground() {
       }
 
       ctx.value = context
-      
+
       // 等待一帧确保DOM布局完成
       await new Promise(resolve => requestAnimationFrame(resolve))
-      
+
       const canvasReady = initCanvas()
       if (canvasReady) {
         createParticles()
         return true
       }
-      
+
       // 重试前等待
       if (attempt < maxRetries) {
         console.warn(`Canvas初始化失败，重试 ${attempt}/${maxRetries}`)
         await new Promise(resolve => setTimeout(resolve, 100 * attempt))
       }
     }
-    
+
     console.error('Canvas初始化失败，已达最大重试次数')
     return false
   }
@@ -275,7 +277,7 @@ export function AuroraBackground() {
   onMounted(async () => {
     // 等待DOM完全渲染和布局计算完成
     await nextTick()
-    
+
     const initialized = await initializeCanvas()
     if (initialized) {
       render()
@@ -291,7 +293,7 @@ export function AuroraBackground() {
   onUnmounted(() => {
     cancelAnimationFrame(animationId)
     window.removeEventListener('resize', handleResize)
-    
+
     // 清理resize定时器
     if (resizeTimer) {
       clearTimeout(resizeTimer)
@@ -307,7 +309,9 @@ export function AuroraBackground() {
 
   return vine`
     <div class="fixed inset-0 z--1">
-      <div class="absolute inset-0 from-slate-100 to-slate-200 dark:from-slate-800 dark:to-black bg-gradient-to-b" />
+      <div
+        class="absolute inset-0 from-slate-100 to-slate-200 dark:from-slate-800 dark:to-black bg-gradient-to-b"
+      />
       <canvas ref="canvas" class="aurora-background absolute inset-0 h-full w-full" />
     </div>
   `
@@ -376,23 +380,23 @@ export function Greeting() {
 
   return vine`
     <div
-    ref="greetingHelloRef"
-    class="greeting-container__hello cursor-silent mx-auto w-fit row-flex text-4xl font-bold"
-  >
-    {{ greetingTexts[0] ?? '你好！' }}
-  </div>
+      ref="greetingHelloRef"
+      class="greeting-container__hello cursor-silent mx-auto w-fit row-flex text-4xl font-bold mt-6 md:mt-0"
+    >
+      {{ greetingTexts[0] ?? '你好！' }}
+    </div>
 
-  <div
-    class="greeting-container__name mx-auto mt-2 w-fit col-flex text-2xl font-700 md:text-5xl md:lh-16"
-  >
-    <span class="cursor-silent my-1">
-      {{ $t('welcome') }}<br>
-      {{ $t('this_is_shenqingchuan_blog') }}
-    </span>
-    <span class="my-1 text-xl text-zinc-600 dark:text-zinc-400">
-      {{ $t('learn_explore_create') }}
-    </span>
-  </div>
+    <div
+      class="greeting-container__name mx-auto mt-2 w-fit col-flex text-2xl font-700 md:text-5xl md:lh-16"
+    >
+      <span class="cursor-silent my-1">
+        {{ $t('welcome') }}<br />
+        {{ $t('this_is_shenqingchuan_blog') }}
+      </span>
+      <span class="my-1 text-xl text-zinc-600 dark:text-zinc-400">
+        {{ $t('learn_explore_create') }}
+      </span>
+    </div>
   `
 }
 
@@ -431,19 +435,35 @@ function FutuLogo() {
   `)
 
   return vine`
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 691.9 170.08"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 691.9 170.08">
       <g>
         <g>
-          <path class="cls-1" d="M158.52,0h-147A11.57,11.57,0,0,0,0,11.56v147a11.57,11.57,0,0,0,11.56,11.57h147a11.57,11.57,0,0,0,11.56-11.57V11.56A11.57,11.57,0,0,0,158.52,0m-45.1,109.62a3.82,3.82,0,0,1-3.82,3.82H88.84A3.82,3.82,0,0,1,85,109.62V88.86A3.82,3.82,0,0,1,88.84,85H109.6a3.82,3.82,0,0,1,3.82,3.82ZM141.76,53a3.8,3.8,0,0,1-3.8,3.8H77.84A21.16,21.16,0,0,0,56.68,78v60.12a3.8,3.8,0,0,1-3.8,3.8H32.08a3.8,3.8,0,0,1-3.8-3.8V70.82A42.41,42.41,0,0,1,70.69,28.41H138a3.8,3.8,0,0,1,3.8,3.8Z" /><rect class="cls-2" x="85.02" y="85.04" width="28.4" height="28.4" rx="3.82" />
-          <path class="cls-2" d="M141.76,53a3.8,3.8,0,0,1-3.8,3.8H77.84A21.16,21.16,0,0,0,56.68,78v60.12a3.8,3.8,0,0,1-3.8,3.8H32.08a3.8,3.8,0,0,1-3.8-3.8V70.82A42.41,42.41,0,0,1,70.69,28.41H138a3.8,3.8,0,0,1,3.8,3.8Z" />
+          <path
+            class="cls-1"
+            d="M158.52,0h-147A11.57,11.57,0,0,0,0,11.56v147a11.57,11.57,0,0,0,11.56,11.57h147a11.57,11.57,0,0,0,11.56-11.57V11.56A11.57,11.57,0,0,0,158.52,0m-45.1,109.62a3.82,3.82,0,0,1-3.82,3.82H88.84A3.82,3.82,0,0,1,85,109.62V88.86A3.82,3.82,0,0,1,88.84,85H109.6a3.82,3.82,0,0,1,3.82,3.82ZM141.76,53a3.8,3.8,0,0,1-3.8,3.8H77.84A21.16,21.16,0,0,0,56.68,78v60.12a3.8,3.8,0,0,1-3.8,3.8H32.08a3.8,3.8,0,0,1-3.8-3.8V70.82A42.41,42.41,0,0,1,70.69,28.41H138a3.8,3.8,0,0,1,3.8,3.8Z"
+          />
+          <rect class="cls-2" x="85.02" y="85.04" width="28.4" height="28.4" rx="3.82" />
+          <path
+            class="cls-2"
+            d="M141.76,53a3.8,3.8,0,0,1-3.8,3.8H77.84A21.16,21.16,0,0,0,56.68,78v60.12a3.8,3.8,0,0,1-3.8,3.8H32.08a3.8,3.8,0,0,1-3.8-3.8V70.82A42.41,42.41,0,0,1,70.69,28.41H138a3.8,3.8,0,0,1,3.8,3.8Z"
+          />
 
-          <path :fill="fill" d="M333.1,97.88a48.9,48.9,0,0,0,48.84,48.85h12a48.9,48.9,0,0,0,48.85-48.85V27.53a4.18,4.18,0,0,0-4.18-4.18H419.9a4.18,4.18,0,0,0-4.18,4.18v73.18a27.79,27.79,0,1,1-55.58,0V27.53A4.18,4.18,0,0,0,356,23.35H337.27a4.18,4.18,0,0,0-4.17,4.18Z" />
-          <path :fill="fill" d="M605.1,23.35H586.41a4.18,4.18,0,0,0-4.17,4.18V97.88a48.9,48.9,0,0,0,48.84,48.85h12A48.9,48.9,0,0,0,691.9,97.88V27.53a4.18,4.18,0,0,0-4.18-4.18H669a4.18,4.18,0,0,0-4.18,4.18v73.18a27.79,27.79,0,1,1-55.58,0V27.53A4.18,4.18,0,0,0,605.1,23.35Z" />
-          <path :fill="fill" d="M212.94,59.63v87.1h9a18.07,18.07,0,0,0,18-18V98.21a.2.2,0,0,1,.2-.2h60a18.08,18.08,0,0,0,18.05-17.85h-78a.19.19,0,0,1-.2-.2V58.28A17.1,17.1,0,0,1,257.06,41.2h43.08a18.08,18.08,0,0,0,18.05-17.85h-69A36.33,36.33,0,0,0,212.94,59.63Z" />
-          <path :fill="fill" d="M457.67,27.53V37a4.18,4.18,0,0,0,4.17,4.18h36.8a.2.2,0,0,1,.2.2V142.55a4.18,4.18,0,0,0,4.18,4.18H521.7a4.18,4.18,0,0,0,4.18-4.18V41.4a.2.2,0,0,1,.2-.2H549a18.06,18.06,0,0,0,18-17.85H461.84A4.18,4.18,0,0,0,457.67,27.53Z" />
+          <path
+            :fill="fill"
+            d="M333.1,97.88a48.9,48.9,0,0,0,48.84,48.85h12a48.9,48.9,0,0,0,48.85-48.85V27.53a4.18,4.18,0,0,0-4.18-4.18H419.9a4.18,4.18,0,0,0-4.18,4.18v73.18a27.79,27.79,0,1,1-55.58,0V27.53A4.18,4.18,0,0,0,356,23.35H337.27a4.18,4.18,0,0,0-4.17,4.18Z"
+          />
+          <path
+            :fill="fill"
+            d="M605.1,23.35H586.41a4.18,4.18,0,0,0-4.17,4.18V97.88a48.9,48.9,0,0,0,48.84,48.85h12A48.9,48.9,0,0,0,691.9,97.88V27.53a4.18,4.18,0,0,0-4.18-4.18H669a4.18,4.18,0,0,0-4.18,4.18v73.18a27.79,27.79,0,1,1-55.58,0V27.53A4.18,4.18,0,0,0,605.1,23.35Z"
+          />
+          <path
+            :fill="fill"
+            d="M212.94,59.63v87.1h9a18.07,18.07,0,0,0,18-18V98.21a.2.2,0,0,1,.2-.2h60a18.08,18.08,0,0,0,18.05-17.85h-78a.19.19,0,0,1-.2-.2V58.28A17.1,17.1,0,0,1,257.06,41.2h43.08a18.08,18.08,0,0,0,18.05-17.85h-69A36.33,36.33,0,0,0,212.94,59.63Z"
+          />
+          <path
+            :fill="fill"
+            d="M457.67,27.53V37a4.18,4.18,0,0,0,4.17,4.18h36.8a.2.2,0,0,1,.2.2V142.55a4.18,4.18,0,0,0,4.18,4.18H521.7a4.18,4.18,0,0,0,4.18-4.18V41.4a.2.2,0,0,1,.2-.2H549a18.06,18.06,0,0,0,18-17.85H461.84A4.18,4.18,0,0,0,457.67,27.53Z"
+          />
         </g>
       </g>
     </svg>
@@ -451,18 +471,80 @@ function FutuLogo() {
 }
 
 function BytedanceLogo() {
-  const fill = useLogoFill()
   return vine`
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16219.041 2798.1476"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16219.041 2798.1476">
       <g id="g68" transform="translate(-5889.2439,-88.063461)">
-        <path id="path58" style="fill:#3259b4;fill-opacity:1;stroke:none;stroke-width:10px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 5889.2439,198.14279 495.357,143.10312 V 2322.6738 l -495.357,143.1031 z" />
-        <path id="path60" style="fill:#3c8cff;fill-opacity:1;stroke:none;stroke-width:10px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 6670.8071,1210.8726 484.3491,121.0872 v 1067.7695 l -484.3491,99.0714 z" />
-        <path id="path62" style="fill:#00c8d2;fill-opacity:1;stroke:none;stroke-width:10px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 7496.4021,1001.7219 7947.7273,880.63461 V 2190.5786 l -451.3252,-132.0952 z" />
-        <path id="path64" style="fill:#78e6dd;fill-opacity:1;stroke:none;stroke-width:10px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 8244.9415,88.063461 495.357,143.103119 V 2454.769 l -495.357,121.0872 z" />
-        <path id="path49" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2647.62px;line-height:1.25;font-family:'Geometr706 Md BT';-inkscape-font-specification:'Geometr706 Md BT';letter-spacing:0px;word-spacing:0px;fill:#3259b4;fill-opacity:1;stroke-width:93.437" d="m 20976.329,1586.9411 h 874.026 q -22.003,-165.8898 -141.8,-268.8141 -119.796,-102.9243 -290.934,-102.9243 -173.582,0 -298.269,105.346 -123.464,104.1352 -143.023,266.3924 z m 0,184.0528 q 12.225,179.2094 141.8,290.6098 130.799,111.4005 328.83,111.4005 127.13,0 237.149,-53.2785 110.016,-53.2785 201.697,-157.4136 l 167.471,133.1961 q -125.909,145.3049 -276.266,214.3247 -149.134,69.0198 -337.385,69.0198 -155.246,0 -289.713,-55.7002 -134.465,-55.7002 -231.036,-158.6245 -84.347,-90.8156 -129.576,-209.4812 -45.229,-119.8766 -45.229,-250.651 0,-309.9837 187.03,-501.3018 187.028,-191.3181 488.966,-191.3181 308.047,0 497.521,204.6377 190.697,203.4269 190.697,537.628 v 16.9523 z m -512.541,-423.8059 q -60.745,-67.809 -138.847,-99.2917 -76.862,-32.6936 -176.038,-32.6936 -192.155,0 -316.126,135.6179 -122.73,134.4071 -122.73,345.0991 0,210.6921 121.491,343.8883 122.73,133.1962 317.365,133.1962 105.375,0 185.957,-36.3263 81.819,-36.3262 138.846,-107.7678 l 152.484,170.7333 q -104.136,93.2373 -219.428,136.8287 -114.053,42.3806 -257.859,42.3806 -147.525,0 -272.736,-48.4349 -125.209,-48.4351 -216.948,-140.4615 -97.937,-96.8698 -148.765,-221.5899 -49.589,-125.9309 -49.589,-272.4467 0,-146.5157 49.589,-272.4467 50.828,-125.9308 148.765,-222.8008 92.978,-93.2373 216.948,-140.4614 123.971,-48.4349 272.736,-48.4349 141.326,0 255.38,41.1697 115.292,41.1697 209.51,124.72 z m -2257.02,998.9712 V 1044.4695 h 232.044 v 148.9375 q 87.633,-88.3938 183.906,-130.7744 97.507,-43.5915 208.592,-43.5915 228.34,0 360.407,152.5702 132.067,152.5701 132.067,420.1733 v 754.3746 h -234.512 v -731.368 q 0,-204.6378 -72.822,-299.0859 -71.587,-95.6591 -225.871,-95.6591 -175.266,0 -264.134,101.7134 -87.633,100.5026 -87.633,302.7185 v 721.6811 z m -892.716,-181.6312 q 196.244,0 322.659,-131.9853 126.414,-131.9853 126.414,-339.0447 0,-205.8486 -126.414,-337.8338 -126.415,-133.1962 -322.659,-133.1962 -196.242,0 -322.659,131.9853 -126.414,131.9852 -126.414,339.0447 0,208.2703 126.414,340.2556 126.417,130.7744 322.659,130.7744 z m 665.785,181.6312 h -228.75 v -213.1139 q -81.87,115.033 -199.856,173.155 -116.783,56.911 -268.481,56.911 -134.843,0 -257.645,-50.8567 -121.6,-52.0676 -216.712,-150.1483 -90.296,-94.4482 -136.045,-213.1139 -45.751,-118.6656 -45.751,-257.9162 0,-301.5076 179.389,-486.7714 180.592,-185.2637 476.764,-185.2637 149.29,0 273.296,61.7546 124.007,60.5437 211.895,176.7876 v -213.1138 h 211.896 z M 15269.933,675.15287 V 2123.3582 h 180.032 q 393.672,0 592.908,-182.8419 200.436,-182.842 200.436,-541.2608 0,-359.6295 -200.436,-541.26064 -199.236,-182.84199 -592.908,-182.84199 z m 142.825,-224.0117 q 528.095,0 802.946,242.17481 276.05,240.96395 276.05,705.93952 0,463.7648 -276.05,705.9397 -274.851,240.964 -802.946,240.964 h -388.87 V 451.14117 Z M 13561.982,1586.9411 h 859.921 q -21.648,-165.8898 -139.511,-268.8141 -117.863,-102.9243 -286.24,-102.9243 -170.781,0 -293.455,105.346 -121.471,104.1352 -140.715,266.3924 z m 0,184.0528 q 12.028,179.2094 139.513,290.6098 128.687,111.4005 323.522,111.4005 125.079,0 233.321,-53.2785 108.241,-53.2785 198.443,-157.4136 l 164.768,133.1961 q -123.876,145.3049 -271.807,214.3247 -146.728,69.0198 -331.941,69.0198 -152.741,0 -285.037,-55.7002 -132.295,-55.7002 -227.307,-158.6245 -82.985,-90.8156 -127.484,-209.4812 -44.5,-119.8766 -44.5,-250.651 0,-309.9837 184.01,-501.3018 184.012,-191.3181 481.075,-191.3181 303.076,0 489.494,204.6377 187.618,203.4269 187.618,537.628 v 16.9523 z m -868.74,-1043.76734 v 317.24614 h -194.609 -260.176 l -349.805,823.3984 c -5.809,13.7232 -17.015,44.384 -33.613,92.0117 -15.769,46.8205 -35.259,104.5479 -58.496,173.1641 -20.747,-72.6525 -38.597,-131.9946 -53.535,-178.0078 -14.109,-46.0133 -24.074,-75.0593 -29.883,-87.168 l -344.824,-823.3984 h -265.137 l 558.926,1301.6796 -235.274,540.0586 h 240.254 l 747.813,-1656.2695 278.359,8.2617 v 837.9297 c 0,108.9787 28.069,186.8709 84.199,233.6914 56.129,46.0132 150.447,69.0235 282.95,69.0235 h 147.695 v -219.1602 h -138.027 c -39.567,0 -68.551,-8.8811 -86.954,-26.6406 -17.483,-17.7595 -26.23,-46.0176 -26.23,-84.7657 v -810.0781 h 251.211 v -193.7304 h -251.211 V 727.22656 Z M 9676.5955,2346.1592 V 451.14117 h 367.1415 q 212.556,0 335.397,19.37398 124.221,18.16311 205.655,60.5437 139.403,72.65245 211.175,184.05287 73.153,110.18953 73.153,249.4401 0,115.03298 -67.632,210.69198 -66.25,95.6591 -189.091,156.2028 201.513,58.122 305.031,181.6312 104.898,122.2982 104.898,302.7185 0,224.0117 -201.514,377.7927 -200.134,152.5702 -499.645,152.5702 z m 280.1873,-1078.8889 h 231.8792 q 193.233,0 298.13,-78.7068 106.278,-78.7069 106.278,-221.59 0,-150.14836 -106.278,-226.43343 -106.278,-76.28507 -317.453,-76.28507 h -212.5562 z m 0,856.0879 h 285.7082 q 241.541,0 365.762,-81.1284 125.601,-81.1286 125.601,-239.7531 0,-156.2028 -121.46,-236.1205 -121.461,-81.1285 -358.861,-81.1285 h -296.7502 z" />
+        <path
+          id="path58"
+          style="
+            fill: #3259b4;
+            fill-opacity: 1;
+            stroke: none;
+            stroke-width: 10px;
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-opacity: 1;
+          "
+          d="m 5889.2439,198.14279 495.357,143.10312 V 2322.6738 l -495.357,143.1031 z"
+        />
+        <path
+          id="path60"
+          style="
+            fill: #3c8cff;
+            fill-opacity: 1;
+            stroke: none;
+            stroke-width: 10px;
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-opacity: 1;
+          "
+          d="m 6670.8071,1210.8726 484.3491,121.0872 v 1067.7695 l -484.3491,99.0714 z"
+        />
+        <path
+          id="path62"
+          style="
+            fill: #00c8d2;
+            fill-opacity: 1;
+            stroke: none;
+            stroke-width: 10px;
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-opacity: 1;
+          "
+          d="M 7496.4021,1001.7219 7947.7273,880.63461 V 2190.5786 l -451.3252,-132.0952 z"
+        />
+        <path
+          id="path64"
+          style="
+            fill: #78e6dd;
+            fill-opacity: 1;
+            stroke: none;
+            stroke-width: 10px;
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            stroke-opacity: 1;
+          "
+          d="m 8244.9415,88.063461 495.357,143.103119 V 2454.769 l -495.357,121.0872 z"
+        />
+        <path
+          id="path49"
+          style="
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            font-stretch: normal;
+            font-size: 2647.62px;
+            line-height: 1.25;
+            font-family: 'Geometr706 Md BT';
+            -inkscape-font-specification: 'Geometr706 Md BT';
+            letter-spacing: 0px;
+            word-spacing: 0px;
+            fill: #3259b4;
+            fill-opacity: 1;
+            stroke-width: 93.437;
+          "
+          d="m 20976.329,1586.9411 h 874.026 q -22.003,-165.8898 -141.8,-268.8141 -119.796,-102.9243 -290.934,-102.9243 -173.582,0 -298.269,105.346 -123.464,104.1352 -143.023,266.3924 z m 0,184.0528 q 12.225,179.2094 141.8,290.6098 130.799,111.4005 328.83,111.4005 127.13,0 237.149,-53.2785 110.016,-53.2785 201.697,-157.4136 l 167.471,133.1961 q -125.909,145.3049 -276.266,214.3247 -149.134,69.0198 -337.385,69.0198 -155.246,0 -289.713,-55.7002 -134.465,-55.7002 -231.036,-158.6245 -84.347,-90.8156 -129.576,-209.4812 -45.229,-119.8766 -45.229,-250.651 0,-309.9837 187.03,-501.3018 187.028,-191.3181 488.966,-191.3181 308.047,0 497.521,204.6377 190.697,203.4269 190.697,537.628 v 16.9523 z m -512.541,-423.8059 q -60.745,-67.809 -138.847,-99.2917 -76.862,-32.6936 -176.038,-32.6936 -192.155,0 -316.126,135.6179 -122.73,134.4071 -122.73,345.0991 0,210.6921 121.491,343.8883 122.73,133.1962 317.365,133.1962 105.375,0 185.957,-36.3263 81.819,-36.3262 138.846,-107.7678 l 152.484,170.7333 q -104.136,93.2373 -219.428,136.8287 -114.053,42.3806 -257.859,42.3806 -147.525,0 -272.736,-48.4349 -125.209,-48.4351 -216.948,-140.4615 -97.937,-96.8698 -148.765,-221.5899 -49.589,-125.9309 -49.589,-272.4467 0,-146.5157 49.589,-272.4467 50.828,-125.9308 148.765,-222.8008 92.978,-93.2373 216.948,-140.4614 123.971,-48.4349 272.736,-48.4349 141.326,0 255.38,41.1697 115.292,41.1697 209.51,124.72 z m -2257.02,998.9712 V 1044.4695 h 232.044 v 148.9375 q 87.633,-88.3938 183.906,-130.7744 97.507,-43.5915 208.592,-43.5915 228.34,0 360.407,152.5702 132.067,152.5701 132.067,420.1733 v 754.3746 h -234.512 v -731.368 q 0,-204.6378 -72.822,-299.0859 -71.587,-95.6591 -225.871,-95.6591 -175.266,0 -264.134,101.7134 -87.633,100.5026 -87.633,302.7185 v 721.6811 z m -892.716,-181.6312 q 196.244,0 322.659,-131.9853 126.414,-131.9853 126.414,-339.0447 0,-205.8486 -126.414,-337.8338 -126.415,-133.1962 -322.659,-133.1962 -196.242,0 -322.659,131.9853 -126.414,131.9852 -126.414,339.0447 0,208.2703 126.414,340.2556 126.417,130.7744 322.659,130.7744 z m 665.785,181.6312 h -228.75 v -213.1139 q -81.87,115.033 -199.856,173.155 -116.783,56.911 -268.481,56.911 -134.843,0 -257.645,-50.8567 -121.6,-52.0676 -216.712,-150.1483 -90.296,-94.4482 -136.045,-213.1139 -45.751,-118.6656 -45.751,-257.9162 0,-301.5076 179.389,-486.7714 180.592,-185.2637 476.764,-185.2637 149.29,0 273.296,61.7546 124.007,60.5437 211.895,176.7876 v -213.1138 h 211.896 z M 15269.933,675.15287 V 2123.3582 h 180.032 q 393.672,0 592.908,-182.8419 200.436,-182.842 200.436,-541.2608 0,-359.6295 -200.436,-541.26064 -199.236,-182.84199 -592.908,-182.84199 z m 142.825,-224.0117 q 528.095,0 802.946,242.17481 276.05,240.96395 276.05,705.93952 0,463.7648 -276.05,705.9397 -274.851,240.964 -802.946,240.964 h -388.87 V 451.14117 Z M 13561.982,1586.9411 h 859.921 q -21.648,-165.8898 -139.511,-268.8141 -117.863,-102.9243 -286.24,-102.9243 -170.781,0 -293.455,105.346 -121.471,104.1352 -140.715,266.3924 z m 0,184.0528 q 12.028,179.2094 139.513,290.6098 128.687,111.4005 323.522,111.4005 125.079,0 233.321,-53.2785 108.241,-53.2785 198.443,-157.4136 l 164.768,133.1961 q -123.876,145.3049 -271.807,214.3247 -146.728,69.0198 -331.941,69.0198 -152.741,0 -285.037,-55.7002 -132.295,-55.7002 -227.307,-158.6245 -82.985,-90.8156 -127.484,-209.4812 -44.5,-119.8766 -44.5,-250.651 0,-309.9837 184.01,-501.3018 184.012,-191.3181 481.075,-191.3181 303.076,0 489.494,204.6377 187.618,203.4269 187.618,537.628 v 16.9523 z m -868.74,-1043.76734 v 317.24614 h -194.609 -260.176 l -349.805,823.3984 c -5.809,13.7232 -17.015,44.384 -33.613,92.0117 -15.769,46.8205 -35.259,104.5479 -58.496,173.1641 -20.747,-72.6525 -38.597,-131.9946 -53.535,-178.0078 -14.109,-46.0133 -24.074,-75.0593 -29.883,-87.168 l -344.824,-823.3984 h -265.137 l 558.926,1301.6796 -235.274,540.0586 h 240.254 l 747.813,-1656.2695 278.359,8.2617 v 837.9297 c 0,108.9787 28.069,186.8709 84.199,233.6914 56.129,46.0132 150.447,69.0235 282.95,69.0235 h 147.695 v -219.1602 h -138.027 c -39.567,0 -68.551,-8.8811 -86.954,-26.6406 -17.483,-17.7595 -26.23,-46.0176 -26.23,-84.7657 v -810.0781 h 251.211 v -193.7304 h -251.211 V 727.22656 Z M 9676.5955,2346.1592 V 451.14117 h 367.1415 q 212.556,0 335.397,19.37398 124.221,18.16311 205.655,60.5437 139.403,72.65245 211.175,184.05287 73.153,110.18953 73.153,249.4401 0,115.03298 -67.632,210.69198 -66.25,95.6591 -189.091,156.2028 201.513,58.122 305.031,181.6312 104.898,122.2982 104.898,302.7185 0,224.0117 -201.514,377.7927 -200.134,152.5702 -499.645,152.5702 z m 280.1873,-1078.8889 h 231.8792 q 193.233,0 298.13,-78.7068 106.278,-78.7069 106.278,-221.59 0,-150.14836 -106.278,-226.43343 -106.278,-76.28507 -317.453,-76.28507 h -212.5562 z m 0,856.0879 h 285.7082 q 241.541,0 365.762,-81.1284 125.601,-81.1286 125.601,-239.7531 0,-156.2028 -121.46,-236.1205 -121.461,-81.1285 -358.861,-81.1285 h -296.7502 z"
+        />
       </g>
     </svg>
   `
@@ -491,27 +573,35 @@ function SheinLogo() {
 export function WhoAmI() {
   return vine`
     <div class="who-am-i relative mx-auto mt-6 w-fit w-full col-flex items-center z-3">
-      <div class="who-am-i__title cursor-silent absolute whitespace-nowrap text-6xl color-transparent text-stroke-2 text-stroke-zinc-200/40 op-30 sm:text-8xl light:text-stroke-zinc-700/60">
+      <div
+        class="who-am-i__title cursor-silent absolute whitespace-nowrap text-6xl color-transparent text-stroke-2 text-stroke-zinc-200/40 op-30 sm:text-8xl light:text-stroke-zinc-700/60"
+      >
         WHO AM I
       </div>
       <div class="who-am-i__content ml-2 mt-8 col-flex leading-8 sm:mt-16">
         <div class="cursor-silent text-2xl">
           {{ $t('front_end_developer') }}
-          <br class="visible sm:hidden">
-          <div class="inline-block text-xl text-secondary sm:ml-2 dark:text-zinc-300">
-            <div class="i-material-symbols:location-on-rounded inline-block transform-translate-y-0.5 text-base" /> {{ $t('current_location') }}
+          <br class="visible sm:hidden" />
+          <div class="inline-block text-xl text-secondary sm:ml-2">
+            <div
+              class="i-material-symbols:location-on-rounded inline-block transform-translate-y-0.5 text-base"
+            />
+            {{ $t('current_location') }}
           </div>
         </div>
 
         <div class="cursor-silent mb-6 mt-2 col-flex text-base text-secondary">
           <div class="mb-1 row-flex">
-            <div class="i-lucide:code-xml mr-2 icon-div" />{{ $t('fanatical_oss_enthusiast') }}
+            <div class="i-lucide:code-xml mr-2 icon-div" />
+            {{ $t('fanatical_oss_enthusiast') }}
           </div>
           <div class="mb-1 row-flex">
-            <div class="i-lucide:mic-vocal mr-2 icon-div" />{{ $t('music_lover') }}
+            <div class="i-lucide:mic-vocal mr-2 icon-div" />
+            {{ $t('music_lover') }}
           </div>
           <div class="mb-1 row-flex">
-            <div class="i-lucide:gamepad-2 mr-2 icon-div" />{{ $t('valorant_lover') }}
+            <div class="i-lucide:gamepad-2 mr-2 icon-div" />
+            {{ $t('valorant_lover') }}
           </div>
         </div>
 
@@ -536,15 +626,23 @@ export function WhoAmI() {
           <div class="cursor-silent whitespace-nowrap">
             {{ $t('author_of') }}
           </div>
-          <LinkBtn class="font-bold text-emerald-500 after:border-emerald-300 light:text-emerald-600 light:after:border-emerald-600" href="https://vue-vine.dev" target="_blank">
+          <LinkBtn
+            class="font-bold text-emerald-500 after:border-emerald-300 light:text-emerald-600 light:after:border-emerald-600"
+            href="https://vue-vine.dev"
+            target="_blank"
+          >
             <template #icon>
-              <img class="w-6 transform-translate-y--0.5" src="https://vue-vine.dev/vine-logo.png" alt="Vue Vine">
+              <img
+                class="w-6 transform-translate-y--0.5"
+                src="https://vue-vine.dev/vine-logo.png"
+                alt="Vue Vine"
+              />
             </template>
-            <div class="whitespace-nowrap">
-              Vue Vine
-            </div>
+            <div class="whitespace-nowrap">Vue Vine</div>
           </LinkBtn>
-          <div class="row-flex transform-translate-x-6 select-none whitespace-nowrap break-all text-sm text-secondary phone-hidden md:flex-basis-auto">
+          <div
+            class="row-flex transform-translate-x-6 select-none whitespace-nowrap break-all text-sm text-secondary phone-hidden md:flex-basis-auto"
+          >
             <div class="i-lucide:arrow-left mx-1 inline-block" />
             Made with
             <div class="i-twemoji:sparkling-heart mx-1 inline-block text-base" />
@@ -564,13 +662,21 @@ export function WhoAmI() {
             {{ $t('former_maintainer_of') }}
           </div>
           <div class="row-flex flex-nowrap gap-1">
-            <LinkBtn class="font-bold text-violet-500 after:border-violet-300 light:text-violet-600 light:after:border-violet-600" href="https://cn.vite.dev" target="_blank">
+            <LinkBtn
+              class="font-bold text-violet-500 after:border-violet-300 light:text-violet-600 light:after:border-violet-600"
+              href="https://cn.vite.dev"
+              target="_blank"
+            >
               <template #icon>
                 <div class="i-logos:vitejs inline-block text-base" />
               </template>
               <span class="phone-hidden">Vite</span> {{ $t('chinese_docs') }}
             </LinkBtn>
-            <LinkBtn class="font-bold text-orange-500 after:border-orange-500 light:text-orange-600 light:after:border-orange-600" href="https://cn.rollupjs.org" target="_blank">
+            <LinkBtn
+              class="font-bold text-orange-500 after:border-orange-500 light:text-orange-600 light:after:border-orange-600"
+              href="https://cn.rollupjs.org"
+              target="_blank"
+            >
               <template #icon>
                 <div class="i-logos:rollupjs inline-block text-base" />
               </template>
