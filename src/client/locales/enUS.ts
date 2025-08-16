@@ -36,6 +36,7 @@ export default {
   os_logged_in: 'Logged In',
   os_not_logged_in: 'Not Logged In',
   os_password_prompt: 'Enter password to continue',
+  os_login_error: 'Login failed!',
   os_login_title: 'My OS',
   os_validating: 'Validating...',
 
@@ -45,10 +46,14 @@ export default {
   os_app_not_implemented: 'Not implemented: {appId}',
   auth_password_placeholder: 'Enter system password',
   auth_password_required: 'Password is required',
-  auth_password_error: 'Password is incorrect, please try again',
+  auth_password_error: 'Password incorrect, please try again',
 
   os_menu_about: 'About MyOS',
   os_menu_back_to_blog: 'Back to blog',
+
+  about_myos_title: 'About MyOS',
+  about_myos_version: 'Version {version}',
+  about_myos_description: 'Be a hacker🧑🏻‍💻 and painter🎨',
 
   dialog__cancel: 'Cancel',
   dialog__confirm: 'Confirm',

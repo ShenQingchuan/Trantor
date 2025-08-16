@@ -165,7 +165,7 @@ export const useStatusBarStore = defineStore(statusBarStoreId, () => {
   const initialize = () => {
     // 设置默认应用菜单
     setAppMenus('system', [
-      { id: 'about', icon: 'i-mdi:information-outline', label: t('os_menu_about'), onClick: () => console.log('About MyOS') },
+      { id: 'about', icon: 'i-mdi:information-outline', label: t('os_menu_about') },
       { id: 'back-to-blog', icon: 'i-material-symbols:back-to-tab-rounded', label: t('os_menu_back_to_blog'), onClick: () => router.push('/') },
     ])
 

@@ -48,6 +48,10 @@ export default {
   os_menu_about: '关于 MyOS',
   os_menu_back_to_blog: '返回博客主页',
 
+  about_myos_title: '关于 MyOS',
+  about_myos_version: '版本 {version}',
+  about_myos_description: '做黑客🧑🏻‍💻 与画家🎨',
+
   auth_password_placeholder: '输入系统密码',
   auth_password_required: '请输入密码',
   auth_password_error: '密码错误，请重试',

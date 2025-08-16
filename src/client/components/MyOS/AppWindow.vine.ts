@@ -1,5 +1,6 @@
 import type { AppWindowState } from '../../types/windowManager'
 import { useWindowStore } from '../../stores/windowStore'
+import ResizeHandle from './ResizeHandle.vine'
 
 export function DesktopAppWindowContainer(props: {
   winState: AppWindowState
@@ -10,6 +11,7 @@ export function DesktopAppWindowContainer(props: {
   const startPos = reactive({ x: 0, y: 0 })
   const startSize = reactive({ w: 0, h: 0 })
   const startWindowPos = reactive({ x: 0, y: 0 })
+  const resizeDirection = ref('se')
 
   const onDragging = (e: MouseEvent) => {
     if (!isDragging.value)
@@ -41,19 +43,52 @@ export function DesktopAppWindowContainer(props: {
       return
     const dw = e.clientX - startPos.x
     const dh = e.clientY - startPos.y
-    store.resizeWindow(props.winState.id, startSize.w + dw, startSize.h + dh)
+
+    let newWidth = startSize.w
+    let newHeight = startSize.h
+    let newX = startWindowPos.x
+    let newY = startWindowPos.y
+
+    // 根据调整方向计算新的尺寸和位置
+    if (resizeDirection.value.includes('e')) { // 右边
+      newWidth = startSize.w + dw
+    }
+    if (resizeDirection.value.includes('w')) { // 左边
+      newWidth = startSize.w - dw
+      newX = startWindowPos.x + dw
+    }
+    if (resizeDirection.value.includes('s')) { // 下边
+      newHeight = startSize.h + dh
+    }
+    if (resizeDirection.value.includes('n')) { // 上边
+      newHeight = startSize.h - dh
+      newY = startWindowPos.y + dh
+    }
+
+    // 先调整位置，再调整尺寸
+    if (newX !== startWindowPos.x || newY !== startWindowPos.y) {
+      store.moveWindow(props.winState.id, newX, newY)
+    }
+    store.resizeWindow(props.winState.id, newWidth, newHeight)
   }
+
   const onResizeEnd = () => {
     isResizing.value = false
     window.removeEventListener('mousemove', onResizing)
   }
-  const onResizeStart = (e: MouseEvent) => {
+
+  const handleResizeStart = (direction: string, e: MouseEvent) => {
     e.preventDefault()
+    e.stopPropagation()
     isResizing.value = true
+    resizeDirection.value = direction
     startPos.x = e.clientX
     startPos.y = e.clientY
     startSize.w = props.winState.width
     startSize.h = props.winState.height
+    startWindowPos.x = props.winState.x
+    startWindowPos.y = props.winState.y
+
     store.setActive(props.winState.id)
     window.addEventListener('mousemove', onResizing)
     window.addEventListener('mouseup', onResizeEnd, { once: true })
@@ -107,7 +142,7 @@ export function DesktopAppWindowContainer(props: {
     >
       <!-- 标题栏 -->
       <div
-        class="row-flex items-center gap-2 px-3 select-none bg-zinc-100/60 dark:bg-zinc-800/60 h-40px"
+        class="relative active:cursor-move row-flex items-center gap-2 px-3 select-none bg-zinc-100/60 dark:bg-zinc-800/60 h-40px"
         @mousedown.stop="onMouseDownHeader"
       >
         <div class="row-flex gap-2 items-center cursor-default py-4">
@@ -115,10 +150,12 @@ export function DesktopAppWindowContainer(props: {
           <div class="traffic-dot bg-yellow-400 cursor-pointer" @click.stop="onMinimize" />
           <div class="traffic-dot bg-green-400 cursor-pointer" @click.stop="onMaximize" />
         </div>
+
+        <!-- 绝对居中的标题 -->
         <div
-          class="row-flex flex-1 active:cursor-move gap-2 items-center justify-center text-sm text-zinc-700 dark:text-zinc-200"
+          class="absolute inset-0 row-flex items-center justify-center gap-2 text-sm text-zinc-700 dark:text-zinc-200 pointer-events-none"
         >
-          <div :class="winState.icon || 'i-lucide:app-window'" />
+          <div v-show="winState.icon" :class="winState.icon" />
           <span>{{ winState.title }}</span>
         </div>
       </div>
@@ -128,13 +165,16 @@ export function DesktopAppWindowContainer(props: {
         <slot />
       </div>
 
-      <!-- 右下角调整尺寸手柄 -->
-      <div
-        class="absolute right-1 bottom-1 w-5 h-5 cursor-se-resize opacity-0"
-        @mousedown.stop="onResizeStart"
-      >
-        <div class="i-lucide:move-diagonal-2 text-zinc-400" />
-      </div>
+      <!-- 调整尺寸手柄 -->
+      <!-- 四边 -->
+      <ResizeHandle direction="e" position="edge" @resize-start="handleResizeStart" />
+      <ResizeHandle direction="w" position="edge" @resize-start="handleResizeStart" />
+      <ResizeHandle direction="s" position="edge" @resize-start="handleResizeStart" />
+
+      <!-- 四角 -->
+      <ResizeHandle direction="se" position="corner" @resize-start="handleResizeStart" />
+      <ResizeHandle direction="sw" position="corner" @resize-start="handleResizeStart" />
+      <ResizeHandle direction="ne" position="corner" @resize-start="handleResizeStart" />
     </div>
   `
 }

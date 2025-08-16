@@ -13,6 +13,8 @@ export interface AppWindowState {
   height: number
   x: number
   y: number
+  minWidth?: number
+  minHeight?: number
 }
 
 export interface OpenWindowOptions {
@@ -20,4 +22,5 @@ export interface OpenWindowOptions {
   title: string
   icon?: string
   initial?: Partial<Pick<AppWindowState, 'width' | 'height' | 'x' | 'y'>>
+  constraints?: Partial<Pick<AppWindowState, 'minWidth' | 'minHeight'>>
 }

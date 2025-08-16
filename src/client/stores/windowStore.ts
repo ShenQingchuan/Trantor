@@ -79,6 +79,8 @@ export const useWindowStore = defineStore(storeId, () => {
       height: initHeight,
       x: clampedX,
       y: clampedY,
+      minWidth: options.constraints?.minWidth,
+      minHeight: options.constraints?.minHeight,
     }
     windows.value.push(w)
     setActive(id)
@@ -147,16 +149,11 @@ export const useWindowStore = defineStore(storeId, () => {
     const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1920
     const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1080
     const dockReserve = 96
-    
-    // 根据应用类型设置不同的最小尺寸
-    let minWidth = 360
-    let minHeight = 200
-    
-    if (w.appId === 'chat') {
-      minWidth = 480  // ChatApp 需要更宽的最小宽度
-      minHeight = 400 // ChatApp 需要更高的最小高度，确保输入区域不被裁剪
-    }
-    
+
+    // 从窗口状态中获取最小尺寸配置，如果没有则使用默认值
+    const minWidth = w.minWidth ?? 360
+    const minHeight = w.minHeight ?? 200
+
     const maxWidth = Math.max(minWidth, viewportWidth - w.x - 8)
     const maxHeight = Math.max(minHeight, viewportHeight - w.y - dockReserve)
     w.width = Math.max(minWidth, Math.min(width, maxWidth))

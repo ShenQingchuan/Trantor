@@ -8,7 +8,7 @@ const router = createRouter({
     { path: '/', component: PageHome },
     { path: '/articles', component: () => import('../pages/ArticleList.vine').then(m => m.PageArticles) },
     { path: '/articles/:path', component: () => import('../pages/Article.vine').then(m => m.PageArticleContent) },
-    { path: '/os', component: () => import('../pages/MyOS.vine').then(m => m.PageMyOS) },
+    { path: '/os', name: 'MyOS', component: () => import('../pages/MyOS.vine').then(m => m.PageMyOS) },
     // 404 fallback
     { path: '/:pathMatch(.*)*', component: Default },
   ],

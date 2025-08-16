@@ -35,16 +35,18 @@ export function Alert(props: {
   })
 
   return vine`
-    <div class="alert row-flex gap-4 rounded-md" :class="[type]">
-      <slot name="icon">
-        <div class="alert-icon text-4xl" :class="[iconClass]" />
-      </slot>
+    <div class="alert font-sans row-flex gap-4 rounded-md" :class="[type]">
       <div class="col-flex gap-1">
-        <slot name="title">
-          <div class="alert-title font-bold">
-            {{ title }}
-          </div>
-        </slot>
+        <div class="row-flex gap-2">
+          <slot name="icon">
+            <div class="alert-icon text-2xl" :class="[iconClass]" />
+          </slot>
+          <slot name="title">
+            <div class="alert-title font-bold row-flex text-xl">
+              {{ title }}
+            </div>
+          </slot>
+        </div>
         <slot name="message">
           <div class="alert-message">
             {{ message }}

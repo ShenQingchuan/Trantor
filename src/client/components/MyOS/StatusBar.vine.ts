@@ -1,6 +1,8 @@
 import type { CommandMenuItem } from '../../types/menuSystem'
 import type { StatusBarMenuItem } from '../../types/statusBar'
+import { useDark } from '@vueuse/core'
 import { useStatusBarStore } from '../../stores/statusBarStore'
+import { useWindowStore } from '../../stores/windowStore'
 
 // 菜单项组件
 function StatusBarMenuDropdown(props: {
@@ -114,12 +116,14 @@ function StatusBarClock() {
 
 // 主状态栏组件
 export function StatusBar() {
+  const { t } = useI18n()
   const statusBarStore = useStatusBarStore()
+  const windowStore = useWindowStore()
   const { visible, height, currentAppMenuGroups, visibleTrayIcons } = storeToRefs(statusBarStore)
 
   const openMenus = ref<Set<string>>(new Set())
   const heightStyle = computed(() => `${height.value}px`)
-  const isDark = ref(true)
+  const isDark = useDark()
 
   // 监听主题变化
   onMounted(() => {
@@ -129,15 +133,7 @@ export function StatusBar() {
 
   // 切换主题
   const toggleTheme = () => {
-    const html = document.documentElement
-    if (html.classList.contains('dark')) {
-      html.classList.remove('dark')
-      isDark.value = false
-    }
-    else {
-      html.classList.add('dark')
-      isDark.value = true
-    }
+    isDark.value = !isDark.value
   }
 
   const toggleMenu = (menuId: string) => {
@@ -157,7 +153,23 @@ export function StatusBar() {
   }
 
   const onMenuItemClick = (item: StatusBarMenuItem) => {
-    item.onClick?.()
+    if (item.id === 'about') {
+      windowStore.openWindow({
+        appId: 'about',
+        title: t('about_myos_title'),
+        initial: {
+          width: 250,
+          height: 300,
+        },
+        constraints: {
+          minWidth: 250,
+          minHeight: 300,
+        },
+      })
+    }
+    else {
+      item.onClick?.()
+    }
     closeAllMenus()
   }
 
