@@ -85,6 +85,6 @@
   color: var(--shiki-dark, inherit) !important;
 }
 
-html:not(.dark) .shiki span {
-  color: var(--shiki-light, inherit) !important;
+html:not(.dark) pre.shiki {
+  --at-apply: '!bg-zinc-100/60';
 }

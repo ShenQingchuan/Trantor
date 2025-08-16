@@ -13,7 +13,7 @@ async function initializeMarkdownIt() {
   md = markdownit()
   md.use(await Shiki({
     themes: {
-      light: 'one-light',
+      light: 'vitesse-light',
       dark: 'tokyo-night',
     },
     // 添加性能优化选项
