@@ -77,12 +77,24 @@ importers:
       prosemirror-view:
         specifier: ^1.40.1
         version: 1.40.1
+      rehype-parse:
+        specifier: ^9.0.1
+        version: 9.0.1
+      rehype-remark:
+        specifier: ^10.0.1
+        version: 10.0.1
+      remark-parse:
+        specifier: ^11.0.0
+        version: 11.0.0
+      remark-stringify:
+        specifier: ^11.0.0
+        version: 11.0.0
       ts-retry:
         specifier: ^4.2.5
         version: 4.2.5
-      turndown:
-        specifier: ^7.2.1
-        version: 7.2.1
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
       vue:
         specifier: ^3.5.17
         version: 3.5.18(typescript@5.8.3)
@@ -93,8 +105,8 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.18(typescript@5.8.3))
       vue-vine:
-        specifier: 1.7.4
-        version: 1.7.4(vue@3.5.18(typescript@5.8.3))
+        specifier: 1.7.5
+        version: 1.7.5(vue@3.5.18(typescript@5.8.3))
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -202,8 +214,8 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(jiti@2.5.1)(jsdom@26.1.0)(sass@1.90.0)(tsx@4.20.4)(yaml@2.8.1)
       vue-vine-tsc:
-        specifier: 1.7.4
-        version: 1.7.4(typescript@5.8.3)
+        specifier: 1.7.5
+        version: 1.7.5(typescript@5.8.3)
 
 packages:
 
@@ -834,9 +846,6 @@ packages:
   '@lit-labs/ssr-dom-shim@1.4.0':
     resolution: {integrity: sha512-ficsEARKnmmW5njugNYKipTm4SFnbik7CXtoencDZzmzo/dQ+2Q0bgkzJuoJP20Aj0F+izzJjOqsnkd6F/o1bw==, tarball: https://registry.npmjs.org/@lit-labs/ssr-dom-shim/-/ssr-dom-shim-1.4.0.tgz}
 
-  '@mixmark-io/domino@2.2.0':
-    resolution: {integrity: sha512-Y28PR25bHXUg88kCV7nivXrP2Nj2RueZ3/l/jdx6J9f8J4nsEGcgX0Qe6lt7Pa+J79+kPiJU3LguR6O/6zrLOw==, tarball: https://registry.npmjs.org/@mixmark-io/domino/-/domino-2.2.0.tgz}
-
   '@modelcontextprotocol/sdk@1.17.2':
     resolution: {integrity: sha512-EFLRNXR/ixpXQWu6/3Cu30ndDFIFNaqUXcTqsGebujeMan9FzhAaFFswLRiFj61rgygDRr8WO1N+UijjgRxX9g==, tarball: https://registry.npmjs.org/@modelcontextprotocol/sdk/-/sdk-1.17.2.tgz}
     engines: {node: '>=18'}
@@ -1392,50 +1401,50 @@ packages:
     resolution: {integrity: sha512-W8FQi6kEh2e8zVhQ0eeRnxdvIoOkAp/CPAahcNio6nO9dsIwb9b34z90KOlheoyuVf6LSOEdjlkxSkapNEc+4A==, tarball: https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.39.1.tgz}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-WztIEPVrWAxyDl/F+dqRIclTVlx0XzfsXjQlMz9DuxIGesK4kh9EkC1hj8ZCaFKriv3dd/Ip1zHFnZN0XlOOew==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-arm64/-/native-preview-darwin-arm64-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-JM+b5qXA1M9G/NFmytUatwEFQSKz1JQDZBsHCLxHbWaGazbg+yJPTzsxKfSz+DW72hyGTldiQqeIdJKwg3G5uQ==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-arm64/-/native-preview-darwin-arm64-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-C8R5zw/U44ctcFtxTOo2dASmKMIaoRD8VAsFitrbwH+q5PtGKD92JWK3K6ZLV3axp2T4Gddc8qMNZkg0rD0TNg==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-x64/-/native-preview-darwin-x64-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-jwhb6osHxniK+gv23uSjalfTN2XoMiF7X8eIslIRKQ6ICqxf5k8XtOJY0v2lf/t3HxIQQdG962kDVwiGaN3K6w==, tarball: https://registry.npmjs.org/@typescript/native-preview-darwin-x64/-/native-preview-darwin-x64-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-67vQsqoWTzsuAOQGybggaBe7Fj3e2Ts1nVX79uHQc1sSTmbiK2T3s7RDJvL7FfdDgYf4fFocwgnsSuC2/bVV5w==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm64/-/native-preview-linux-arm64-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-e9YXa8QJ2kxBE/eIIci0n906crKxw+C9exAoWysjEsShIsXghIyP3BedMMVRhp2ZigjAPD6pa2ibE1R637C60g==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm64/-/native-preview-linux-arm64-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-FjB6OD9n+tuEkIUwVpcKWOvBytmCuUiRC4LkMTTIuxg0zJnsVuPqPZCuNWr7VoVLJVYd21YOq7Ackh+AT43BDw==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm/-/native-preview-linux-arm-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-syEtVN8E5oOlTOm7CrE3vgoVveBPRKvBbkfShqzwlmq1mw51MWunwO3yDNB3tk9GC1w1VoISoYpe8xm/hUKqIQ==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-arm/-/native-preview-linux-arm-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm]
     os: [linux]
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-5/lFG0PvsytEYMhNr6s1O33gayTTkDmx/exhcgv0zxAj2S4J5fPYWryGfB6XjTSLUDpFfiF9VaYil1BYfcTxSA==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-x64/-/native-preview-linux-x64-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-C1pGpcbR2KwAacOQ9e0pAEZeOIZOZ7+GGxQjFQBYxnFdZfT/AvrCP8rKbZhWUx0ghntskl4BejqhGGC3kTc8Cg==, tarball: https://registry.npmjs.org/@typescript/native-preview-linux-x64/-/native-preview-linux-x64-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [x64]
     os: [linux]
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-Nt1TrCtZvzlg42JUAPZzUsyHYjNNj7gupOmOM70SFJXYu/Yb78m4AKBoBXI6rnMYEiS+3SSaIqscSb6UZB9Cjw==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-arm64/-/native-preview-win32-arm64-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-tHiD2c4/GQQeSl5kbnNMcjFx0JaC3blbKA9oPMH11hrio/eRnHVrvmatLe5Mo4KOuCS5EHgNUhUvhI43TD0lfw==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-arm64/-/native-preview-win32-arm64-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-aVlzVKHpJ4BCiPgHUiz3cagxl6SZUUaLsQalnZ5U+t0WtmB6Eu5d7+0irkzTsIQ8jATOuGbNsNfmvFvEFKkPfw==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-x64/-/native-preview-win32-x64-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-4Gm8x1fjnPU441faBu9Mgf9xUWC/DTetulu1bXNcdcrmSkRCFNiIQFtM/IBz47ghDaec4+XiHlrYxkzcaN/avw==, tarball: https://registry.npmjs.org/@typescript/native-preview-win32-x64/-/native-preview-win32-x64-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     cpu: [x64]
     os: [win32]
 
-  '@typescript/native-preview@7.0.0-dev.20250815.1':
-    resolution: {integrity: sha512-CfhUvXJV0/y7MuXFLcUrf9ZpidHZmYvJxkhqbT/78oBR+AnJ4aHCdTn3VYK3UQ5pNFPpQjAINMjsx6nxGrEG/g==, tarball: https://registry.npmjs.org/@typescript/native-preview/-/native-preview-7.0.0-dev.20250815.1.tgz}
+  '@typescript/native-preview@7.0.0-dev.20250816.1':
+    resolution: {integrity: sha512-du/e72VqzVXFQqbKuEc7W+W9pWvIgKg0SwydHxzvzQ6TiccBAP/Ar7FUBEuYkFGQ2rbo7pYLj/zkoUCy08QW5w==, tarball: https://registry.npmjs.org/@typescript/native-preview/-/native-preview-7.0.0-dev.20250816.1.tgz}
     engines: {node: '>=20.6.0'}
     hasBin: true
 
@@ -1594,8 +1603,8 @@ packages:
   '@volar/typescript@2.4.17':
     resolution: {integrity: sha512-3paEFNh4P5DkgNUB2YkTRrfUekN4brAXxd3Ow1syMqdIPtCZHbUy4AW99S5RO/7mzyTWPMdDSo3mqTpB/LPObQ==, tarball: https://registry.npmjs.org/@volar/typescript/-/typescript-2.4.17.tgz}
 
-  '@vue-vine/compiler@1.7.4':
-    resolution: {integrity: sha512-uDW8WamiHSts0JkR/RfwbSh1+OVGlmkW2yH1g6IUmRfbgZ+O5cZ0cl/0m493NF+KZ+NRikxi0+u6WQggSp/nKg==, tarball: https://registry.npmjs.org/@vue-vine/compiler/-/compiler-1.7.4.tgz}
+  '@vue-vine/compiler@1.7.5':
+    resolution: {integrity: sha512-7kT7uuQYGT07YWECktEQDxMiqKYRT9LVR/OocqKjSQnuFt2l1K/8UAtdQzqjAE/6WmGyk7JzfC9jAILGq06+jw==, tarball: https://registry.npmjs.org/@vue-vine/compiler/-/compiler-1.7.5.tgz}
 
   '@vue-vine/eslint-config@1.1.9':
     resolution: {integrity: sha512-r7/YQuzHkM6Vw12QUp2ua71EDQ/gjfQe7bTroT1W94v4svdmzhrETiYyndmJSlk2lM2VcXtMQvGui6I6bQZSlQ==, tarball: https://registry.npmjs.org/@vue-vine/eslint-config/-/eslint-config-1.1.9.tgz}
@@ -1606,11 +1615,11 @@ packages:
   '@vue-vine/eslint-plugin@1.1.9':
     resolution: {integrity: sha512-CJE7pNn0D/9t4R9FCd8rM+DZU9wtakR6RKIYd1y4CRf2OOH40xmIBVlJIuALYC43fNew3DFJicVOfvTBF+S9QQ==, tarball: https://registry.npmjs.org/@vue-vine/eslint-plugin/-/eslint-plugin-1.1.9.tgz}
 
-  '@vue-vine/language-service@1.7.4':
-    resolution: {integrity: sha512-/T1cfn73pFPA0yHCgQnvhhtflYDW9OkY//cfY0PB/nsd4qbwXaQULWHoD8f+Y0/VE2mc39fMMJo/Ngur0r6cyg==, tarball: https://registry.npmjs.org/@vue-vine/language-service/-/language-service-1.7.4.tgz}
+  '@vue-vine/language-service@1.7.5':
+    resolution: {integrity: sha512-g2tgZJ2hA+w3rY123UIyxXDvZDnR1VOLx70QYlUEyUTql2icyH7vdwwsrt8/GnQH/SxUOpNtQ80gO5Z25eywCQ==, tarball: https://registry.npmjs.org/@vue-vine/language-service/-/language-service-1.7.5.tgz}
 
-  '@vue-vine/vite-plugin@1.7.4':
-    resolution: {integrity: sha512-UQdazyVOJLRnwTJ7fGJViubILwKPelUAdgAOqACHufBkecr8yDNoMK43Z3mfMyAxTy2vg8mYp1Yrrp6e+aEI6g==, tarball: https://registry.npmjs.org/@vue-vine/vite-plugin/-/vite-plugin-1.7.4.tgz}
+  '@vue-vine/vite-plugin@1.7.5':
+    resolution: {integrity: sha512-R6I78gGO3NVB/+q4raBFC7XL0QHsxsX3Ss0/OKHNw9gcO2/bUYcs1jeYF7QjSpTyqFLnBzDqlcSNoxvcetYcsQ==, tarball: https://registry.npmjs.org/@vue-vine/vite-plugin/-/vite-plugin-1.7.5.tgz}
 
   '@vue/babel-helper-vue-transform-on@1.5.0':
     resolution: {integrity: sha512-0dAYkerNhhHutHZ34JtTl2czVQHUNWv6xEbkdF5W+Yrv5pCWsqjeORdOgbtW2I9gWlt+wBmVn+ttqN9ZxR5tzA==, tarball: https://registry.npmjs.org/@vue/babel-helper-vue-transform-on/-/babel-helper-vue-transform-on-1.5.0.tgz}
@@ -1844,6 +1853,9 @@ packages:
 
   axios@1.11.0:
     resolution: {integrity: sha512-1Lx3WLFQWm3ooKDYZD1eXmoGO9fxYQjrycfHFC8P0sCfQVXyROp0p9PFWBehewBOdCwHc+f/b8I0fMto5eSfwA==, tarball: https://registry.npmjs.org/axios/-/axios-1.11.0.tgz}
+
+  bail@2.0.2:
+    resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==, tarball: https://registry.npmjs.org/bail/-/bail-2.0.2.tgz}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==, tarball: https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz}
@@ -2534,6 +2546,9 @@ packages:
   exsolve@1.0.7:
     resolution: {integrity: sha512-VO5fQUzZtI6C+vx4w/4BWJpg3s/5l+6pRQEHzFRM8WFi4XffSP1Z+4qi7GbjWbvRQEbdIco5mIMq+zX4rPuLrw==, tarball: https://registry.npmjs.org/exsolve/-/exsolve-1.0.7.tgz}
 
+  extend@3.0.2:
+    resolution: {integrity: sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==, tarball: https://registry.npmjs.org/extend/-/extend-3.0.2.tgz}
+
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==, tarball: https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz}
 
@@ -2767,11 +2782,47 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==, tarball: https://registry.npmjs.org/hasown/-/hasown-2.0.2.tgz}
     engines: {node: '>= 0.4'}
 
+  hast-util-embedded@3.0.0:
+    resolution: {integrity: sha512-naH8sld4Pe2ep03qqULEtvYr7EjrLK2QHY8KJR6RJkTUjPGObe1vnx585uzem2hGra+s1q08DZZpfgDVYRbaXA==, tarball: https://registry.npmjs.org/hast-util-embedded/-/hast-util-embedded-3.0.0.tgz}
+
+  hast-util-from-html@2.0.3:
+    resolution: {integrity: sha512-CUSRHXyKjzHov8yKsQjGOElXy/3EKpyX56ELnkHH34vDVw1N1XSQ1ZcAvTyAPtGqLTuKP/uxM+aLkSPqF/EtMw==, tarball: https://registry.npmjs.org/hast-util-from-html/-/hast-util-from-html-2.0.3.tgz}
+
+  hast-util-from-parse5@8.0.3:
+    resolution: {integrity: sha512-3kxEVkEKt0zvcZ3hCRYI8rqrgwtlIOFMWkbclACvjlDw8Li9S2hk/d51OI0nr/gIpdMHNepwgOKqZ/sy0Clpyg==, tarball: https://registry.npmjs.org/hast-util-from-parse5/-/hast-util-from-parse5-8.0.3.tgz}
+
+  hast-util-has-property@3.0.0:
+    resolution: {integrity: sha512-MNilsvEKLFpV604hwfhVStK0usFY/QmM5zX16bo7EjnAEGofr5YyI37kzopBlZJkHD4t887i+q/C8/tr5Q94cA==, tarball: https://registry.npmjs.org/hast-util-has-property/-/hast-util-has-property-3.0.0.tgz}
+
+  hast-util-is-body-ok-link@3.0.1:
+    resolution: {integrity: sha512-0qpnzOBLztXHbHQenVB8uNuxTnm/QBFUOmdOSsEn7GnBtyY07+ENTWVFBAnXd/zEgd9/SUG3lRY7hSIBWRgGpQ==, tarball: https://registry.npmjs.org/hast-util-is-body-ok-link/-/hast-util-is-body-ok-link-3.0.1.tgz}
+
+  hast-util-is-element@3.0.0:
+    resolution: {integrity: sha512-Val9mnv2IWpLbNPqc/pUem+a7Ipj2aHacCwgNfTiK0vJKl0LF+4Ba4+v1oPHFpf3bLYmreq0/l3Gud9S5OH42g==, tarball: https://registry.npmjs.org/hast-util-is-element/-/hast-util-is-element-3.0.0.tgz}
+
+  hast-util-minify-whitespace@1.0.1:
+    resolution: {integrity: sha512-L96fPOVpnclQE0xzdWb/D12VT5FabA7SnZOUMtL1DbXmYiHJMXZvFkIZfiMmTCNJHUeO2K9UYNXoVyfz+QHuOw==, tarball: https://registry.npmjs.org/hast-util-minify-whitespace/-/hast-util-minify-whitespace-1.0.1.tgz}
+
+  hast-util-parse-selector@4.0.0:
+    resolution: {integrity: sha512-wkQCkSYoOGCRKERFWcxMVMOcYE2K1AaNLU8DXS9arxnLOUEWbOXKXiJUNzEpqZ3JOKpnha3jkFrumEjVliDe7A==, tarball: https://registry.npmjs.org/hast-util-parse-selector/-/hast-util-parse-selector-4.0.0.tgz}
+
+  hast-util-phrasing@3.0.1:
+    resolution: {integrity: sha512-6h60VfI3uBQUxHqTyMymMZnEbNl1XmEGtOxxKYL7stY2o601COo62AWAYBQR9lZbYXYSBoxag8UpPRXK+9fqSQ==, tarball: https://registry.npmjs.org/hast-util-phrasing/-/hast-util-phrasing-3.0.1.tgz}
+
   hast-util-to-html@9.0.5:
     resolution: {integrity: sha512-OguPdidb+fbHQSU4Q4ZiLKnzWo8Wwsf5bZfbvu7//a9oTYoqD/fWpe96NuHkoS9h0ccGOTe0C4NGXdtS0iObOw==, tarball: https://registry.npmjs.org/hast-util-to-html/-/hast-util-to-html-9.0.5.tgz}
 
+  hast-util-to-mdast@10.1.2:
+    resolution: {integrity: sha512-FiCRI7NmOvM4y+f5w32jPRzcxDIz+PUqDwEqn1A+1q2cdp3B8Gx7aVrXORdOKjMNDQsD1ogOr896+0jJHW1EFQ==, tarball: https://registry.npmjs.org/hast-util-to-mdast/-/hast-util-to-mdast-10.1.2.tgz}
+
+  hast-util-to-text@4.0.2:
+    resolution: {integrity: sha512-KK6y/BN8lbaq654j7JgBydev7wuNMcID54lkRav1P0CaE1e47P72AWWPiGKXTJU271ooYzcvTAn/Zt0REnvc7A==, tarball: https://registry.npmjs.org/hast-util-to-text/-/hast-util-to-text-4.0.2.tgz}
+
   hast-util-whitespace@3.0.0:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==, tarball: https://registry.npmjs.org/hast-util-whitespace/-/hast-util-whitespace-3.0.0.tgz}
+
+  hastscript@9.0.1:
+    resolution: {integrity: sha512-g7df9rMFX/SPi34tyGCyUBREQoKkapwdY/T04Qn9TDWfHhAYt4/I0gMVirzK5wEzeUqIjEB+LXC/ypb7Aqno5w==, tarball: https://registry.npmjs.org/hastscript/-/hastscript-9.0.1.tgz}
 
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==, tarball: https://registry.npmjs.org/he/-/he-1.2.0.tgz}
@@ -3967,6 +4018,21 @@ packages:
     resolution: {integrity: sha512-cnE+y8bz4NhMjISKbgeVJtqNbtf5QpjZP+Bslo+UqkIt9QPnX9q095eiRRASJG1/tz6dlNr6Z5NsBiWYokp6EQ==, tarball: https://registry.npmjs.org/regjsparser/-/regjsparser-0.12.0.tgz}
     hasBin: true
 
+  rehype-minify-whitespace@6.0.2:
+    resolution: {integrity: sha512-Zk0pyQ06A3Lyxhe9vGtOtzz3Z0+qZ5+7icZ/PL/2x1SHPbKao5oB/g/rlc6BCTajqBb33JcOe71Ye1oFsuYbnw==, tarball: https://registry.npmjs.org/rehype-minify-whitespace/-/rehype-minify-whitespace-6.0.2.tgz}
+
+  rehype-parse@9.0.1:
+    resolution: {integrity: sha512-ksCzCD0Fgfh7trPDxr2rSylbwq9iYDkSn8TCDmEJ49ljEUBxDVCzCHv7QNzZOfODanX4+bWQ4WZqLCRWYLfhag==, tarball: https://registry.npmjs.org/rehype-parse/-/rehype-parse-9.0.1.tgz}
+
+  rehype-remark@10.0.1:
+    resolution: {integrity: sha512-EmDndlb5NVwXGfUa4c9GPK+lXeItTilLhE6ADSaQuHr4JUlKw9MidzGzx4HpqZrNCt6vnHmEifXQiiA+CEnjYQ==, tarball: https://registry.npmjs.org/rehype-remark/-/rehype-remark-10.0.1.tgz}
+
+  remark-parse@11.0.0:
+    resolution: {integrity: sha512-FCxlKLNGknS5ba/1lmpYijMUzX2esxW5xQqjWxw2eHFfS2MSdaHVINFmhjo+qN1WhZhNimq0dZATN9pH0IDrpA==, tarball: https://registry.npmjs.org/remark-parse/-/remark-parse-11.0.0.tgz}
+
+  remark-stringify@11.0.0:
+    resolution: {integrity: sha512-1OSmLd3awB/t8qdoEOMazZkNsfVTeY4fTsgzcQFdXNq8ToTN4ZGwrMnlda4K6smTFKD+GRV6O48i6Z4iKgPPpw==, tarball: https://registry.npmjs.org/remark-stringify/-/remark-stringify-11.0.0.tgz}
+
   request-light@0.7.0:
     resolution: {integrity: sha512-lMbBMrDoxgsyO+yB3sDcrDuX85yYt7sS8BfQd11jtbW/z5ZWgLZRcEGLsLoYw7I0WSUGQBs8CC8ScIxkTX1+6Q==, tarball: https://registry.npmjs.org/request-light/-/request-light-0.7.0.tgz}
 
@@ -4339,6 +4405,12 @@ packages:
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==, tarball: https://registry.npmjs.org/trim-lines/-/trim-lines-3.0.1.tgz}
 
+  trim-trailing-lines@2.1.0:
+    resolution: {integrity: sha512-5UR5Biq4VlVOtzqkm2AZlgvSlDJtME46uV0br0gENbwN4l5+mMKT4b9gJKqWtuL2zAIqajGJGuvbCbcAJUZqBg==, tarball: https://registry.npmjs.org/trim-trailing-lines/-/trim-trailing-lines-2.1.0.tgz}
+
+  trough@2.2.0:
+    resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==, tarball: https://registry.npmjs.org/trough/-/trough-2.2.0.tgz}
+
   ts-api-utils@2.1.0:
     resolution: {integrity: sha512-CUgTZL1irw8u29bzrOD/nH85jqyc74D6SshFgujOIA7osm2Rz7dYH77agkx7H4FBNxDq7Cjf+IjaX/8zwFW+ZQ==, tarball: https://registry.npmjs.org/ts-api-utils/-/ts-api-utils-2.1.0.tgz}
     engines: {node: '>=18.12'}
@@ -4366,9 +4438,6 @@ packages:
     resolution: {integrity: sha512-yyxBKfORQ7LuRt/BQKBXrpcq59ZvSW0XxwfjAt3w2/8PmdxaFzijtMhTawprSHhpzeM5BgU2hXHG3lklIERZXg==, tarball: https://registry.npmjs.org/tsx/-/tsx-4.20.4.tgz}
     engines: {node: '>=18.0.0'}
     hasBin: true
-
-  turndown@7.2.1:
-    resolution: {integrity: sha512-7YiPJw6rLClQL3oUKN3KgMaXeJJ2lAyZItclgKDurqnH61so4k4IH/qwmMva0zpuJc/FhRExBBnk7EbeFANlgQ==, tarball: https://registry.npmjs.org/turndown/-/turndown-7.2.1.tgz}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==, tarball: https://registry.npmjs.org/type-check/-/type-check-0.4.0.tgz}
@@ -4440,6 +4509,9 @@ packages:
     resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==, tarball: https://registry.npmjs.org/unicorn-magic/-/unicorn-magic-0.3.0.tgz}
     engines: {node: '>=18'}
 
+  unified@11.0.5:
+    resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==, tarball: https://registry.npmjs.org/unified/-/unified-11.0.5.tgz}
+
   unimport@4.2.0:
     resolution: {integrity: sha512-mYVtA0nmzrysnYnyb3ALMbByJ+Maosee2+WyE0puXl+Xm2bUwPorPaaeZt0ETfuroPOtG8jj1g/qeFZ6buFnag==, tarball: https://registry.npmjs.org/unimport/-/unimport-4.2.0.tgz}
     engines: {node: '>=18.12.0'}
@@ -4447,6 +4519,9 @@ packages:
   unimport@5.2.0:
     resolution: {integrity: sha512-bTuAMMOOqIAyjV4i4UH7P07pO+EsVxmhOzQ2YJ290J6mkLUdozNhb5I/YoOEheeNADC03ent3Qj07X0fWfUpmw==, tarball: https://registry.npmjs.org/unimport/-/unimport-5.2.0.tgz}
     engines: {node: '>=18.12.0'}
+
+  unist-util-find-after@5.0.0:
+    resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==, tarball: https://registry.npmjs.org/unist-util-find-after/-/unist-util-find-after-5.0.0.tgz}
 
   unist-util-is@6.0.0:
     resolution: {integrity: sha512-2qCTHimwdxLfz+YzdGfkqNlH0tLi9xjTnHddPmJwtIG9MGsdbutfTc4P+haPD7l7Cjxf/WZj+we5qfVPvvxfYw==, tarball: https://registry.npmjs.org/unist-util-is/-/unist-util-is-6.0.0.tgz}
@@ -4521,6 +4596,9 @@ packages:
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==, tarball: https://registry.npmjs.org/vary/-/vary-1.1.2.tgz}
     engines: {node: '>= 0.8'}
+
+  vfile-location@5.0.3:
+    resolution: {integrity: sha512-5yXvWDEgqeiYiBe1lbxYF7UMAIm/IcopxMHrMQDq3nvKcjPKIhZklUKL+AE7J7uApI4kwe2snsK+eI6UTj9EHg==, tarball: https://registry.npmjs.org/vfile-location/-/vfile-location-5.0.3.tgz}
 
   vfile-message@4.0.3:
     resolution: {integrity: sha512-QTHzsGd1EhbZs4AsQ20JX1rC3cOlt/IWJruk893DfLRr57lcnOeMaWG4K0JrRta4mIJZKth2Au3mM3u03/JWKw==, tarball: https://registry.npmjs.org/vfile-message/-/vfile-message-4.0.3.tgz}
@@ -4681,12 +4759,12 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
-  vue-vine-tsc@1.7.4:
-    resolution: {integrity: sha512-Rqt/tBRoNA2+RJ0Lo6jU3d+AdCqo87QAWcJm/tmSe1yZuS2/vqkNr3trmdU9IQn9299aHFTLNICeNZq77BpKFg==, tarball: https://registry.npmjs.org/vue-vine-tsc/-/vue-vine-tsc-1.7.4.tgz}
+  vue-vine-tsc@1.7.5:
+    resolution: {integrity: sha512-CpJceJnCE9Im55VRsMOsiWZYKlhSjthBmQV/E0d+him1tXUOLhestC0zV51uigj0wlbTJs8o/I4FVYbnMCnV5Q==, tarball: https://registry.npmjs.org/vue-vine-tsc/-/vue-vine-tsc-1.7.5.tgz}
     hasBin: true
 
-  vue-vine@1.7.4:
-    resolution: {integrity: sha512-0jXQPvja77js4AuRsVF3uq34lhNSLe3Qg5wG7S+smqOp+dpFA63UafQBDhvQP3DkVh4E0iYLL2MOIy8zt+e+cQ==, tarball: https://registry.npmjs.org/vue-vine/-/vue-vine-1.7.4.tgz}
+  vue-vine@1.7.5:
+    resolution: {integrity: sha512-ZizhSNBSLpYJP0wE06wLucTejy7snxhrpkBme+6CT9I/KD7QxMfzgARpwq23ig1YNmx266hsfmFV5K4y/tS9xQ==, tarball: https://registry.npmjs.org/vue-vine/-/vue-vine-1.7.5.tgz}
     peerDependencies:
       vue: '>=3.2'
 
@@ -4704,6 +4782,9 @@ packages:
   w3c-xmlserializer@5.0.0:
     resolution: {integrity: sha512-o8qghlI8NZHU1lLPrpi2+Uq7abh4GGPpYANlalzWxyWteJOCsr/P+oPBA49TOLu5FTZO4d3F9MnWJfiMo4BkmA==, tarball: https://registry.npmjs.org/w3c-xmlserializer/-/w3c-xmlserializer-5.0.0.tgz}
     engines: {node: '>=18'}
+
+  web-namespaces@2.0.1:
+    resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==, tarball: https://registry.npmjs.org/web-namespaces/-/web-namespaces-2.0.1.tgz}
 
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==, tarball: https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-7.0.0.tgz}
@@ -5499,8 +5580,6 @@ snapshots:
 
   '@lit-labs/ssr-dom-shim@1.4.0': {}
 
-  '@mixmark-io/domino@2.2.0': {}
-
   '@modelcontextprotocol/sdk@1.17.2':
     dependencies:
       ajv: 6.12.6
@@ -6240,36 +6319,36 @@ snapshots:
       '@typescript-eslint/types': 8.39.1
       eslint-visitor-keys: 4.2.1
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250815.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20250816.1':
     optional: true
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250815.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20250816.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250815.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20250816.1':
     optional: true
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20250815.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20250816.1':
     optional: true
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20250815.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20250816.1':
     optional: true
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250815.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20250816.1':
     optional: true
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20250815.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20250816.1':
     optional: true
 
-  '@typescript/native-preview@7.0.0-dev.20250815.1':
+  '@typescript/native-preview@7.0.0-dev.20250816.1':
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20250815.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20250815.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20250815.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20250815.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20250815.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20250815.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20250815.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20250816.1
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20250816.1
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20250816.1
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20250816.1
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20250816.1
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20250816.1
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20250816.1
 
   '@umami/node@0.4.0': {}
 
@@ -6514,7 +6593,7 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
-  '@vue-vine/compiler@1.7.4':
+  '@vue-vine/compiler@1.7.5':
     dependencies:
       '@babel/parser': 7.28.0
       '@babel/types': 7.28.2
@@ -6567,13 +6646,13 @@ snapshots:
       - supports-color
       - typescript
 
-  '@vue-vine/language-service@1.7.4(typescript@5.8.3)':
+  '@vue-vine/language-service@1.7.5(typescript@5.8.3)':
     dependencies:
       '@umami/node': 0.4.0
       '@volar/language-core': 2.4.17
       '@volar/language-server': 2.4.17
       '@volar/typescript': 2.4.17
-      '@vue-vine/compiler': 1.7.4
+      '@vue-vine/compiler': 1.7.5
       '@vue/language-core': 3.0.1(typescript@5.8.3)
       '@vue/shared': 3.5.18
       destr: 2.0.5
@@ -6586,9 +6665,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@vue-vine/vite-plugin@1.7.4':
+  '@vue-vine/vite-plugin@1.7.5':
     dependencies:
-      '@vue-vine/compiler': 1.7.4
+      '@vue-vine/compiler': 1.7.5
 
   '@vue/babel-helper-vue-transform-on@1.5.0': {}
 
@@ -6895,6 +6974,8 @@ snapshots:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+
+  bail@2.0.2: {}
 
   balanced-match@1.0.2: {}
 
@@ -7781,6 +7862,8 @@ snapshots:
 
   exsolve@1.0.7: {}
 
+  extend@3.0.2: {}
+
   fast-deep-equal@3.1.3: {}
 
   fast-diff@1.3.0: {}
@@ -8017,6 +8100,63 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  hast-util-embedded@3.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-is-element: 3.0.0
+
+  hast-util-from-html@2.0.3:
+    dependencies:
+      '@types/hast': 3.0.4
+      devlop: 1.1.0
+      hast-util-from-parse5: 8.0.3
+      parse5: 7.3.0
+      vfile: 6.0.3
+      vfile-message: 4.0.3
+
+  hast-util-from-parse5@8.0.3:
+    dependencies:
+      '@types/hast': 3.0.4
+      '@types/unist': 3.0.3
+      devlop: 1.1.0
+      hastscript: 9.0.1
+      property-information: 7.1.0
+      vfile: 6.0.3
+      vfile-location: 5.0.3
+      web-namespaces: 2.0.1
+
+  hast-util-has-property@3.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+
+  hast-util-is-body-ok-link@3.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+
+  hast-util-is-element@3.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+
+  hast-util-minify-whitespace@1.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-embedded: 3.0.0
+      hast-util-is-element: 3.0.0
+      hast-util-whitespace: 3.0.0
+      unist-util-is: 6.0.0
+
+  hast-util-parse-selector@4.0.0:
+    dependencies:
+      '@types/hast': 3.0.4
+
+  hast-util-phrasing@3.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-embedded: 3.0.0
+      hast-util-has-property: 3.0.0
+      hast-util-is-body-ok-link: 3.0.1
+      hast-util-is-element: 3.0.0
+
   hast-util-to-html@9.0.5:
     dependencies:
       '@types/hast': 3.0.4
@@ -8031,9 +8171,41 @@ snapshots:
       stringify-entities: 4.0.4
       zwitch: 2.0.4
 
+  hast-util-to-mdast@10.1.2:
+    dependencies:
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
+      '@ungap/structured-clone': 1.3.0
+      hast-util-phrasing: 3.0.1
+      hast-util-to-html: 9.0.5
+      hast-util-to-text: 4.0.2
+      hast-util-whitespace: 3.0.0
+      mdast-util-phrasing: 4.1.0
+      mdast-util-to-hast: 13.2.0
+      mdast-util-to-string: 4.0.0
+      rehype-minify-whitespace: 6.0.2
+      trim-trailing-lines: 2.1.0
+      unist-util-position: 5.0.0
+      unist-util-visit: 5.0.0
+
+  hast-util-to-text@4.0.2:
+    dependencies:
+      '@types/hast': 3.0.4
+      '@types/unist': 3.0.3
+      hast-util-is-element: 3.0.0
+      unist-util-find-after: 5.0.0
+
   hast-util-whitespace@3.0.0:
     dependencies:
       '@types/hast': 3.0.4
+
+  hastscript@9.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      comma-separated-tokens: 2.0.3
+      hast-util-parse-selector: 4.0.0
+      property-information: 7.1.0
+      space-separated-tokens: 2.0.2
 
   he@1.2.0: {}
 
@@ -9375,6 +9547,40 @@ snapshots:
     dependencies:
       jsesc: 3.0.2
 
+  rehype-minify-whitespace@6.0.2:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-minify-whitespace: 1.0.1
+
+  rehype-parse@9.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      hast-util-from-html: 2.0.3
+      unified: 11.0.5
+
+  rehype-remark@10.0.1:
+    dependencies:
+      '@types/hast': 3.0.4
+      '@types/mdast': 4.0.4
+      hast-util-to-mdast: 10.1.2
+      unified: 11.0.5
+      vfile: 6.0.3
+
+  remark-parse@11.0.0:
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-from-markdown: 2.0.2
+      micromark-util-types: 2.0.2
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - supports-color
+
+  remark-stringify@11.0.0:
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-to-markdown: 2.1.2
+      unified: 11.0.5
+
   request-light@0.7.0: {}
 
   resolve-from@4.0.0: {}
@@ -9793,6 +9999,10 @@ snapshots:
 
   trim-lines@3.0.1: {}
 
+  trim-trailing-lines@2.1.0: {}
+
+  trough@2.2.0: {}
+
   ts-api-utils@2.1.0(typescript@5.8.3):
     dependencies:
       typescript: 5.8.3
@@ -9819,10 +10029,6 @@ snapshots:
       get-tsconfig: 4.10.1
     optionalDependencies:
       fsevents: 2.3.3
-
-  turndown@7.2.1:
-    dependencies:
-      '@mixmark-io/domino': 2.2.0
 
   type-check@0.4.0:
     dependencies:
@@ -9916,6 +10122,16 @@ snapshots:
 
   unicorn-magic@0.3.0: {}
 
+  unified@11.0.5:
+    dependencies:
+      '@types/unist': 3.0.3
+      bail: 2.0.2
+      devlop: 1.1.0
+      extend: 3.0.2
+      is-plain-obj: 4.1.0
+      trough: 2.2.0
+      vfile: 6.0.3
+
   unimport@4.2.0:
     dependencies:
       acorn: 8.15.0
@@ -9950,6 +10166,11 @@ snapshots:
       unplugin: 2.3.5
       unplugin-utils: 0.2.5
     optional: true
+
+  unist-util-find-after@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.0
 
   unist-util-is@6.0.0:
     dependencies:
@@ -10053,6 +10274,11 @@ snapshots:
       spdx-expression-parse: 3.0.1
 
   vary@1.1.2: {}
+
+  vfile-location@5.0.3:
+    dependencies:
+      '@types/unist': 3.0.3
+      vfile: 6.0.3
 
   vfile-message@4.0.3:
     dependencies:
@@ -10255,21 +10481,21 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.18(typescript@5.8.3)
 
-  vue-vine-tsc@1.7.4(typescript@5.8.3):
+  vue-vine-tsc@1.7.5(typescript@5.8.3):
     dependencies:
-      '@typescript/native-preview': 7.0.0-dev.20250815.1
+      '@typescript/native-preview': 7.0.0-dev.20250816.1
       '@volar/language-core': 2.4.17
       '@volar/typescript': 2.4.17
-      '@vue-vine/language-service': 1.7.4(typescript@5.8.3)
+      '@vue-vine/language-service': 1.7.5(typescript@5.8.3)
       '@vue/language-core': 3.0.1(typescript@5.8.3)
     transitivePeerDependencies:
       - bufferutil
       - typescript
       - utf-8-validate
 
-  vue-vine@1.7.4(vue@3.5.18(typescript@5.8.3)):
+  vue-vine@1.7.5(vue@3.5.18(typescript@5.8.3)):
     dependencies:
-      '@vue-vine/vite-plugin': 1.7.4
+      '@vue-vine/vite-plugin': 1.7.5
       vue: 3.5.18(typescript@5.8.3)
 
   vue@3.5.18(typescript@5.8.3):
@@ -10287,6 +10513,8 @@ snapshots:
   w3c-xmlserializer@5.0.0:
     dependencies:
       xml-name-validator: 5.0.0
+
+  web-namespaces@2.0.1: {}
 
   webidl-conversions@7.0.0: {}
 

@@ -1,9 +1,19 @@
-import TurndownService from 'turndown'
+import rehypeParse from 'rehype-parse'
+import rehypeRemark from 'rehype-remark'
+import remarkStringify from 'remark-stringify'
+import { unified } from 'unified'
 import { useChatFlowStore } from '../../stores/chatFlowStore'
 import { MessageThread } from '../ChatFlow/MessageThread.vine'
 import ProseEditor from '../PromptEditor/prose.vine'
 
-const turndownService = new TurndownService()
+function htmlToMarkdown(html: string): Promise<string> {
+  return unified()
+    .use(rehypeParse)
+    .use(rehypeRemark)
+    .use(remarkStringify)
+    .process(html)
+    .then(file => file.value.toString())
+}
 
 export function ChatApp() {
   const { t } = useI18n()
@@ -12,12 +22,13 @@ export function ChatApp() {
 
   const editorRef = useTemplateRef('editorRef')
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const editor = editorRef.value?.editor
     if (!editor || isChatStreaming.value)
       return
 
-    const text = turndownService.turndown(editor.getDocHTML())
+    const html = editor.getDocHTML()
+    const text = await htmlToMarkdown(html)
     if (!text)
       return
 
@@ -30,18 +41,13 @@ export function ChatApp() {
     }
   }
 
-  const handleEnterPress = () => {
-    // 当按下 Enter 键时，尝试发送消息
+  const handleEnterPress = async () => {
     const editor = editorRef.value?.editor
     if (!editor || isChatStreaming.value)
       return
 
-    const text = turndownService.turndown(editor.getDocHTML())
-    if (!text.trim())
-      return
-
     // 发送消息并清空编辑器
-    handleSend()
+    await handleSend()
   }
 
   return vine`

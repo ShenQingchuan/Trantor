@@ -15,6 +15,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
   const chatDisplayMessages = ref<ChatDisplayMessage[]>([])
   const chatLastPendingMessage = ref<ChatDisplayMessage | null>(null)
   const chatMcpSessionId = useSessionStorage('trantor:chat-flow-mcp-session-id', '')
+  const chatMcpServerStartTime = useSessionStorage('trantor:chat-flow-mcp-server-start-time', '')
   const chatMcpTools = useLocalStorage<ChatCompletionTool[] | null>(
     'trantor:chat-flow-mcp-tools',
     null,
@@ -140,6 +141,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
   return {
     chatFlowAIContext,
     chatMcpSessionId,
+    chatMcpServerStartTime,
     chatMcpTools,
     chatDisplayMessages,
     editor,

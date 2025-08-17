@@ -10,7 +10,7 @@ export function setupMcpServer() {
 
   // 注册所有工具
   registerTools(server)
-  consola.success('[Trantor MCP] AI 工具调用注册完成！')
+  consola.success('[Trantor MCP Server] AI 工具调用注册完成！')
 
   return server
 }
