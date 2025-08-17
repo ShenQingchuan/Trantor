@@ -30,6 +30,20 @@ export function ChatApp() {
     }
   }
 
+  const handleEnterPress = () => {
+    // 当按下 Enter 键时，尝试发送消息
+    const editor = editorRef.value?.editor
+    if (!editor || isChatStreaming.value)
+      return
+
+    const text = turndownService.turndown(editor.getDocHTML())
+    if (!text.trim())
+      return
+
+    // 发送消息并清空编辑器
+    handleSend()
+  }
+
   return vine`
     <div class="relative w-full h-full col-flex bg-white dark:bg-zinc-950">
       <!-- 欢迎界面 -->
@@ -58,6 +72,7 @@ export function ChatApp() {
         <div class="row-flex gap-3 w-full flex-1 relative">
           <ProseEditor
             ref="editorRef"
+            @enterPress="handleEnterPress"
             container-class="w-full min-h-[44px] max-h-[120px] overflow-y-auto bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-md px-4 py-3 focus-within:border-violet-400 dark:focus-within:border-violet-500 transition-colors"
           />
         </div>

@@ -13,7 +13,6 @@ export interface ServerContext extends Context {
       server: McpServer
       transport: StreamableHTTPTransport
       initialized: boolean
-      connectTransport: () => Promise<void>
     }
     markdownIt: MarkdownIt
     currentUser?: AuthenticatedUser

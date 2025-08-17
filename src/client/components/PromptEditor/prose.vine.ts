@@ -1,9 +1,10 @@
+import type { Keymap } from 'prosekit/core'
 import type { MentionAttrs } from 'prosekit/extensions/mention'
 import { defineBasicExtension } from 'prosekit/basic'
-import { createEditor, union } from 'prosekit/core'
+import { createEditor, defineKeymap, union } from 'prosekit/core'
 import { defineMention } from 'prosekit/extensions/mention'
 import { definePlaceholder } from 'prosekit/extensions/placeholder'
-import { ProseKit, useEditor } from 'prosekit/vue'
+import { ProseKit, useDocChange, useEditor } from 'prosekit/vue'
 
 import {
   AutocompleteEmpty,
@@ -18,7 +19,9 @@ import 'prosekit/basic/style.css'
 import 'prosekit/basic/typography.css'
 import '../../styles/prosekit.scss'
 
-function createExtension() {
+function createExtension({ keymap }: {
+  keymap: Keymap
+}) {
   const { t } = useI18n()
   return union(
     defineBasicExtension(),
@@ -27,6 +30,7 @@ function createExtension() {
       strategy: 'doc',
       placeholder: t('chat_flow__prompt_editor_placeholder'),
     }),
+    defineKeymap(keymap ?? {}),
   )
 }
 type EditorExtension = ReturnType<typeof createExtension>
@@ -91,15 +95,34 @@ function MentionSymbol() {
 export default function ProseEditor(props: {
   containerClass?: string
 }) {
+  const emits = vineEmits(['change', 'enterPress'])
+
   const editorRef = useTemplateRef('editorRef')
+  const extension = createExtension({
+    keymap: {
+      'Enter': () => {
+        // 触发 enterPress 事件
+        emits('enterPress')
+        return true // 阻止默认的换行行为
+      },
+      'Shift-Enter': () => {
+        // Shift+Enter 总是插入换行
+        return false
+      },
+    },
+  })
   const editor = createEditor({
-    extension: createExtension(),
+    extension,
   })
 
   watchPostEffect((onCleanup) => {
     editor.mount(editorRef.value)
     onCleanup(() => editor.unmount())
   })
+
+  useDocChange(() => {
+    emits('change')
+  }, { editor })
 
   vineExpose({
     editor,
