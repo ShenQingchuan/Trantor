@@ -71,6 +71,9 @@ importers:
       pinia-plugin-persistedstate:
         specifier: ^4.4.1
         version: 4.5.0(@nuxt/kit@3.18.1)(pinia@3.0.3(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3)))
+      pocketbase:
+        specifier: ^0.26.2
+        version: 0.26.2
       prosekit:
         specifier: ^0.14.2
         version: 0.14.2(@shikijs/types@3.9.2)(@types/hast@3.0.4)(prosemirror-model@1.25.3)(prosemirror-state@1.4.3)(prosemirror-transform@1.10.4)(prosemirror-view@1.40.1)(vue@3.5.18(typescript@5.8.3))
@@ -3758,6 +3761,9 @@ packages:
 
   pnpm-workspace-yaml@1.1.0:
     resolution: {integrity: sha512-OWUzBxtitpyUV0fBYYwLAfWxn3mSzVbVB7cwgNaHvTTU9P0V2QHjyaY5i7f1hEiT9VeKsNH1Skfhe2E3lx/zhA==, tarball: https://registry.npmjs.org/pnpm-workspace-yaml/-/pnpm-workspace-yaml-1.1.0.tgz}
+
+  pocketbase@0.26.2:
+    resolution: {integrity: sha512-WA8EOBc3QnSJh8rJ3iYoi9DmmPOMFIgVfAmIGux7wwruUEIzXgvrO4u0W2htfQjGIcyezJkdZOy5Xmh7SxAftw==, tarball: https://registry.npmjs.org/pocketbase/-/pocketbase-0.26.2.tgz}
 
   popmotion@11.0.5:
     resolution: {integrity: sha512-la8gPM1WYeFznb/JqF4GiTkRRPZsfaj2+kCxqQgr2MJylMmIKUwBfWW8Wa5fml/8gmtlD5yI01MP1QCZPWmppA==, tarball: https://registry.npmjs.org/popmotion/-/popmotion-11.0.5.tgz}
@@ -9276,6 +9282,8 @@ snapshots:
   pnpm-workspace-yaml@1.1.0:
     dependencies:
       yaml: 2.8.1
+
+  pocketbase@0.26.2: {}
 
   popmotion@11.0.5:
     dependencies:

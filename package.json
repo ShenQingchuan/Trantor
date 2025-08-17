@@ -43,6 +43,7 @@
     "openai": "^5",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.4.1",
+    "pocketbase": "^0.26.2",
     "prosekit": "^0.14.2",
     "prosemirror-view": "^1.40.1",
     "rehype-parse": "^9.0.1",

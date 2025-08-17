@@ -1,9 +1,10 @@
-import type { ArticleResponse } from '../../bridge/types/articles'
+import type { CachedArticleResponse } from '../../bridge/types/articles'
 import { useQuery } from '@pinia/colada'
 import { useDark } from '@vueuse/core'
 import { format } from 'date-fns'
 import { ofetch } from 'ofetch'
 import { Skeleton } from '../components/Shared.vine'
+import { useArticleStore } from '../stores/articleStore'
 import { randomSkeletonWidth } from '../utils/shared'
 import '../styles/blog-article.scss'
 
@@ -25,10 +26,21 @@ export function PageArticleContent() {
   const route = useRoute()
   const articlePath = route.params.path as string
   const isDark = useDark()
+  const articleStore = useArticleStore()
 
-  const { state, asyncStatus } = useQuery<ArticleResponse>({
+  // 检查是否有预加载的内容
+  const preloadedArticle = articleStore.getCachedArticle(articlePath)
+
+  const { state, asyncStatus } = useQuery<CachedArticleResponse>({
     key: [`articleContent-${articlePath}`],
-    query: () => ofetch(`/api/articles/${articlePath}?theme=${isDark.value ? 'dark' : 'light'}`).then(res => res.data),
+    query: () => {
+      // 如果有预加载的内容，直接返回
+      if (preloadedArticle) {
+        return Promise.resolve(preloadedArticle)
+      }
+      // 否则从 API 获取
+      return ofetch(`/api/articles/${articlePath}?theme=${isDark.value ? 'dark' : 'light'}`).then(res => res.data)
+    },
   })
 
   const formatDate = (date: string) => {
@@ -59,10 +71,12 @@ export function PageArticleContent() {
             </div>
           </div>
         </div>
+
         <div class="trantor-blog-article" v-html="state.data.content" />
 
         <BackToArticleList />
       </template>
+
       <div
         v-else-if="state.status === 'error'"
         class="h-full w-auto col-flex items-center justify-center"
@@ -86,7 +100,12 @@ export function PageArticleContent() {
           </button>
         </div>
       </div>
-      <div v-else-if="asyncStatus === 'loading'" class="mt-8 w-full col-flex gap-4">
+
+      <!-- 只有在没有预加载内容且正在加载时才显示骨架屏 -->
+      <div
+        v-else-if="asyncStatus === 'loading' && !preloadedArticle"
+        class="mt-8 w-full col-flex gap-4"
+      >
         <div class="row-flex gap-4 text-2xl text-zinc-500:50 font-500">
           <div class="i-svg-spinners:bars-scale-fade text-2xl" />
           {{ $t('articles_loading') }}

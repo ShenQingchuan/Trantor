@@ -3,10 +3,13 @@ import { useQuery } from '@pinia/colada'
 import { format } from 'date-fns'
 import { ofetch } from 'ofetch'
 import { Skeleton } from '../components/Shared.vine'
+import { useArticleStore } from '../stores/articleStore'
 import { randomSkeletonWidth } from '../utils/shared'
 
 export function PageArticles() {
   const router = useRouter()
+  const articleStore = useArticleStore()
+
   const { state, asyncStatus } = useQuery<{ articles: ArticleMetadata[] }>({
     key: ['articlesList'],
     query: () => ofetch('/api/articles/list').then(res => res.data),
@@ -20,6 +23,22 @@ export function PageArticles() {
   }
   const getSkeletonRowsWidth = () => {
     return Array.from({ length: 10 }, () => randomSkeletonWidth())
+  }
+
+  // 处理文章点击，预加载内容后跳转
+  const handleArticleClick = async (article: ArticleMetadata) => {
+    const path = article.path
+
+    try {
+      // 预加载文章内容
+      await articleStore.preloadArticle(path)
+      // 预加载完成后跳转
+      router.push(articlePath(article))
+    }
+    catch {
+      console.warn('预加载文章失败')
+      router.push(articlePath(article))
+    }
   }
 
   return vine`
@@ -59,12 +78,20 @@ export function PageArticles() {
           <a
             :href="articlePath(article)"
             class="article-title sm:w-full lg:max-w-6/8 row-flex gap-2 text-xl"
-            @click.prevent="router.push(articlePath(article))"
+            @click.prevent="handleArticleClick(article)"
           >
-            <div
-              class="overflow-hidden text-ellipsis xl:whitespace-nowrap hover:(text-sky-700 dark:text-sky-300)"
-            >
-              {{ article.title }}
+            <div class="row-flex gap-2 items-center">
+              <!-- 加载指示器 -->
+              <div
+                v-if="articleStore.isArticleLoading(article.path)"
+                class="i-svg-spinners:bars-scale-fade text-lg text-sky-600 dark:text-sky-400 flex-shrink-0"
+              />
+              <div
+                class="overflow-hidden text-ellipsis xl:whitespace-nowrap hover:(text-sky-700 dark:text-sky-300)"
+                :class="{ 'opacity-70': articleStore.isArticleLoading(article.path) }"
+              >
+                {{ article.title }}
+              </div>
             </div>
             <div
               class="article-category ml-1 w-fit border-1 badge-color-amber rounded px-1.25 py-1 text-xs font-mono transition transition-duration-300 whitespace-nowrap hidden bs:block"
