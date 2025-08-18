@@ -1,4 +1,5 @@
 import type { AppWindowState } from '../../types/windowManager'
+import { useStatusBarStore } from '../../stores/statusBarStore'
 import { useWindowStore } from '../../stores/windowStore'
 import ResizeHandle from './ResizeHandle.vine'
 
@@ -6,6 +7,8 @@ export function DesktopAppWindowContainer(props: {
   winState: AppWindowState
 }) {
   const store = useWindowStore()
+  const statusBarStore = useStatusBarStore()
+  const { height: statusBarHeight } = storeToRefs(statusBarStore)
   const isResizing = ref(false)
   const isDragging = ref(false)
   const startPos = reactive({ x: 0, y: 0 })
@@ -107,14 +110,14 @@ export function DesktopAppWindowContainer(props: {
 
   const computedStyle = computed(() => {
     if (props.winState.isMaximized) {
-      // 全屏时顶部留出空间不遮挡 dock（底部也留出 80px）
+      // 最大化时确保不被状态栏遮挡，顶部从状态栏高度开始
       return {
         left: '0',
         right: '0',
-        top: '0',
+        top: `${statusBarHeight.value}px`,
         bottom: '0',
         width: '100%',
-        height: '100%',
+        height: `calc(100% - ${statusBarHeight.value}px)`,
       }
     }
     return {
@@ -129,7 +132,7 @@ export function DesktopAppWindowContainer(props: {
     <div
       v-show="!winState.isMinimized"
       v-motion-fade
-      class="window-shell col-flex shadow-lg fixed overflow-hidden rounded-xl border border-zinc-200/30 bg-white/80 dark:bg-zinc-900/70"
+      class="window-shell col-flex shadow-lg fixed overflow-hidden rounded-xl border border-zinc-300 dark:border-zinc-600 bg-white/80 dark:bg-zinc-900/70"
       :class="{
         'outline-1 outline-slate-400': winState.isActive,
         'select-none': isDragging || isResizing,

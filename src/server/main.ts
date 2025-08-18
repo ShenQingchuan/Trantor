@@ -4,6 +4,7 @@ import { Hono } from 'hono'
 import { STATIC_ROOT } from './constants/index.js'
 import { articlesRouter } from './controllers/articles.js'
 import { authRouter } from './controllers/auth.js'
+import { chatFlowRouter } from './controllers/chatflow.js'
 import { llmRouter } from './controllers/llm.js'
 import { mcpRouter } from './controllers/mcp.js'
 import { llmClientMiddleware } from './middlewares/llmClient.js'
@@ -39,6 +40,7 @@ apiRouter.route('/auth', authRouter)
 apiRouter.route('/mcp', mcpRouter)
 apiRouter.route('/llm', llmRouter)
 apiRouter.route('/articles', articlesRouter)
+apiRouter.route('/chatflow', chatFlowRouter)
 
 app.route('/api', apiRouter)
 

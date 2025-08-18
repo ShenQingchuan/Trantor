@@ -21,3 +21,8 @@ html.dark {
   color-scheme: dark;
   color: #fff;
 }
+
+/* 默认按钮没有 outline */
+button, button:focus, button:active {
+  outline: none;
+}

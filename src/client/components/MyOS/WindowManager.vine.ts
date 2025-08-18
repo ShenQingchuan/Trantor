@@ -1,7 +1,7 @@
 import type { AppWindowState } from '../../types/windowManager'
+import { capitalize } from '../../../bridge/utils'
 import { useWindowStore } from '../../stores/windowStore'
-import { capitalize } from '../../utils/shared'
-import { ChatApp } from '../Apps/ChatApp.vine'
+import { ChatApp } from './apps/ChatApp.vine'
 import AboutMyOS from './AboutMyOS.vine'
 import { DesktopAppWindowContainer } from './AppWindow.vine'
 

@@ -1,7 +1,6 @@
 // Chat 应用菜单提供者
 
-import type { CommandMenuGroup, MenuCommand, MenuCommandRegistry, MenuProvider } from '../types/menuSystem'
-import { useI18n } from 'vue-i18n'
+import type { CommandMenuGroup, MenuCommandRegistry, MenuProvider } from '../types/menuSystem'
 
 export class ChatMenuProvider implements MenuProvider {
   private readonly appId = 'chat'
@@ -11,72 +10,51 @@ export class ChatMenuProvider implements MenuProvider {
   }
 
   getMenuGroups(): CommandMenuGroup[] {
-    const { t } = useI18n()
-
+    // 使用固定的 key，翻译将在 StatusBar 组件中处理
     return [
       {
         id: 'session',
-        title: t('chat_menu_session'),
+        title: 'chat_menu_session',
         order: 1,
         items: [
-          { id: 'new-chat', label: t('chat_session_new'), command: 'chat.session.new', shortcut: '⌘N', icon: 'i-lucide:plus' },
-          { id: 'open-chat', label: t('chat_session_open'), command: 'chat.session.open', shortcut: '⌘O', icon: 'i-lucide:folder-open' },
-          { id: 'sep1', separator: true },
-          { id: 'save-chat', label: t('chat_session_save'), command: 'chat.session.save', shortcut: '⌘S', icon: 'i-lucide:save' },
-          { id: 'save-as-chat', label: t('chat_session_save_as'), command: 'chat.session.saveAs', shortcut: '⇧⌘S', icon: 'i-lucide:save' },
-          { id: 'sep2', separator: true },
-          { id: 'close-chat', label: t('chat_session_close'), command: 'chat.session.close', shortcut: '⌘W', icon: 'i-lucide:x' },
+          { id: 'new-chat', label: 'chat_session_new', command: 'chat.session.new', icon: 'i-lucide:plus' },
+          { id: 'edit-title', label: 'chat_session__edit_title', command: 'chat.session.editTitle', icon: 'i-lucide:edit' },
+          { id: 'delete-session', label: 'chat_session__delete', command: 'chat.session.delete', icon: 'i-lucide:trash-2' },
+          { id: 'sep3', separator: true },
+          { id: 'clear-messages', label: 'chat_edit_clear_history', command: 'chat.session.clearHistory', icon: 'i-lucide:eraser' },
+        ],
+      },
+      {
+        id: 'view',
+        title: 'chat_menu_view',
+        order: 3,
+        items: [
+          { id: 'toggle-sidebar', label: 'chat_view_toggle_sidebar', command: 'chat.view.toggleSidebar', icon: 'i-lucide:sidebar' },
         ],
       },
     ]
   }
 
   registerCommands(registry: MenuCommandRegistry): void {
-    // 会话命令
-    registry.register('chat.session.new', this.handleNewChat.bind(this))
-    registry.register('chat.session.open', this.handleOpenChat.bind(this))
-    registry.register('chat.session.save', this.handleSaveChat.bind(this))
-    registry.register('chat.session.saveAs', this.handleSaveAsChat.bind(this))
-    registry.register('chat.session.close', this.handleCloseChat.bind(this))
+    // 会话命令 - 现在只注册命令ID，实际处理将通过事件系统
+    registry.register('chat.session.new', () => window.dispatchEvent(new CustomEvent('chat:newSession')))
+    registry.register('chat.session.editTitle', () => window.dispatchEvent(new CustomEvent('chat:editTitle')))
+    registry.register('chat.session.delete', () => window.dispatchEvent(new CustomEvent('chat:deleteSession')))
+    registry.register('chat.session.clearHistory', () => window.dispatchEvent(new CustomEvent('chat:clearHistory')))
+    registry.register('chat.view.toggleSidebar', () => window.dispatchEvent(new CustomEvent('chat:toggleSidebar')))
   }
 
   unregisterCommands(registry: MenuCommandRegistry): void {
     // 注销所有命令
     const commands = [
       'chat.session.new',
-      'chat.session.open',
-      'chat.session.save',
-      'chat.session.saveAs',
-      'chat.session.close',
+      'chat.session.editTitle',
+      'chat.session.delete',
+      'chat.session.clearHistory',
+      'chat.view.toggleSidebar',
     ]
 
     commands.forEach(cmd => registry.unregister(cmd))
-  }
-
-  // === 会话命令处理器 ===
-  private async handleNewChat(_: MenuCommand): Promise<void> {
-    console.log('Chat: New chat session')
-    // Todo: 实现新建对话逻辑
-  }
-
-  private async handleOpenChat(_: MenuCommand): Promise<void> {
-    console.log('Chat: Open chat session')
-    // Todo: 实现打开对话逻辑
-  }
-
-  private async handleSaveChat(_: MenuCommand): Promise<void> {
-    console.log('Chat: Save chat session')
-    // Todo: 实现保存对话逻辑
-  }
-
-  private async handleSaveAsChat(_: MenuCommand): Promise<void> {
-    console.log('Chat: Save chat session as...')
-    // Todo: 实现另存为对话逻辑
-  }
-
-  private async handleCloseChat(_: MenuCommand): Promise<void> {
-    console.log('Chat: Close chat session')
-    // Todo: 实现关闭对话逻辑
   }
 }
 

@@ -71,7 +71,7 @@ function AssistantMessageBubble(props: {
         <div class="i-lucide:bot text-xl" />
       </div>
       <div
-        class="row-flex bg-violet-100 dark:bg-violet-800/50 w-max border-(1px solid violet-200) dark:border-violet-700 rounded-md px-4 py-2 text-zinc-900 dark:text-zinc-100"
+        class="row-flex bg-violet-100 dark:bg-violet-800/50 border-(1px solid violet-200) dark:border-violet-700 rounded-md px-4 py-2 text-zinc-900 dark:text-zinc-100"
       >
         <div
           v-if="!message.content"
@@ -101,7 +101,7 @@ function RenderMessages(props: {
 
 export function MessageThread() {
   return vine`
-    <div class="col-flex gap-4 overflow-auto py-6 flex-1 px-10% self-stretch">
+    <div class="w-full col-flex gap-4 overflow-auto py-6 flex-1 px-10% self-stretch">
       <!-- 已完成消息列表 -->
       <RenderMessages />
     </div>

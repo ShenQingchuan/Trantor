@@ -1,5 +1,6 @@
 import type { AppWindowState, OpenWindowOptions, WindowId } from '../types/windowManager'
 import { nanoid } from 'nanoid'
+import { useStatusBarStore } from './statusBarStore'
 
 const storeId = 'trantor:window-store' as const
 
@@ -7,6 +8,10 @@ export const useWindowStore = defineStore(storeId, () => {
   const windows = ref<AppWindowState[]>([])
   const activeWindowId = ref<WindowId | null>(null)
   const baseZIndex = 200
+
+  // 获取状态栏高度，确保窗口不被遮挡
+  const statusBarStore = useStatusBarStore()
+  const { height: statusBarHeight } = storeToRefs(statusBarStore)
 
   const nextZIndex = computed(() => (
     windows.value.reduce((max, w) => Math.max(max, w.zIndex), baseZIndex) + 1
@@ -44,7 +49,7 @@ export const useWindowStore = defineStore(storeId, () => {
     const desiredWidth = options.initial?.width ?? 900
     const desiredHeight = options.initial?.height ?? 600
     const baseX = options.initial?.x ?? 40
-    const baseY = options.initial?.y ?? 60
+    const baseY = options.initial?.y ?? Math.max(60, statusBarHeight.value + 20) // 确保初始位置在状态栏下方
     const desiredXRaw = baseX + stepX * offsetIndex
     const desiredY = baseY + stepY * offsetIndex
 
@@ -57,14 +62,14 @@ export const useWindowStore = defineStore(storeId, () => {
     const initHeight = Math.min(targetHeight, maxInitialHeight)
 
     const maxX = Math.max(0, viewportWidth - initWidth - 8)
-    const maxY = Math.max(0, viewportHeight - initHeight - dockReserve)
+    const maxY = Math.max(statusBarHeight.value, viewportHeight - initHeight - dockReserve) // 确保不超过状态栏
     const availableX = Math.max(0, maxX)
     const slotsX = Math.max(1, Math.floor(availableX / stepX))
     const normalizedIndexX = slotsX > 0 ? (offsetIndex % (slotsX + 1)) : 0
     const desiredX = Math.min(Math.max(0, desiredXRaw), maxX)
     const cascadedX = Math.min(Math.max(0, baseX + stepX * normalizedIndexX), maxX)
     const clampedX = Math.min(Math.max(0, Math.min(desiredX, cascadedX)), maxX)
-    const clampedY = Math.min(Math.max(0, desiredY), maxY)
+    const clampedY = Math.min(Math.max(statusBarHeight.value, desiredY), maxY) // 确保 Y 坐标不小于状态栏高度
 
     const w: AppWindowState = {
       id,
@@ -135,7 +140,9 @@ export const useWindowStore = defineStore(storeId, () => {
     const viewportHeight = typeof window !== 'undefined' ? window.innerHeight : 1080
     const dockReserve = 96
     const clampedX = Math.min(Math.max(0, x), Math.max(0, viewportWidth - w.width - 8))
-    const clampedY = Math.min(Math.max(0, y), Math.max(0, viewportHeight - w.height - dockReserve))
+    // 确保窗口不会被拖到状态栏后面
+    const minY = statusBarHeight.value
+    const clampedY = Math.min(Math.max(minY, y), Math.max(minY, viewportHeight - w.height - dockReserve))
     w.x = clampedX
     w.y = clampedY
   }
@@ -155,7 +162,9 @@ export const useWindowStore = defineStore(storeId, () => {
     const minHeight = w.minHeight ?? 200
 
     const maxWidth = Math.max(minWidth, viewportWidth - w.x - 8)
-    const maxHeight = Math.max(minHeight, viewportHeight - w.y - dockReserve)
+    // 确保调整大小时考虑状态栏高度
+    const availableHeight = viewportHeight - Math.max(statusBarHeight.value, w.y) - dockReserve
+    const maxHeight = Math.max(minHeight, availableHeight)
     w.width = Math.max(minWidth, Math.min(width, maxWidth))
     w.height = Math.max(minHeight, Math.min(height, maxHeight))
   }

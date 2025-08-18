@@ -49,7 +49,7 @@ export async function connectTrantorMcpServer() {
             ctx.value.mcpServerConnected = false
           }
           catch (error) {
-            // 忽略清理错误
+            console.warn('清理现有连接时失败:', error)
           }
         }
 

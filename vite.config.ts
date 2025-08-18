@@ -25,6 +25,15 @@ const ProseKitModules = [
   'prosekit',
   'prosemirror-view',
 ]
+const vueLibsModules = [
+  'vue',
+  'vue-router',
+  'pinia',
+  'vue-i18n',
+  '@pinia/colada',
+  '@vueuse/core',
+  '@vueuse/motion',
+]
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -55,9 +64,16 @@ export default defineConfig({
     outDir: './dist/static',
     rollupOptions: {
       output: {
-        manualChunks: {
-          toolLibs: ToolLibsModules,
-          prosekit: ProseKitModules,
+        manualChunks: (id: string) => {
+          if (vueLibsModules.some(module => id.includes(module)))
+            return 'vueLibs'
+          if (ProseKitModules.some(module => id.includes(module)))
+            return 'prosekit'
+          if (ToolLibsModules.some(module => id.includes(module)))
+            return 'toolLibs'
+
+          if (id.includes('src/client/locales'))
+            return 'locales'
         },
       },
     },

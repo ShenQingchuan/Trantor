@@ -1,7 +1,6 @@
 import type { ArticleMetadata, CachedArticleResponse } from '../../../bridge/types/articles.js'
 import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import consola from 'consola'
 import frontMatter from 'front-matter'
 import { CONTENT_DIR } from '../../constants/index.js'
 import { errorResponse, successResponse } from '../../utils/response.js'
@@ -27,15 +26,11 @@ export const getArticleListHandler = handlerFactory.createHandlers(async (c) => 
         }),
     )
 
-    return c.json(
-      successResponse({
-        articles,
-      }),
-    )
+    return successResponse(c, articles)
   }
   catch (error) {
     console.error('[Filesystem Error] Failed to read articles from filesystem for list:', error)
-    return c.json(errorResponse(500, 'Failed to retrieve article list'))
+    return errorResponse(c, 500, 'Failed to retrieve article list')
   }
 })
 
@@ -43,26 +38,19 @@ export const getArticleHandler = handlerFactory.createHandlers(async (c) => {
   const path = c.req.param('path')
   const theme = c.req.query('theme')
   if (!path) {
-    return c.json(errorResponse(404, 'Article not found'))
+    return errorResponse(c, 404, 'Article not found')
   }
 
   try {
     const markdownIt = c.get('markdownIt')
-    console.log(`[Handler Debug] Step 1: Calling articleCacheService.getArticle for path "${path}"...`)
     const result: CachedArticleResponse = await articleCacheService.getArticle(path, markdownIt, theme)
 
-    console.log('[Handler Debug] Step 2: Successfully received result from cache service:', result)
-
-    console.log('[Handler Debug] Step 3: Attempting to package the result into successResponse...')
-    const response = successResponse({
+    return successResponse(c, {
       metadata: result.metadata,
       content: result.content,
       fromCache: result.fromCache,
       cacheUpdated: result.cacheUpdated,
     })
-    console.log('[Handler Debug] Step 4: Successfully packaged response.')
-
-    return c.json(response)
   }
   catch (error) {
     // 增加错误日志，暴露缓存服务失败的根本原因
@@ -81,17 +69,15 @@ export const getArticleHandler = handlerFactory.createHandlers(async (c) => {
         console.error(`[Cache Self-healing Error] Failed to update cache for path "${path}" in background:`, cacheError)
       })
 
-      return c.json(
-        successResponse({
-          metadata: attributes,
-          content,
-          fromCache: false,
-        }),
-      )
+      return successResponse(c, {
+        metadata: attributes,
+        content,
+        fromCache: false,
+      })
     }
     catch (fsError) {
       console.error(`[Filesystem Fallback Error] Failed to read article for path "${path}":`, fsError)
-      return c.json(errorResponse(404, 'Article not found'))
+      return errorResponse(c, 404, 'Article not found')
     }
   }
 })

@@ -1,3 +1,4 @@
+import { getErrMsg } from '../../../bridge/utils.js'
 import { errorResponse, successResponse } from '../../utils/response.js'
 import { handlerFactory } from '../handler-factory.js'
 import { articleCacheService } from './cache-service.js'
@@ -8,9 +9,10 @@ import { articleCacheService } from './cache-service.js'
 export const cleanupCacheHandler = handlerFactory.createHandlers(async (c) => {
   try {
     await articleCacheService.cleanupOrphanedCache()
-    return c.json(successResponse({ message: '缓存清理完成' }))
-  } catch (error) {
-    return c.json(errorResponse(500, `缓存清理失败: ${error.message}`))
+    return successResponse(c, { message: '缓存清理完成' })
+  }
+  catch (error) {
+    return errorResponse(c, 500, `缓存清理失败: ${getErrMsg(error)}`)
   }
 })
 
@@ -20,14 +22,15 @@ export const cleanupCacheHandler = handlerFactory.createHandlers(async (c) => {
 export const getCacheStatusHandler = handlerFactory.createHandlers(async (c) => {
   const fileName = c.req.param('fileName')
   if (!fileName) {
-    return c.json(errorResponse(400, '缺少文件名参数'))
+    return errorResponse(c, 400, '缺少文件名参数')
   }
 
   try {
     const status = await articleCacheService.checkCacheStatus(fileName)
-    return c.json(successResponse(status))
-  } catch (error) {
-    return c.json(errorResponse(500, `获取缓存状态失败: ${error.message}`))
+    return successResponse(c, status)
+  }
+  catch (error) {
+    return errorResponse(c, 500, `获取缓存状态失败: ${getErrMsg(error)}`)
   }
 })
 
@@ -37,23 +40,24 @@ export const getCacheStatusHandler = handlerFactory.createHandlers(async (c) => 
 export const refreshCacheHandler = handlerFactory.createHandlers(async (c) => {
   const fileName = c.req.param('fileName')
   const theme = c.req.query('theme')
-  
+
   if (!fileName) {
-    return c.json(errorResponse(400, '缺少文件名参数'))
+    return errorResponse(c, 400, '缺少文件名参数')
   }
 
   try {
     const markdownIt = c.get('markdownIt')
     const result = await articleCacheService.renderAndCacheArticle(fileName, markdownIt, theme)
-    
-    return c.json(successResponse({
+
+    return successResponse(c, {
       message: '缓存刷新成功',
       article: {
         fileName,
         metadata: result.metadata,
       },
-    }))
-  } catch (error) {
-    return c.json(errorResponse(500, `缓存刷新失败: ${error.message}`))
+    })
+  }
+  catch (error) {
+    return errorResponse(c, 500, `缓存刷新失败: ${getErrMsg(error)}`)
   }
 })

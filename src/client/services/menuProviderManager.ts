@@ -11,7 +11,6 @@ class MenuProviderManager {
     const appId = provider.getAppId()
 
     if (this.providers.has(appId)) {
-      console.warn(`Menu provider for app '${appId}' already exists. Replacing it.`)
       // 先注销旧的命令
       const oldProvider = this.providers.get(appId)!
       oldProvider.unregisterCommands(menuCommandRegistry)
@@ -20,8 +19,6 @@ class MenuProviderManager {
     // 注册新的提供者和命令
     this.providers.set(appId, provider)
     provider.registerCommands(menuCommandRegistry)
-
-    console.log(`Menu provider registered for app: ${appId}`)
   }
 
   // 注销菜单提供者
@@ -30,7 +27,6 @@ class MenuProviderManager {
     if (provider) {
       provider.unregisterCommands(menuCommandRegistry)
       this.providers.delete(appId)
-      console.log(`Menu provider unregistered for app: ${appId}`)
     }
   }
 
@@ -56,7 +52,6 @@ class MenuProviderManager {
       provider.unregisterCommands(menuCommandRegistry)
     }
     this.providers.clear()
-    console.log('All menu providers disposed')
   }
 }
 

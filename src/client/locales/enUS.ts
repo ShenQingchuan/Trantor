@@ -57,6 +57,7 @@ export default {
 
   dialog__cancel: 'Cancel',
   dialog__confirm: 'Confirm',
+  dialog__prompt: 'Notice',
 
   chat_flow__send: 'Send',
   chat_flow__ai_thinking: 'Thinking and organizing data',
@@ -71,9 +72,25 @@ export default {
   chat_flow__welcome_subtitle: 'I can help you answer questions, process tasks, and provide support. Please enter your question to start the conversation.',
   chat_flow__tips: 'Writing prompts needs both details and abstract hierarchy, remember that garbage in, garbage out.',
 
+  // Chat Session management
+  chat_session__title: 'Chat History',
+  chat_session__new: 'New',
+  chat_session__loading: 'Loading...',
+  chat_session__empty: 'No chat records',
+  chat_session__edit_title: 'Edit Title',
+  chat_session__delete: 'Delete Session',
+  chat_session__delete_confirm: 'Confirm to delete session "{title}"',
+  chat_session__edit_title_prompt: 'Please enter new session title:',
+  chat_session__error_create_failed: 'Failed to create session',
+  chat_session__error_load_failed: 'Failed to load session',
+  chat_session__error_update_failed: 'Failed to update session title',
+  chat_session__error_delete_failed: 'Failed to delete session',
+  chat_session__error_save_failed: 'Failed to save conversation',
+  chat_session__error_load_messages_failed: 'Failed to load messages',
+  chat_new_conversation: 'New conversation',
+
   // Chat menu items
   chat_menu_session: 'Session',
-  chat_menu_edit: 'Edit',
   chat_menu_view: 'View',
   chat_menu_help: 'Help',
 

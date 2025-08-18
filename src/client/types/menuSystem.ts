@@ -10,13 +10,13 @@ export interface MenuCommand {
 }
 
 export interface MenuCommandHandler {
-  (command: MenuCommand): Promise<void> | void
+  (command: MenuCommand): Promise<any> | any
 }
 
 export interface MenuCommandRegistry {
   register: (commandId: string, handler: MenuCommandHandler) => void
   unregister: (commandId: string) => void
-  execute: (command: MenuCommand) => Promise<void>
+  execute: (command: MenuCommand) => Promise<void> | void
   hasHandler: (commandId: string) => boolean
 }
 

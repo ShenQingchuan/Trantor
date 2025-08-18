@@ -69,7 +69,7 @@ export const useAuthStore = defineStore(authStoreId, () => {
       }
     }
     catch (error) {
-      console.error('Token authentication failed:', error)
+      console.warn(`Token authentication failed: ${error}`)
       logout()
       return false
     }

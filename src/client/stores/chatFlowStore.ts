@@ -3,9 +3,9 @@ import type { Editor } from 'prosekit/core'
 import type { ChatDisplayMessage, ChatFlowContext } from '../types/chatFlow'
 import { useLocalStorage, useSessionStorage } from '@vueuse/core'
 import { nanoid } from 'nanoid'
+import { sleep } from '../../bridge/utils'
 import { connectTrantorMcpServer, createChatFlowContext } from '../chatFlow/client'
 import { createChatStream } from '../chatFlow/stream'
-import { sleep } from '../utils/shared'
 
 const chatFlowStoreId = 'trantor:chat-flow-store' as const
 
@@ -103,7 +103,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
       }
 
       hasContent = true
-      
+
       // 当收到第一个文本块时，才创建 assistant 消息
       if (!chatLastPendingMessage.value) {
         chatLastPendingMessage.value = {
@@ -114,7 +114,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
         }
         chatDisplayMessages.value.push(chatLastPendingMessage.value)
       }
-      
+
       chatLastPendingMessage.value.content += chunk
       await sleep(50) // 模拟打字机效果
     }
@@ -138,6 +138,37 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
 
   initChatFlowAIContext()
 
+  // 从历史消息加载对话
+  const loadMessagesFromHistory = (messages: any[]) => {
+    // 确保 messages 是数组
+    if (!Array.isArray(messages)) {
+      console.warn('loadMessagesFromHistory: messages 不是数组', messages)
+      return
+    }
+
+    // 将历史消息转换为 ChatDisplayMessage 格式
+    const displayMessages: ChatDisplayMessage[] = messages.map(msg => ({
+      id: msg.id,
+      role: msg.role,
+      content: msg.content,
+      ...(msg.role === 'tool' && {
+        args: msg.tool_args,
+        result: msg.tool_result,
+        isError: msg.tool_has_error,
+      }),
+    }))
+
+    chatDisplayMessages.value = displayMessages
+    isShowGuide.value = false
+  }
+
+  // 清空消息
+  const clearMessages = () => {
+    chatDisplayMessages.value = []
+    isShowGuide.value = true
+    chatLastPendingMessage.value = null
+  }
+
   return {
     chatFlowAIContext,
     chatMcpSessionId,
@@ -149,5 +180,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
     isChatStreaming,
     sendPrompt,
     setEditor,
+    loadMessagesFromHistory,
+    clearMessages,
   }
 })

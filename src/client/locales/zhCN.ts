@@ -41,7 +41,7 @@ export default {
   os_login_error: '登录失败',
 
   os_app_comming_soon: '{appId} 应用即将到来，敬请期待',
-  os_app_not_implemented: '应用暂未实现：{appId}',
+  os_app_not_implemented: '暂未实现该应用：{appId}',
   os_mobile_coming_soon: '暂未实现移动端模式',
   os_mobile_coming_soon_subtitle: '敬请期待',
 
@@ -50,7 +50,7 @@ export default {
 
   about_myos_title: '关于 MyOS',
   about_myos_version: '版本 {version}',
-  about_myos_description: '做黑客🧑🏻‍💻 与画家🎨',
+  about_myos_description: '去成为黑客 🧑🏻‍💻 与画家 🎨 ',
 
   auth_password_placeholder: '输入系统密码',
   auth_password_required: '请输入密码',
@@ -58,6 +58,7 @@ export default {
 
   dialog__cancel: '取消',
   dialog__confirm: '确认',
+  dialog__prompt: '提示',
 
   chat_flow__send: '发送',
   chat_flow__ai_thinking: '正在思考和整理数据',
@@ -72,9 +73,25 @@ export default {
   chat_flow__welcome_subtitle: '我可以帮助您解答问题、处理任务和提供支持。请输入您的问题开始对话。',
   chat_flow__tips: '编写提示词是一门技术活，谨记高质量输入才能带来高质量输出。',
 
+  // Chat Session 会话管理
+  chat_session__title: '对话历史',
+  chat_session__new: '新建',
+  chat_session__loading: '加载中...',
+  chat_session__empty: '暂无对话记录',
+  chat_session__edit_title: '编辑标题',
+  chat_session__delete: '删除会话',
+  chat_session__delete_confirm: '确定要删除会话 "{title}" 吗？',
+  chat_session__edit_title_prompt: '请输入新的会话标题：',
+  chat_session__error_create_failed: '创建会话失败',
+  chat_session__error_load_failed: '加载会话失败',
+  chat_session__error_update_failed: '更新会话标题失败',
+  chat_session__error_delete_failed: '删除会话失败',
+  chat_session__error_save_failed: '保存对话失败',
+  chat_session__error_load_messages_failed: '加载消息失败',
+  chat_new_conversation: '新会话',
+
   // Chat 菜单项
   chat_menu_session: '会话',
-  chat_menu_edit: '编辑',
   chat_menu_view: '视图',
   chat_menu_help: '帮助',
 

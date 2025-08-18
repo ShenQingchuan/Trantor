@@ -2,15 +2,14 @@ import type { ArticleMetadata } from '../../bridge/types/articles'
 import { useQuery } from '@pinia/colada'
 import { format } from 'date-fns'
 import { ofetch } from 'ofetch'
-import { Skeleton } from '../components/Shared.vine'
+import { randomSkeletonWidth, Skeleton } from '../components/Shared.vine'
 import { useArticleStore } from '../stores/articleStore'
-import { randomSkeletonWidth } from '../utils/shared'
 
 export function PageArticles() {
   const router = useRouter()
   const articleStore = useArticleStore()
 
-  const { state, asyncStatus } = useQuery<{ articles: ArticleMetadata[] }>({
+  const { state, asyncStatus } = useQuery<ArticleMetadata[]>({
     key: ['articlesList'],
     query: () => ofetch('/api/articles/list').then(res => res.data),
   })
@@ -70,8 +69,8 @@ export function PageArticles() {
       </div>
       <div class="col-flex gap-4">
         <div
-          v-if="state.data.articles.length > 0"
-          v-for="article in state.data.articles"
+          v-if="state.data.length > 0"
+          v-for="article in state.data"
           :key="article.title"
           class="article-item w-full col-flex gap-2 sm:row-flex"
         >

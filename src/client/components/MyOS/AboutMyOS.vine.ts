@@ -16,7 +16,7 @@ export default function AboutMyOS() {
           <p class="font-sans text-gray-600 dark:text-gray-400">
             {{ t('about_myos_version', { version: systemVersion }) }}
           </p>
-          <p class="font-sans text-gray-500 mt-4">
+          <p class="font-sans text-gray-400 mt-4">
             {{ t('about_myos_description') }}
           </p>
         </div>

@@ -3,9 +3,8 @@ import { useQuery } from '@pinia/colada'
 import { useDark } from '@vueuse/core'
 import { format } from 'date-fns'
 import { ofetch } from 'ofetch'
-import { Skeleton } from '../components/Shared.vine'
+import { randomSkeletonWidth, Skeleton } from '../components/Shared.vine'
 import { useArticleStore } from '../stores/articleStore'
-import { randomSkeletonWidth } from '../utils/shared'
 import '../styles/blog-article.scss'
 
 function BackToArticleList() {

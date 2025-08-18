@@ -2,27 +2,13 @@ import type { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import type { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js'
 import type { ChatCompletionFunctionTool, ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 
+export type { ChatDisplayMessage } from '../../bridge/types/chatFlow'
+
 export type ChatFlowMessageFilter = Array<
   | 'onlyPending'
   | 'onlyCompleted'
   | 'onlyTool'
 >
-
-export type ChatDisplayMessage = ({
-  id: string
-  streaming?: boolean
-}) & (
-  | { role: 'user', content: string }
-  | { role: 'assistant', content: string }
-  | {
-    role: 'tool'
-    content: string
-    args: Record<string, unknown>
-    result?: string
-    pending?: boolean
-    isError?: boolean
-  }
-)
 
 export interface ChatFlowContext {
   mcpClient: Client

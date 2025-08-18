@@ -149,9 +149,6 @@ export class ArticleCacheService {
         // 缓存有效，直接返回
         const { renderedHTML, metadata: rawMetadata } = cacheStatus.cachedArticle
 
-        // 诊断日志：打印出将要被解析的原始字符串
-        console.log('[Cache Service Debug] Attempting to parse metadata string:', rawMetadata)
-
         return {
           content: renderedHTML,
           metadata: JSON.parse(rawMetadata),

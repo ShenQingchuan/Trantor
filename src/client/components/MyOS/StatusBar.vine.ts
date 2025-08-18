@@ -1,6 +1,7 @@
 import type { CommandMenuItem } from '../../types/menuSystem'
 import type { StatusBarMenuItem } from '../../types/statusBar'
 import { useDark } from '@vueuse/core'
+import { useChatSessionStore } from '../../stores/chatSessionStore'
 import { useStatusBarStore } from '../../stores/statusBarStore'
 import { useWindowStore } from '../../stores/windowStore'
 
@@ -119,7 +120,9 @@ export function StatusBar() {
   const { t } = useI18n()
   const statusBarStore = useStatusBarStore()
   const windowStore = useWindowStore()
+  const chatSessionStore = useChatSessionStore()
   const { visible, height, currentAppMenuGroups, visibleTrayIcons } = storeToRefs(statusBarStore)
+  const { currentSession } = storeToRefs(chatSessionStore)
 
   const openMenus = ref<Set<string>>(new Set())
   const heightStyle = computed(() => `${height.value}px`)
@@ -175,6 +178,40 @@ export function StatusBar() {
 
   const isMenuGroupOpen = (menuGroupId: string) => openMenus.value.has(`menu-group-${menuGroupId}`)
   const toggleMenuGroup = (menuGroupId: string) => toggleMenu(`menu-group-${menuGroupId}`)
+
+  // 为 chat 应用动态设置菜单项的 disabled 状态和翻译
+  const currentAppMenuGroupsWithDisabled = computed(() => {
+    if (statusBarStore.activeAppId !== 'chat') {
+      return currentAppMenuGroups.value
+    }
+
+    return currentAppMenuGroups.value.map(group => ({
+      ...group,
+      title: t(group.title),
+      items: group.items.map((item) => {
+        // 需要当前会话才能执行的命令
+        const sessionRequiredCommands = [
+          'chat.session.editTitle',
+          'chat.session.delete',
+          'chat.session.clearHistory',
+        ]
+
+        const translatedItem = {
+          ...item,
+          ...(item.label ? { label: t(item.label) } : {}),
+        }
+
+        if (item.command && sessionRequiredCommands.includes(item.command)) {
+          return {
+            ...translatedItem,
+            disabled: !currentSession.value,
+          }
+        }
+
+        return translatedItem
+      }),
+    }))
+  })
 
   // 点击外部区域关闭菜单
   onMounted(() => {
@@ -243,9 +280,13 @@ export function StatusBar() {
 
         <!-- 分散式应用菜单组 -->
         <div class="row-flex items-center">
-          <template v-if="statusBarStore.activeAppId !== 'system' && currentAppMenuGroups.length > 0">
+          <template
+            v-if="
+              statusBarStore.activeAppId !== 'system' && currentAppMenuGroupsWithDisabled.length > 0
+            "
+          >
             <StatusBarMenuDropdown
-              v-for="menuGroup in currentAppMenuGroups"
+              v-for="menuGroup in currentAppMenuGroupsWithDisabled"
               :key="menuGroup.id"
               :title="menuGroup.title"
               :items="menuGroup.items"

@@ -7,12 +7,9 @@ import { menuProviderManager } from './menuProviderManager'
 export function initializeMenuProviders(): void {
   // 注册Chat应用菜单提供者
   menuProviderManager.registerProvider(chatMenuProvider)
-
-  console.log('Menu providers initialized')
 }
 
 // 清理所有菜单提供者
 export function cleanupMenuProviders(): void {
   menuProviderManager.dispose()
-  console.log('Menu providers cleaned up')
 }
