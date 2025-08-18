@@ -220,18 +220,41 @@ pipeline {
                             }
                         }
                     }
-                    // 你可能想清理旧的、不再使用的 Docker 镜像（可选）
-                    // 清理上一个构建的 Docker 镜像 (如果存在)
-                    def currentBuildNumber = env.BUILD_NUMBER.toInteger() // 将构建号转换为整数
-                    if (currentBuildNumber > 1) {
-                        def previousBuildNumber = currentBuildNumber - 1
-                        def previousImageTag = "${env.DOCKER_IMAGE_NAME}:${previousBuildNumber}"
-                        echo "Removing previous image: ${previousImageTag}"
-                        // 使用 sh 命令删除指定的 Docker 镜像
-                        // '|| true' 确保在镜像不存在或无法删除时 (例如，被正在运行的容器使用，尽管此脚本前面已停止旧容器)，流水线不会因此失败
-                        sh "docker rmi ${previousImageTag} || true"
-                    } else {
-                        echo "Aborting image pruning as it's the first build."
+                    // 清理所有旧版本镜像，严格只保留当前成功构建的镜像
+                    echo "Starting cleanup of all old Docker images..."
+                    
+                    script {
+                        def currentTag = env.BUILD_NUMBER
+                        
+                        try {
+                            // 获取所有该应用的镜像标签（排除当前构建的标签）
+                            def oldImages = sh(
+                                script: """
+                                    docker images ${env.DOCKER_IMAGE_NAME} --format "{{.Tag}}" | \
+                                    grep -E '^[0-9]+\$' | \
+                                    grep -v "^${currentTag}\$"
+                                """,
+                                returnStdout: true
+                            ).trim().split('\n').findAll { it.trim() }
+                            
+                            if (oldImages.size() > 0) {
+                                echo "Current image tag: ${currentTag}"
+                                echo "Found old images to delete: ${oldImages.join(', ')}"
+                                
+                                oldImages.each { tag ->
+                                    def imageToDelete = "${env.DOCKER_IMAGE_NAME}:${tag}"
+                                    echo "Deleting old image: ${imageToDelete}"
+                                    sh "docker rmi ${imageToDelete} || echo 'Failed to delete ${imageToDelete}, might be in use'"
+                                }
+                                
+                                echo "✅ Cleanup completed. Only current image ${env.DOCKER_IMAGE_NAME}:${currentTag} remains."
+                            } else {
+                                echo "No old images found for cleanup. Only current image ${env.DOCKER_IMAGE_NAME}:${currentTag} exists."
+                            }
+                        } catch (Exception e) {
+                            echo "⚠️ Image cleanup failed: ${e.getMessage()}"
+                            echo "Continuing deployment as image cleanup is not critical..."
+                        }
                     }
                 }
             }
