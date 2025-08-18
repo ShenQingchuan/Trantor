@@ -29,6 +29,11 @@ export function ChatApp() {
   const showSidebar = ref(true)
   const editorRef = useTemplateRef('editorRef')
 
+  // 在 ChatApp 组件挂载时启用会话数据获取
+  onMounted(() => {
+    chatSessionStore.enableSessionsFetch()
+  })
+
   const handleSend = async () => {
     const editor = editorRef.value?.editor
     if (!editor || isChatStreaming.value)
@@ -118,8 +123,15 @@ export function ChatApp() {
   }
 
   const handleNewSession = async () => {
-    await chatSessionStore.createNewSession()
-    chatFlowStore.clearMessages()
+    try {
+      // 先清空消息和重置状态，确保欢迎界面正确显示
+      chatFlowStore.clearMessages()
+      // 然后创建新会话
+      await chatSessionStore.createNewSession()
+    }
+    catch (error) {
+      console.error('创建新会话失败:', error)
+    }
   }
 
   const toggleSidebar = () => {
@@ -129,8 +141,10 @@ export function ChatApp() {
   // 菜单命令处理器
   const handleMenuNewSession = async () => {
     try {
-      await chatSessionStore.createNewSession()
+      // 先清空消息和重置状态，确保欢迎界面正确显示
       chatFlowStore.clearMessages()
+      // 然后创建新会话
+      await chatSessionStore.createNewSession()
     }
     catch (error) {
       console.error('创建新会话失败:', error)

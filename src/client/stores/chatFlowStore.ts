@@ -159,7 +159,8 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
     }))
 
     chatDisplayMessages.value = displayMessages
-    isShowGuide.value = false
+    // 根据消息数量决定是否显示欢迎界面
+    isShowGuide.value = displayMessages.length === 0
   }
 
   // 清空消息

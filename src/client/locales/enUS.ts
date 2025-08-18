@@ -78,6 +78,7 @@ export default {
   chat_session__loading: 'Loading...',
   chat_session__empty: 'No chat records',
   chat_session__edit_title: 'Edit Title',
+  chat_session__summarize: 'Auto generate title',
   chat_session__delete: 'Delete Session',
   chat_session__delete_confirm: 'Confirm to delete session "{title}"',
   chat_session__edit_title_prompt: 'Please enter new session title:',
@@ -87,6 +88,7 @@ export default {
   chat_session__error_delete_failed: 'Failed to delete session',
   chat_session__error_save_failed: 'Failed to save conversation',
   chat_session__error_load_messages_failed: 'Failed to load messages',
+  chat_session__error_session_not_found: 'Session to delete not found',
   chat_new_conversation: 'New conversation',
 
   // Chat menu items

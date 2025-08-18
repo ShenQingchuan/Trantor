@@ -7,6 +7,11 @@ export class PocketBaseService {
 
   constructor(url = 'https://pocket.dokduk.cc') {
     this.pb = new PocketBase(url)
+    // 设置请求超时
+    this.pb.beforeSend = function (url, options) {
+      options.timeout = 10000 // 10秒超时
+      return { url, options }
+    }
   }
 
   /**
@@ -71,12 +76,26 @@ export class PocketBaseService {
    * 获取所有会话列表
    */
   async getChatSessions(userId?: string): Promise<ChatFlowSession[]> {
-    const filter = userId ? `user_id="${userId}"` : ''
-    const result = await this.pb.collection('trantor_chatflow_history').getFullList<ChatFlowSession>({
-      sort: '-last_message_at',
-      filter,
-    })
-    return result
+    const startTime = Date.now()
+    try {
+      const filter = userId ? `user_id="${userId}"` : ''
+
+      // 性能优化：使用分页和字段限制
+      const result = await this.pb.collection('trantor_chatflow_history').getList<ChatFlowSession>(1, 50, {
+        sort: '-last_message_at',
+        filter,
+      })
+
+      const duration = Date.now() - startTime
+      console.log(`getChatSessions 执行时间: ${duration}ms, 返回 ${result.items.length} 个会话, 总数: ${result.totalItems}`)
+
+      return result.items
+    }
+    catch (error) {
+      const duration = Date.now() - startTime
+      console.error(`getChatSessions 执行失败，耗时: ${duration}ms`, error)
+      throw error
+    }
   }
 
   /**
@@ -121,14 +140,18 @@ export class PocketBaseService {
    * 保存消息到会话
    */
   async saveChatMessage(data: Omit<ChatFlowMessage, 'id' | 'created'>): Promise<ChatFlowMessage> {
-    const message = await this.pb.collection('trantor_chatflow_messages').create<ChatFlowMessage>(data)
+    const message = await this.pb.collection('trantor_chatflow_messages').create<ChatFlowMessage>(data, {
+      requestKey: `save_single_message_${data.session_id}`, // 为单条消息保存设置唯一key
+    })
 
     // 更新会话的最后消息时间和消息数量
     const session = await this.getChatSession(data.session_id)
     if (session) {
-      await this.updateChatSession(data.session_id, {
+      await this.pb.collection('trantor_chatflow_history').update<ChatFlowSession>(data.session_id, {
         last_message_at: new Date().toISOString(),
         message_count: (session.message_count || 0) + 1,
+      }, {
+        requestKey: `update_session_single_${data.session_id}`, // 为会话更新设置唯一key
       })
     }
 
@@ -178,15 +201,19 @@ export class PocketBaseService {
         tool_has_error: msg.role === 'tool' ? (msg as any).isError : undefined,
       }))
 
-      // 批量保存新消息
+      // 批量保存新消息，使用唯一的requestKey
       for (const message of chatMessages) {
-        await this.pb.collection('trantor_chatflow_messages').create(message)
+        await this.pb.collection('trantor_chatflow_messages').create(message, {
+          requestKey: `save_message_${sessionId}`, // 为批量消息保存设置唯一key
+        })
       }
 
-      // 更新会话信息
-      await this.updateChatSession(sessionId, {
+      // 更新会话信息，使用唯一的requestKey
+      await this.pb.collection('trantor_chatflow_history').update(sessionId, {
         last_message_at: new Date().toISOString(),
         message_count: messages.length, // 总消息数量
+      }, {
+        requestKey: `update_session_${sessionId}`, // 为会话更新设置唯一key
       })
     }
     catch (error) {

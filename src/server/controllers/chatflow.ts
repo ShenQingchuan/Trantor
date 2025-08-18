@@ -31,7 +31,7 @@ ${conversationText}`
   }
   catch (error) {
     consola.error('AI生成对话总结失败:', error)
-    return '对话总结'
+    throw new Error(`LLM调用失败: ${error instanceof Error ? error.message : '未知错误'}`)
   }
 }
 
@@ -194,7 +194,7 @@ chatFlowRouter.post('/sessions/:sessionId/summarize', async (c) => {
 
     // 如果消息数量少于4条，返回固定标题
     if (messages.length < 4) {
-      return successResponse(c, { title: 'chat_new_conversation' })
+      return successResponse(c, { title: '新对话' })
     }
 
     // 构建用于总结的对话内容
@@ -204,8 +204,11 @@ chatFlowRouter.post('/sessions/:sessionId/summarize', async (c) => {
 
     // 获取LLM客户端并调用AI服务生成总结
     const llmClient = c.get('llmClient')
-    const summary = await generateConversationSummary(conversationText, llmClient)
+    if (!llmClient) {
+      return errorResponse(c, 500, 'LLM服务未配置')
+    }
 
+    const summary = await generateConversationSummary(conversationText, llmClient)
     return successResponse(c, { title: summary })
   }
   catch (error) {

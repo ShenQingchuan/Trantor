@@ -79,6 +79,7 @@ export default {
   chat_session__loading: '加载中...',
   chat_session__empty: '暂无对话记录',
   chat_session__edit_title: '编辑标题',
+  chat_session__summarize: '智能生成标题',
   chat_session__delete: '删除会话',
   chat_session__delete_confirm: '确定要删除会话 "{title}" 吗？',
   chat_session__edit_title_prompt: '请输入新的会话标题：',
@@ -88,6 +89,7 @@ export default {
   chat_session__error_delete_failed: '删除会话失败',
   chat_session__error_save_failed: '保存对话失败',
   chat_session__error_load_messages_failed: '加载消息失败',
+  chat_session__error_session_not_found: '找不到要删除的会话',
   chat_new_conversation: '新会话',
 
   // Chat 菜单项

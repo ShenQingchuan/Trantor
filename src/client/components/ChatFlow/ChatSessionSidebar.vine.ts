@@ -66,6 +66,18 @@ export function ChatSessionSidebar(props: {
     }
   }
 
+  const handleSummarizeSession = async (session: ChatFlowSession, event: Event) => {
+    event.stopPropagation()
+    try {
+      // 使用 store 中的方法生成标题
+      await chatSessionStore.generateSessionTitleManually(session.id)
+    }
+    catch (error) {
+      console.error('手动生成标题失败:', error)
+      // 这里可以添加一个提示，但为了简单起见，暂时只打印错误
+    }
+  }
+
   return vine`
     <div
       class="min-w-180px h-full bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700 col-flex"
@@ -136,6 +148,18 @@ export function ChatSessionSidebar(props: {
                     :title="t('chat_session__delete')"
                   >
                     <div class="i-lucide:trash-2 text-rose-500" />
+                  </button>
+                  <button
+                    @click="handleSummarizeSession(session, $event)"
+                    class="p-1 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded"
+                    :title="t('chat_session__summarize')"
+                    :disabled="chatSessionStore.getSessionUIState(session.id).isSummarizing"
+                  >
+                    <div
+                      v-if="chatSessionStore.getSessionUIState(session.id).isSummarizing"
+                      class="i-svg-spinners:3-dots-scale text-blue-500"
+                    />
+                    <div v-else class="i-lucide:sparkle text-blue-500" />
                   </button>
                 </div>
               </div>
