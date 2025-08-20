@@ -90,6 +90,7 @@ export default {
   chat_session__error_load_messages_failed: 'Failed to load messages',
   chat_session__error_session_not_found: 'Session to delete not found',
   chat_new_conversation: 'New conversation',
+  chat_loading_messages: 'Loading messages ...',
 
   // Chat menu items
   chat_menu_session: 'Session',

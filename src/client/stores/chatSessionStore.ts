@@ -22,6 +22,8 @@ export const useChatSessionStore = defineStore(chatSessionStoreId, () => {
   const { t } = useI18n()
   const currentSession = ref<ChatFlowSession | null>(null)
   const error = ref<string | null>(null)
+  // 消息加载状态（用于右侧消息区骨架屏展示）
+  const isLoadingMessages = ref(false)
 
   // 获取查询缓存实例，用于缓存失效
   const queryCache = useQueryCache()
@@ -335,10 +337,78 @@ export const useChatSessionStore = defineStore(chatSessionStoreId, () => {
     }
   }
 
-  // 从会话加载消息
+  // 使用 useQuery 缓存消息加载
+  const createMessageQuery = (sessionId: string) => {
+    return useQuery({
+      key: ['chatMessages', sessionId],
+      query: () => fetchChatMessages(sessionId),
+      staleTime: 5 * 60 * 1000, // 5分钟内不重新获取
+      gcTime: 10 * 60 * 1000, // 10分钟缓存时间
+      enabled: () => !!sessionId, // 只有当 sessionId 存在时才执行查询
+    })
+  }
+
+  // 从会话加载消息（已废弃，使用 loadAndDisplayMessages 替代）
   const loadMessagesFromSession = async (sessionId: string) => {
     try {
+      isLoadingMessages.value = true
       const messages = await fetchChatMessages(sessionId)
+      return messages
+    }
+    catch (err) {
+      error.value = err instanceof Error ? err.message : t('chat_session__error_load_messages_failed')
+      console.error('加载消息失败:', err)
+      throw err
+    }
+    finally {
+      isLoadingMessages.value = false
+    }
+  }
+
+  // 使用缓存的消息加载方法
+  const loadMessagesWithCache = async (sessionId: string) => {
+    const { state: messageState, asyncStatus } = createMessageQuery(sessionId)
+
+    // 设置加载状态
+    const isLoading = computed(() => asyncStatus.value === 'loading')
+    isLoadingMessages.value = isLoading.value
+
+    // 监听加载状态变化
+    watch(isLoading, (loading) => {
+      isLoadingMessages.value = loading
+    }, { immediate: true })
+
+    try {
+      // 等待消息加载完成
+      if (isLoading.value) {
+        await new Promise<void>((resolve, reject) => {
+          const stopWatcher = watch([asyncStatus, messageState], ([status, msgState]) => {
+            if (status !== 'loading' && msgState?.data !== undefined) {
+              stopWatcher()
+              if (msgState.error) {
+                reject(new Error('消息加载失败'))
+              }
+              else {
+                resolve()
+              }
+            }
+          }, { immediate: true })
+
+          // 如果已经加载完成，立即解决
+          if (!isLoading.value && messageState.value?.data !== undefined) {
+            stopWatcher()
+            if (messageState.value.error) {
+              reject(new Error('消息加载失败'))
+            }
+            else {
+              resolve()
+            }
+          }
+        })
+      }
+
+      // 获取消息数据
+      const messages = messageState.value?.data || []
       return messages
     }
     catch (err) {
@@ -392,6 +462,7 @@ export const useChatSessionStore = defineStore(chatSessionStoreId, () => {
     sessions: readonly(sessions),
     currentSession: readonly(currentSession),
     isLoading: readonly(isLoading),
+    isLoadingMessages: readonly(isLoadingMessages),
     error: readonly(error),
 
     // 加载状态
@@ -409,7 +480,8 @@ export const useChatSessionStore = defineStore(chatSessionStoreId, () => {
     updateSessionTitle,
     deleteSession,
     saveCurrentChatToSession,
-    loadMessagesFromSession,
+    loadMessagesFromSession, // 已废弃，保留为兼容性
+    loadMessagesWithCache, // 新的缓存加载方法
     getSessionUIState,
     setSessionSummarizing,
     generateSessionTitleManually,

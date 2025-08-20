@@ -1,5 +1,6 @@
 import type { ChatDisplayMessage, ChatFlowMessageFilter } from '../../types/chatFlow'
 import { useChatFlowStore } from '../../stores/chatFlowStore'
+import { useChatSessionStore } from '../../stores/chatSessionStore'
 
 function UserMessageBubble(props: {
   message: ChatDisplayMessage
@@ -100,10 +101,24 @@ function RenderMessages(props: {
 }
 
 export function MessageThread() {
+  const chatSessionStore = useChatSessionStore()
+  const { isLoadingMessages } = storeToRefs(chatSessionStore)
+  const { t } = useI18n()
+
   return vine`
-    <div class="w-full col-flex gap-4 overflow-auto py-6 flex-1 px-10% self-stretch">
-      <!-- 已完成消息列表 -->
-      <RenderMessages />
+    <div
+      class="w-full h-full flex-1 col-flex gap-4 overflow-auto py-6 flex-1 px-10% self-stretch pb-200px"
+    >
+      <div
+        v-if="isLoadingMessages"
+        class="w-full h-full col-flex gap-2 items-center justify-center flex-1"
+      >
+        <div class="row-flex gap-2 items-center text-slate-500">
+          <div class="i-svg-spinners:bars-fade text-2xl" />
+          {{ t('chat_loading_messages') }}
+        </div>
+      </div>
+      <RenderMessages v-else />
     </div>
   `
 }

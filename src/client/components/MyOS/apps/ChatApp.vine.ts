@@ -112,9 +112,9 @@ export function ChatApp() {
   const handleSessionSelected = async (sessionId: string) => {
     await chatSessionStore.setCurrentSession(sessionId)
 
-    // 加载会话的消息历史
+    // 使用缓存加载会话的消息历史
     try {
-      const messages = await chatSessionStore.loadMessagesFromSession(sessionId)
+      const messages = await chatSessionStore.loadMessagesWithCache(sessionId)
       chatFlowStore.loadMessagesFromHistory(messages)
     }
     catch (error) {
@@ -270,7 +270,7 @@ export function ChatApp() {
         </div>
 
         <!-- 消息列表：给底部留出输入区域的空间 -->
-        <div v-else class="flex-1 w-full h-full pb-200px overflow-y-auto">
+        <div v-else class="flex-1 w-full h-full overflow-y-auto">
           <MessageThread />
         </div>
 

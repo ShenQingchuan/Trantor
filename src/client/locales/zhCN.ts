@@ -91,6 +91,7 @@ export default {
   chat_session__error_load_messages_failed: '加载消息失败',
   chat_session__error_session_not_found: '找不到要删除的会话',
   chat_new_conversation: '新会话',
+  chat_loading_messages: '正在载入消息 ...',
 
   // Chat 菜单项
   chat_menu_session: '会话',

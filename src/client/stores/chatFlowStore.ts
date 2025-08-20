@@ -1,5 +1,6 @@
 import type { ChatCompletionTool } from 'openai/resources/index.mjs'
 import type { Editor } from 'prosekit/core'
+import type { ChatFlowMessage } from '../../bridge/types/chatFlow'
 import type { ChatDisplayMessage, ChatFlowContext } from '../types/chatFlow'
 import { useLocalStorage, useSessionStorage } from '@vueuse/core'
 import { nanoid } from 'nanoid'
@@ -139,7 +140,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
   initChatFlowAIContext()
 
   // 从历史消息加载对话
-  const loadMessagesFromHistory = (messages: any[]) => {
+  const loadMessagesFromHistory = (messages: ChatFlowMessage[]) => {
     // 确保 messages 是数组
     if (!Array.isArray(messages)) {
       console.warn('loadMessagesFromHistory: messages 不是数组', messages)
@@ -147,7 +148,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
     }
 
     // 将历史消息转换为 ChatDisplayMessage 格式
-    const displayMessages: ChatDisplayMessage[] = messages.map(msg => ({
+    const displayMessages = messages.map(msg => ({
       id: msg.id,
       role: msg.role,
       content: msg.content,
@@ -156,7 +157,7 @@ export const useChatFlowStore = defineStore(chatFlowStoreId, () => {
         result: msg.tool_result,
         isError: msg.tool_has_error,
       }),
-    }))
+    } as ChatDisplayMessage))
 
     chatDisplayMessages.value = displayMessages
     // 根据消息数量决定是否显示欢迎界面

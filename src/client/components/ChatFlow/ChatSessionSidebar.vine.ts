@@ -159,7 +159,7 @@ export function ChatSessionSidebar(props: {
                       v-if="chatSessionStore.getSessionUIState(session.id).isSummarizing"
                       class="i-svg-spinners:3-dots-scale text-blue-500"
                     />
-                    <div v-else class="i-lucide:sparkle text-blue-500" />
+                    <div v-else class="i-fa6-solid:wand-magic-sparkles text-blue-500" />
                   </button>
                 </div>
               </div>
