@@ -1,17 +1,16 @@
 import type { OpenWindowOptions } from '../../types/windowManager'
+import chatAppIconSrc from '../../assets/chat-app.webp'
+import musicPlayerIconSrc from '../../assets/music-player.webp'
+import { useAuthStore } from '../../stores/authStore'
 import { useWindowStore } from '../../stores/windowStore'
 import { AppIcon } from './AppIcon.vine'
 
-interface DockProps {
-  isAuthenticated: boolean
-  authStore: any
-}
-
-export function Dock(props: DockProps) {
+export function Dock() {
   const emits = vineEmits<{
     appClick: [payload: OpenWindowOptions]
   }>()
 
+  const authStore = useAuthStore()
   const windowStore = useWindowStore()
   const openByApp = computed<Record<string, boolean>>(() => {
     const map: Record<string, boolean> = {}
@@ -73,7 +72,7 @@ export function Dock(props: DockProps) {
     />
 
     <div
-      class="dock shadow fixed bottom-0 py-2 px-6 self-center rounded bg-zinc-100/80 backdrop-blur dark:bg-dark-500 backdrop-blur-md backdrop-saturate-150 dock-transition z-9000"
+      class="dock shadow fixed bottom-0 row-flex py-2 px-6 self-center rounded bg-zinc-100/80 backdrop-blur dark:bg-dark-500 backdrop-blur-md backdrop-saturate-150 z-9000"
       :class="{
         'translate-y-full opacity-0 pointer-events-none': autoHideActive && !showDock,
         'translate-y-0 opacity-100 pointer-events-auto': !autoHideActive || showDock,
@@ -81,40 +80,30 @@ export function Dock(props: DockProps) {
       @mouseleave="onLeaveDock"
       @mouseenter="clearHideTimer()"
     >
-      <div class="relative row-flex gap-4 items-end">
-        <!-- Finder 应用 -->
-        <AppIcon
-          appId="finder"
-          appName="Finder"
-          :iconClass="activeAppId === 'finder' ? 'i-fxemoji:openfolder' : 'i-fxemoji:folder'"
-          :isAuthenticated="isAuthenticated"
-          :canAccess="authStore.canAccessApp('finder')"
-          :isOpen="openByApp.finder"
-          :isActive="activeAppId === 'finder'"
-          @start-app="handleAppClick"
-        />
-
+      <div class="relative row-flex gap-4">
         <!-- 聊天应用 -->
         <AppIcon
           appId="chat"
           appName="AI Chat"
-          iconClass="i-fluent-color:chat-multiple-20"
-          :isAuthenticated="isAuthenticated"
+          class="w-10.5 rounded"
+          :imgSrc="chatAppIconSrc"
+          :isAuthenticated="authStore.isAuthenticated"
           :canAccess="authStore.canAccessApp('chat')"
           :isOpen="openByApp.chat"
           :isActive="activeAppId === 'chat'"
           @start-app="handleAppClick"
         />
 
-        <!-- 日历应用 -->
+        <!-- 音乐播放器 -->
         <AppIcon
-          appId="calendar"
-          appName="Calendar"
-          iconClass="i-fluent-color:calendar-48"
-          :isAuthenticated="isAuthenticated"
-          :canAccess="authStore.canAccessApp('calendar')"
-          :isOpen="openByApp.calendar"
-          :isActive="activeAppId === 'calendar'"
+          appId="music"
+          appName="Music"
+          class="w-10.5 rounded"
+          :imgSrc="musicPlayerIconSrc"
+          :isAuthenticated="authStore.isAuthenticated"
+          :canAccess="authStore.canAccessApp('music')"
+          :isOpen="openByApp.music"
+          :isActive="activeAppId === 'music'"
           @start-app="handleAppClick"
         />
       </div>

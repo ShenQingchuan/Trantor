@@ -76,11 +76,7 @@ export function PageMyOS() {
 
         <!-- 桌面模式：Dock + WindowManager -->
         <template v-else-if="!isPhoneMode">
-          <Dock
-            :isAuthenticated="authStore.isAuthenticated"
-            :authStore="authStore"
-            @appClick="handleAppClick"
-          />
+          <Dock @appClick="handleAppClick" />
           <DesktopWindowManager />
         </template>
 

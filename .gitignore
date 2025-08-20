@@ -39,3 +39,5 @@ static/
 server/certs/
 *.pem
 *.key
+
+vendors/

@@ -108,7 +108,7 @@ function StatusBarClock() {
   return vine`
     <div
       v-if="statusBarStore.clockConfig.visible"
-      class="px-0 py-1 text-sm text-zinc-800 dark:text-zinc-200 cursor-default select-none"
+      class="px-0 py-1 text-sm text-zinc-800 dark:text-zinc-200 cursor-default select-none font-sans"
     >
       {{ formattedTime }}
     </div>

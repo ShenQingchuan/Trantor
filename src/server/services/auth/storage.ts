@@ -25,22 +25,6 @@ class AuthStorage {
   private getDefaultApps(): OSApp[] {
     return [
       {
-        id: 'finder',
-        name: 'Finder',
-        description: 'File browser and system navigator',
-        version: '1.0.0',
-        category: 'system',
-        permissions: [
-          {
-            id: 'finder.browse',
-            name: 'Browse Files',
-            description: 'Browse and view files and folders',
-            level: 'read',
-            required: true,
-          },
-        ],
-      },
-      {
         id: 'chat',
         name: 'AI Chat',
         description: 'Chat with AI assistant',
@@ -59,7 +43,7 @@ class AuthStorage {
             name: 'View History',
             description: 'View conversation history',
             level: 'read',
-            required: false,
+            required: true,
           },
           {
             id: 'chat.mcp',
@@ -71,25 +55,25 @@ class AuthStorage {
         ],
       },
       {
-        id: 'calendar',
-        name: 'Calendar',
-        description: 'Calendar and scheduling application',
+        id: 'music',
+        name: 'Music',
+        description: 'Music player application',
         version: '1.0.0',
-        category: 'productivity',
+        category: 'entertainment',
         permissions: [
           {
-            id: 'calendar.view',
-            name: 'View Calendar',
-            description: 'View calendar events',
+            id: 'music.list',
+            name: 'List Music',
+            description: 'List music',
             level: 'read',
             required: true,
           },
           {
-            id: 'calendar.edit',
-            name: 'Edit Events',
-            description: 'Create and edit calendar events',
-            level: 'write',
-            required: false,
+            id: 'music.play',
+            name: 'Play Music',
+            description: 'Play music',
+            level: 'read',
+            required: true,
           },
         ],
       },

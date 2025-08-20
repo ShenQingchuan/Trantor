@@ -1,13 +1,15 @@
 import type { AppWindowState } from '../../types/windowManager'
 import { capitalize } from '../../../bridge/utils'
 import { useWindowStore } from '../../stores/windowStore'
-import { ChatApp } from './apps/ChatApp.vine'
 import AboutMyOS from './AboutMyOS.vine'
+import { ChatApp } from './apps/ChatApp.vine'
+import { MusicApp } from './apps/MusicApp.vine'
 import { DesktopAppWindowContainer } from './AppWindow.vine'
 
 // 应用映射：appId -> 组件
 const appComponentMap: Record<string, any> = {
   chat: ChatApp,
+  music: MusicApp,
   about: AboutMyOS,
 }
 

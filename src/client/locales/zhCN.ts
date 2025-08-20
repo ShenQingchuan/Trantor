@@ -48,6 +48,9 @@ export default {
   os_menu_about: '关于 MyOS',
   os_menu_back_to_blog: '返回博客主页',
 
+  // 通用、可复用文案
+  os_common_loading: '加载中...',
+
   about_myos_title: '关于 MyOS',
   about_myos_version: '版本 {version}',
   about_myos_description: '去成为黑客 🧑🏻‍💻 与画家 🎨 ',
@@ -76,7 +79,6 @@ export default {
   // Chat Session 会话管理
   chat_session__title: '对话历史',
   chat_session__new: '新建',
-  chat_session__loading: '加载中...',
   chat_session__empty: '暂无对话记录',
   chat_session__edit_title: '编辑标题',
   chat_session__summarize: '智能生成标题',
@@ -91,7 +93,7 @@ export default {
   chat_session__error_load_messages_failed: '加载消息失败',
   chat_session__error_session_not_found: '找不到要删除的会话',
   chat_new_conversation: '新会话',
-  chat_loading_messages: '正在载入消息 ...',
+  chat_loading_messages: '正在载入会话消息 ...',
 
   // Chat 菜单项
   chat_menu_session: '会话',
@@ -124,4 +126,9 @@ export default {
   chat_help_docs: '文档',
   chat_help_feedback: '反馈',
   chat_help_about: '关于 Chat',
+
+  // 音乐
+  music_refresh_list: '刷新',
+  music_songs_count: '{count} 首歌曲',
+  music_no_songs: '暂无歌曲',
 }

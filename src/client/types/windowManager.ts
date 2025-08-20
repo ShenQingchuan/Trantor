@@ -21,6 +21,7 @@ export interface OpenWindowOptions {
   appId: string
   title: string
   icon?: string
+  imgSrc?: string
   initial?: Partial<Pick<AppWindowState, 'width' | 'height' | 'x' | 'y'>>
   constraints?: Partial<Pick<AppWindowState, 'minWidth' | 'minHeight'>>
 }

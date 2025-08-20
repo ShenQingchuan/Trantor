@@ -39,7 +39,7 @@ export function App() {
           <component :is="Component" />
         </Transition>
       </RouterView>
-      
+
       <!-- 全局弹窗挂载点 -->
       <div id="global-dialog-mount" />
     </div>

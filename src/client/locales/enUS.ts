@@ -51,6 +51,9 @@ export default {
   os_menu_about: 'About MyOS',
   os_menu_back_to_blog: 'Back to blog',
 
+  // 通用、可复用文案
+  os_common_loading: 'Loading...',
+
   about_myos_title: 'About MyOS',
   about_myos_version: 'Version {version}',
   about_myos_description: 'Be a hacker🧑🏻‍💻 and painter🎨',
@@ -75,7 +78,6 @@ export default {
   // Chat Session management
   chat_session__title: 'Chat History',
   chat_session__new: 'New',
-  chat_session__loading: 'Loading...',
   chat_session__empty: 'No chat records',
   chat_session__edit_title: 'Edit Title',
   chat_session__summarize: 'Auto generate title',
@@ -123,4 +125,9 @@ export default {
   chat_help_docs: 'Documentation',
   chat_help_feedback: 'Feedback',
   chat_help_about: 'About Chat',
+
+  // Music
+  music_refresh_list: 'Refresh',
+  music_songs_count: '{count} songs',
+  music_no_songs: 'No songs',
 }

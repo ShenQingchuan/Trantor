@@ -1,5 +1,5 @@
-import { getArticleHandler, getArticleListHandler } from '../services/articles/handler.js'
 import { cleanupCacheHandler, getCacheStatusHandler, refreshCacheHandler } from '../services/articles/cache-handler.js'
+import { getArticleHandler, getArticleListHandler } from '../services/articles/handler.js'
 import { createRouter } from '../utils/setup.js'
 
 const articlesRouter = createRouter()

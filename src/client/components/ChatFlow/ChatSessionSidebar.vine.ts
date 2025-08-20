@@ -103,7 +103,7 @@ export function ChatSessionSidebar(props: {
       <div class="flex-1 overflow-y-auto">
         <div v-if="isLoading" class="row-flex justify-center gap-2 p-4 text-center text-zinc-500">
           <div class="i-svg-spinners:pulse-multiple" />
-          <div class="text-sm">{{ t('chat_session__loading') }}</div>
+          <div class="text-sm">{{ t('os_common_loading') }}</div>
         </div>
 
         <div

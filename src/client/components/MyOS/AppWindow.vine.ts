@@ -159,7 +159,7 @@ export function DesktopAppWindowContainer(props: {
           class="absolute inset-0 row-flex items-center justify-center gap-2 text-sm text-zinc-700 dark:text-zinc-200 pointer-events-none"
         >
           <div v-show="winState.icon" :class="winState.icon" />
-          <span>{{ winState.title }}</span>
+          <span class="font-sans">{{ winState.title }}</span>
         </div>
       </div>
 
