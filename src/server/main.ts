@@ -7,6 +7,7 @@ import { authRouter } from './controllers/auth.js'
 import { chatFlowRouter } from './controllers/chatflow.js'
 import { llmRouter } from './controllers/llm.js'
 import { mcpRouter } from './controllers/mcp.js'
+import { musicRouter } from './controllers/music.js'
 import { llmClientMiddleware } from './middlewares/llmClient.js'
 import { loggerMiddleware } from './middlewares/logger.js'
 import { markdownItMiddleware } from './middlewares/markdownIt.js'
@@ -41,6 +42,7 @@ apiRouter.route('/mcp', mcpRouter)
 apiRouter.route('/llm', llmRouter)
 apiRouter.route('/articles', articlesRouter)
 apiRouter.route('/chatflow', chatFlowRouter)
+apiRouter.route('/music', musicRouter)
 
 app.route('/api', apiRouter)
 

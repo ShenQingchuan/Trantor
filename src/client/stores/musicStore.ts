@@ -1,16 +1,13 @@
 import type { DeepReadonly } from 'vue'
-import type { PlayerState, PlaylistDetail, Song } from '../../bridge/types/music'
+import type { PlayerState, QQMusicPlaylist, QQMusicSong } from '../../bridge/types/music'
 import { useQuery } from '@pinia/colada'
 import { fetchPlaylistDetail, getSongPlayUrl } from '../requests/music'
 
 const musicStoreId = 'trantor:music-store' as const
 
-export type ReadonlySong = DeepReadonly<Song>
+export type ReadonlyQQMusicSong = DeepReadonly<QQMusicSong>
 
 export const useMusicStore = defineStore(musicStoreId, () => {
-  // 歌单ID - 用户的歌单
-  const PLAYLIST_ID = 10164071479
-
   // 播放器状态
   const playerState = reactive<PlayerState>({
     currentSong: null,
@@ -29,15 +26,15 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     state: playlistState,
     asyncStatus: playlistStatus,
     refresh: refreshPlaylist,
-  } = useQuery<PlaylistDetail>({
-    key: ['playlist', PLAYLIST_ID],
-    query: () => fetchPlaylistDetail(PLAYLIST_ID),
+  } = useQuery<QQMusicPlaylist>({
+    key: ['qqmusicPlaylist'],
+    query: () => fetchPlaylistDetail(),
     staleTime: 10 * 60 * 1000, // 10分钟内不重新获取
     gcTime: 30 * 60 * 1000, // 30分钟缓存时间
   })
 
   const playlist = computed(() => playlistState.value?.data || null)
-  const songs = computed(() => playlist.value?.tracks || [])
+  const songs = computed(() => playlist.value?.songlist || [])
   const isLoadingPlaylist = computed(() => playlistStatus.value === 'loading')
 
   // 播放
@@ -79,11 +76,18 @@ export const useMusicStore = defineStore(musicStoreId, () => {
 
     // 监听音频事件
     audio.addEventListener('loadedmetadata', () => {
-      playerState.duration = audio.duration
+      playerState.duration = Math.floor(audio.duration)
     })
 
+    // 减少时间更新频率，避免闪烁和精度问题
+    let lastTimeUpdate = 0
     audio.addEventListener('timeupdate', () => {
-      playerState.currentTime = audio.currentTime
+      const currentTime = Math.floor(audio.currentTime)
+      // 只有当秒数真正改变时才更新，减少闪烁
+      if (currentTime !== lastTimeUpdate) {
+        playerState.currentTime = currentTime
+        lastTimeUpdate = currentTime
+      }
     })
 
     audio.addEventListener('play', () => {
@@ -109,7 +113,7 @@ export const useMusicStore = defineStore(musicStoreId, () => {
   }
 
   // 播放指定歌曲
-  const playSong = async (song: ReadonlySong) => {
+  const playSong = async (song: ReadonlyQQMusicSong) => {
     initAudioElement()
 
     if (!audioElement.value)
@@ -117,7 +121,7 @@ export const useMusicStore = defineStore(musicStoreId, () => {
 
     try {
       // 如果是同一首歌，切换播放/暂停状态
-      if (playerState.currentSong?.id === song.id) {
+      if (playerState.currentSong?.songmid === song.songmid) {
         if (playerState.isPlaying) {
           await pause()
         }
@@ -128,8 +132,11 @@ export const useMusicStore = defineStore(musicStoreId, () => {
       }
 
       // 播放新歌曲
-      playerState.currentSong = song as Song
-      audioElement.value.src = await getSongPlayUrl(song.id)
+      playerState.currentSong = song as QQMusicSong
+
+      // 异步获取播放URL
+      const playUrl = await getSongPlayUrl(song.songmid)
+      audioElement.value.src = playUrl
 
       // 重置播放状态
       playerState.currentTime = 0
@@ -148,7 +155,7 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     if (!playerState.currentSong || songs.value.length === 0)
       return
 
-    const currentIndex = songs.value.findIndex(song => song.id === playerState.currentSong!.id)
+    const currentIndex = songs.value.findIndex(song => song.songmid === playerState.currentSong!.songmid)
     const nextIndex = (currentIndex + 1) % songs.value.length
     playSong(songs.value[nextIndex])
   }
@@ -158,7 +165,7 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     if (!playerState.currentSong || songs.value.length === 0)
       return
 
-    const currentIndex = songs.value.findIndex(song => song.id === playerState.currentSong!.id)
+    const currentIndex = songs.value.findIndex(song => song.songmid === playerState.currentSong!.songmid)
     const prevIndex = currentIndex === 0 ? songs.value.length - 1 : currentIndex - 1
     playSong(songs.value[prevIndex])
   }
@@ -186,6 +193,7 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     audioElement.value.muted = !audioElement.value.muted
     playerState.isMuted = audioElement.value.muted
   }
+
   // 清理音频元素
   const cleanup = () => {
     if (audioElement.value) {

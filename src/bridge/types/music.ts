@@ -1,47 +1,70 @@
-// 音乐相关类型定义
+// QQ音乐相关类型定义
 
 /**
- * 歌曲信息
+ * QQ音乐歌手信息
  */
-export interface Song {
+export interface QQMusicSinger {
   id: number
+  mid: string
   name: string
-  ar: { id: number, name: string }[] // 艺术家
-  al: { id: number, name: string, picUrl: string } // 专辑
-  dt: number // 时长(毫秒)
 }
 
 /**
- * 歌单详情
+ * QQ音乐歌曲信息
  */
-export interface PlaylistDetail {
-  id: number
-  name: string
-  description: string
-  coverImgUrl: string
-  trackIds: { id: number }[]
-  tracks: Song[]
-  trackCount: number
+export interface QQMusicSong {
+  songid: number
+  songmid: string
+  songname: string
+  songorig: string
+  singer: QQMusicSinger[]
+  albumid: number
+  albummid: string
+  albumname: string
+  interval: number // 时长(秒)
+  pay: {
+    payplay: number
+    paydownload: number
+    payinfo: number
+  }
 }
 
 /**
- * 网易云音乐 API 响应格式
+ * QQ音乐歌单详情
  */
-export interface NeteaseMusicApiResponse<T = any> {
-  code: number
+export interface QQMusicPlaylist {
+  id: string
+  name?: string
+  dissname: string  // 歌单名称
+  logo: string      // 歌单封面图片
+  songlist: QQMusicSong[]
+  total?: number
+}
+
+/**
+ * QQ音乐 API 响应格式
+ */
+export interface QQMusicApiResponse<T = any> {
+  result: number
+  data: T
   message?: string
-  data?: T
-  playlist?: T
 }
 
 /**
  * 播放器状态
  */
 export interface PlayerState {
-  currentSong: Song | null
+  currentSong: QQMusicSong | null
   isPlaying: boolean
   currentTime: number
   duration: number
   volume: number
   isMuted: boolean
+}
+
+/**
+ * 歌曲播放URL响应
+ */
+export interface QQMusicUrlResponse {
+  [songmid: string]: string
 }

@@ -3,7 +3,6 @@ import type { StatusBarMenuItem } from '../../types/statusBar'
 import { useDark } from '@vueuse/core'
 import { useChatSessionStore } from '../../stores/chatSessionStore'
 import { useStatusBarStore } from '../../stores/statusBarStore'
-import { useWindowStore } from '../../stores/windowStore'
 
 // 菜单项组件
 function StatusBarMenuDropdown(props: {
@@ -119,7 +118,6 @@ function StatusBarClock() {
 export function StatusBar() {
   const { t } = useI18n()
   const statusBarStore = useStatusBarStore()
-  const windowStore = useWindowStore()
   const chatSessionStore = useChatSessionStore()
   const { visible, height, currentAppMenuGroups, visibleTrayIcons } = storeToRefs(statusBarStore)
   const { currentSession } = storeToRefs(chatSessionStore)
@@ -157,18 +155,13 @@ export function StatusBar() {
 
   const onMenuItemClick = (item: StatusBarMenuItem) => {
     if (item.id === 'about') {
-      windowStore.openWindow({
-        appId: 'about',
-        title: t('about_myos_title'),
-        initial: {
-          width: 250,
-          height: 300,
+      // 向上级发送 appClick 事件，使用统一的窗口配置管理
+      window.dispatchEvent(new CustomEvent('statusbar:openApp', {
+        detail: {
+          appId: 'about',
+          title: t('about_myos_title'),
         },
-        constraints: {
-          minWidth: 250,
-          minHeight: 300,
-        },
-      })
+      }))
     }
     else {
       item.onClick?.()

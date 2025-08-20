@@ -1,3 +1,17 @@
+// About 应用窗口配置
+export const aboutAppWindowConfig = {
+  initial: {
+    width: 250,
+    height: 300,
+    x: 200,
+    y: 150,
+  },
+  constraints: {
+    minWidth: 250,
+    minHeight: 300,
+  },
+}
+
 export default function AboutMyOS() {
   const { t } = useI18n()
 

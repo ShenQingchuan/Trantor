@@ -10,6 +10,20 @@ import { MessageThread } from '../../ChatFlow/MessageThread.vine'
 import { useConfirm, usePrompt } from '../../Dialog.vine'
 import ProseEditor from '../../PromptEditor/prose.vine'
 
+// 聊天应用窗口配置
+export const chatAppWindowConfig = {
+  initial: {
+    width: 900,
+    height: 600,
+    x: 120,
+    y: 100,
+  },
+  constraints: {
+    minWidth: 500,
+    minHeight: 400,
+  },
+}
+
 function htmlToMarkdown(html: string): Promise<string> {
   return unified()
     .use(rehypeParse)

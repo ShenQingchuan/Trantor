@@ -1,4 +1,7 @@
 import type { OpenWindowOptions } from '../types/windowManager'
+import { aboutAppWindowConfig } from '../components/MyOS/AboutMyOS.vine'
+import { chatAppWindowConfig } from '../components/MyOS/apps/ChatApp.vine'
+import { musicAppWindowConfig } from '../components/MyOS/apps/MusicApp.vine'
 import { DesktopBackground } from '../components/MyOS/DesktopBackground.vine'
 import { Dock } from '../components/MyOS/Dock.vine'
 import { LoginCard } from '../components/MyOS/LoginCard.vine'
@@ -35,6 +38,32 @@ export function PageMyOS() {
     { immediate: true },
   )
 
+  // 应用窗口配置
+  const getAppWindowConfig = (appId: string) => {
+    const configs: Record<string, {
+      initial: { width: number, height: number, x: number, y: number }
+      constraints: { minWidth: number, minHeight: number }
+    }> = {
+      chat: chatAppWindowConfig,
+      music: musicAppWindowConfig,
+      about: aboutAppWindowConfig,
+    }
+
+    // 默认配置
+    return configs[appId] || {
+      initial: {
+        width: 820,
+        height: 520,
+        x: 120,
+        y: 100,
+      },
+      constraints: {
+        minWidth: 360,
+        minHeight: 200,
+      },
+    }
+  }
+
   // 处理应用点击 - 检查认证和权限
   const handleAppClick = (payload: OpenWindowOptions) => {
     if (!authStore.isAuthenticated) {
@@ -49,17 +78,29 @@ export function PageMyOS() {
       return
     }
 
+    // 获取应用特定的窗口配置
+    const windowConfig = getAppWindowConfig(appId)
+
     // 打开对应应用窗口
     windowStore.openWindow({
       ...payload,
-      initial: {
-        width: 820,
-        height: 520,
-        x: 120,
-        y: 100,
-      },
+      ...windowConfig,
     })
   }
+
+  // 监听状态栏的应用打开事件
+  const handleStatusBarAppOpen = (event: CustomEvent) => {
+    const { appId, title } = event.detail
+    handleAppClick({ appId, title })
+  }
+
+  onMounted(() => {
+    window.addEventListener('statusbar:openApp', handleStatusBarAppOpen as EventListener)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('statusbar:openApp', handleStatusBarAppOpen as EventListener)
+  })
 
   return vine`
     <div class="page-my-os col-flex w-full h-full flex-1 relative">
