@@ -68,3 +68,20 @@ export interface PlayerState {
 export interface QQMusicUrlResponse {
   [songmid: string]: string
 }
+
+/**
+ * 歌词信息
+ */
+export interface QQMusicLyric {
+  lyric: string      // 歌词内容（LRC格式）
+  trans?: string     // 翻译歌词（可选）
+}
+
+/**
+ * 歌词 API 响应
+ */
+export interface QQMusicLyricResponse {
+  result: number
+  data: QQMusicLyric
+  message?: string
+}

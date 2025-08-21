@@ -59,6 +59,23 @@ export default {
   auth_password_required: '请输入密码',
   auth_password_error: '密码错误，请重试',
 
+  // 音乐播放器
+  music_play_mode_list_loop: '列表循环',
+  music_play_mode_random: '随机播放',
+  music_play_mode_single_loop: '单曲循环',
+  music_play_mode_sequential: '顺序播放',
+  music_previous: '上一首',
+  music_next: '下一首',
+  music_play: '播放',
+  music_pause: '暂停',
+  music_mute: '静音',
+  music_unmute: '取消静音',
+  music_volume: '音量',
+  music_select_song: '请选择歌曲播放',
+  music_lyrics: '歌词',
+  music_lyrics_show: '显示歌词',
+  music_lyrics_hide: '隐藏歌词',
+
   dialog__cancel: '取消',
   dialog__confirm: '确认',
   dialog__prompt: '提示',

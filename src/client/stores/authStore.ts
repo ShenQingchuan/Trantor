@@ -79,23 +79,30 @@ export const useAuthStore = defineStore(authStoreId, () => {
    * Initialize auth store on app startup
    */
   const initialize = async () => {
+    console.log('[AuthStore] 开始初始化认证状态...')
     isInitializing.value = true
 
     try {
       // Load available apps
+      console.log('[AuthStore] 加载可用应用...')
       await loadAvailableApps()
 
       // Try to authenticate with stored token
       if (authToken.value) {
+        console.log('[AuthStore] 尝试使用存储的 token 进行认证...')
         await authenticateWithToken(authToken.value)
+      }
+      else {
+        console.log('[AuthStore] 没有存储的 token，用户需要登录')
       }
     }
     catch (error) {
-      console.warn('Auth initialization failed:', error)
+      console.warn('[AuthStore] 认证初始化失败:', error)
       // Clear invalid token
       logout()
     }
     finally {
+      console.log('[AuthStore] 初始化完成，isInitializing = false, isAuthenticated =', isAuthenticated.value)
       isInitializing.value = false
     }
   }

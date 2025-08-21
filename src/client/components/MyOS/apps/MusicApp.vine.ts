@@ -15,8 +15,8 @@ export const musicAppWindowConfig = {
     y: 120,
   },
   constraints: {
-    minWidth: 300, // 配合侧边栏自动隐藏阈值
-    minHeight: 400,
+    minWidth: 300,
+    minHeight: 500,
   },
 }
 
@@ -26,6 +26,10 @@ export function MusicApp() {
   const showSidebar = ref(true)
   const autoHiddenSidebar = ref(false) // 标记是否是由于窗口宽度自动隐藏的侧边栏
 
+  // 监听音乐应用窗口的宽度变化
+  const currentMusicWindow = computed(() => {
+    return windowStore.windows.find(w => w.appId === 'music' && !w.isMinimized)
+  })
   // 小窗口模式标识：当窗口宽度小于阈值时为小窗口模式
   const isSmallWindow = computed(() => {
     const windowWidth = currentMusicWindow.value?.width
@@ -40,11 +44,6 @@ export function MusicApp() {
   // 初始化音频元素
   onMounted(() => {
     musicStore.initAudioElement()
-  })
-
-  // 监听音乐应用窗口的宽度变化
-  const currentMusicWindow = computed(() => {
-    return windowStore.windows.find(w => w.appId === 'music' && !w.isMinimized)
   })
 
   // 监听窗口宽度变化，自动管理侧边栏显示状态
@@ -87,23 +86,20 @@ export function MusicApp() {
   return vine`
     <div class="relative w-full h-full row-flex items-stretch bg-white dark:bg-zinc-950">
       <!-- 侧边栏 -->
-      <div 
-        v-if="showSidebar" 
+      <div
+        v-if="showSidebar"
         :class="[
-          { 
+          {
             'flex-1 w-full': showOnlyPlaylist,
-            'border-r border-zinc-200 dark:border-zinc-700': !showOnlyPlaylist
-          }
+            'border-r border-zinc-200 dark:border-zinc-700': !showOnlyPlaylist,
+          },
         ]"
       >
         <MusicSidebar :fullscreen="showOnlyPlaylist" @songSelect="handleSongSelect" />
       </div>
 
       <!-- 主播放区域：在小窗口且侧边栏打开时隐藏 -->
-      <div 
-        v-if="!showOnlyPlaylist"
-        class="flex-1 col-flex relative h-full"
-      >
+      <div v-if="!showOnlyPlaylist" class="flex-1 col-flex relative h-full">
         <!-- 顶部工具栏 -->
         <div
           class="row-flex items-center justify-between p-3 border-b border-zinc-200/50 dark:border-zinc-700/50 bg-zinc-50/50 dark:bg-zinc-900/50"

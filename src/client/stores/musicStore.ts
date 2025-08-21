@@ -1,11 +1,20 @@
 import type { DeepReadonly } from 'vue'
-import type { PlayerState, QQMusicPlaylist, QQMusicSong } from '../../bridge/types/music'
+import type { PlayerState, QQMusicLyric, QQMusicPlaylist, QQMusicSong } from '../../bridge/types/music'
 import { useQuery } from '@pinia/colada'
-import { fetchPlaylistDetail, getSongPlayUrl } from '../requests/music'
+import { fetchPlaylistDetail, getSongLyric, getSongPlayUrl } from '../requests/music'
+import { getCurrentLyricIndex, getScrollLyricLines, parseLyric } from '../utils/lyricParser'
 
 const musicStoreId = 'trantor:music-store' as const
 
 export type ReadonlyQQMusicSong = DeepReadonly<QQMusicSong>
+
+// 播放模式枚举
+export enum PlayMode {
+  LIST_LOOP = 'list_loop', // 列表循环
+  RANDOM = 'random', // 随机播放
+  SINGLE_LOOP = 'single_loop', // 单曲循环
+  SEQUENTIAL = 'sequential', // 顺序播放（播放完停止）
+}
 
 export const useMusicStore = defineStore(musicStoreId, () => {
   // 播放器状态
@@ -17,6 +26,9 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     volume: 1,
     isMuted: false,
   })
+
+  // 播放模式
+  const playMode = ref<PlayMode>(PlayMode.LIST_LOOP)
 
   // 当前播放的音频元素
   const audioElement = ref<HTMLAudioElement | null>(null)
@@ -36,6 +48,137 @@ export const useMusicStore = defineStore(musicStoreId, () => {
   const playlist = computed(() => playlistState.value?.data || null)
   const songs = computed(() => playlist.value?.songlist || [])
   const isLoadingPlaylist = computed(() => playlistStatus.value === 'loading')
+
+  // 获取歌词
+  const {
+    state: lyricState,
+    asyncStatus: lyricStatus,
+  } = useQuery<QQMusicLyric>({
+    key: ['qqmusicLyric', playerState.currentSong?.songmid || ''],
+    query: () => {
+      if (!playerState.currentSong?.songmid) {
+        throw new Error('没有当前播放歌曲')
+      }
+      return getSongLyric(playerState.currentSong.songmid)
+    },
+    enabled: computed(() => !!playerState.currentSong?.songmid),
+    staleTime: 5 * 60 * 1000, // 5分钟内不重新获取
+    gcTime: 10 * 60 * 1000, // 10分钟缓存时间
+  })
+
+  const currentLyric = computed(() => lyricState.value?.data || null)
+  const isLoadingLyric = computed(() => lyricStatus.value === 'loading')
+
+  // 歌词解析和滚动逻辑
+  const parsedLyrics = computed(() => {
+    if (!currentLyric.value?.lyric) return []
+    return parseLyric(currentLyric.value.lyric)
+  })
+
+  const currentLyricIndex = computed(() => {
+    if (parsedLyrics.value.length === 0) return -1
+    return getCurrentLyricIndex(parsedLyrics.value, playerState.currentTime)
+  })
+
+  const scrollLyricLines = computed(() => {
+    if (currentLyricIndex.value === -1) return { lines: [], currentIndex: -1 }
+    return getScrollLyricLines(parsedLyrics.value, currentLyricIndex.value)
+  })
+
+  // 切换播放模式
+  const togglePlayMode = () => {
+    const modes = Object.values(PlayMode)
+    const currentIndex = modes.indexOf(playMode.value)
+    const nextIndex = (currentIndex + 1) % modes.length
+    playMode.value = modes[nextIndex]
+    console.log('[MusicStore] 播放模式切换为:', playMode.value)
+  }
+
+  // 根据播放模式获取下一首歌曲
+  const getNextSong = (): ReadonlyQQMusicSong | null => {
+    if (!playerState.currentSong || songs.value.length === 0)
+      return null
+
+    const currentIndex = songs.value.findIndex(song => song.songmid === playerState.currentSong!.songmid)
+    let nextIndex: number
+    let randomIndex: number
+
+    switch (playMode.value) {
+      case PlayMode.LIST_LOOP:
+        // 列表循环：播放完最后一首后回到第一首
+        nextIndex = (currentIndex + 1) % songs.value.length
+        return songs.value[nextIndex]
+
+      case PlayMode.RANDOM:
+        // 随机播放：随机选择一首歌（不包括当前播放的）
+        if (songs.value.length === 1)
+          return songs.value[0]
+        do {
+          randomIndex = Math.floor(Math.random() * songs.value.length)
+        } while (randomIndex === currentIndex)
+        return songs.value[randomIndex]
+
+      case PlayMode.SINGLE_LOOP:
+        // 单曲循环：重复播放当前歌曲
+        return playerState.currentSong
+
+      case PlayMode.SEQUENTIAL:
+        // 顺序播放：播放完最后一首后停止
+        if (currentIndex === songs.value.length - 1) {
+          return null // 播放完最后一首，停止播放
+        }
+        nextIndex = currentIndex + 1
+        return songs.value[nextIndex]
+
+      default:
+        nextIndex = (currentIndex + 1) % songs.value.length
+        return songs.value[nextIndex]
+    }
+  }
+
+  // 根据播放模式获取上一首歌曲
+  const getPreviousSong = (): ReadonlyQQMusicSong | null => {
+    if (!playerState.currentSong || songs.value.length === 0)
+      return null
+
+    const currentIndex = songs.value.findIndex(song => song.songmid === playerState.currentSong!.songmid)
+    let prevIndex: number
+    let randomIndex: number
+
+    switch (playMode.value) {
+      case PlayMode.LIST_LOOP:
+        // 列表循环：从第一首回到最后一首
+        prevIndex = currentIndex === 0 ? songs.value.length - 1 : currentIndex - 1
+        return songs.value[prevIndex]
+
+      case PlayMode.RANDOM:
+        // 随机播放：随机选择一首歌（不包括当前播放的）
+        if (songs.value.length === 1)
+          return songs.value[0]
+        do {
+          randomIndex = Math.floor(Math.random() * songs.value.length)
+        } while (randomIndex === currentIndex)
+        return songs.value[randomIndex]
+
+      case PlayMode.SINGLE_LOOP:
+        // 单曲循环：重复播放当前歌曲
+        return playerState.currentSong
+
+      case PlayMode.SEQUENTIAL:
+        // 顺序播放：从第一首回到最后一首
+        if (currentIndex === 0) {
+          prevIndex = songs.value.length - 1
+        }
+        else {
+          prevIndex = currentIndex - 1
+        }
+        return songs.value[prevIndex]
+
+      default:
+        prevIndex = currentIndex === 0 ? songs.value.length - 1 : currentIndex - 1
+        return songs.value[prevIndex]
+    }
+  }
 
   // 播放
   const play = async () => {
@@ -99,9 +242,9 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     })
 
     audio.addEventListener('ended', () => {
-      // 歌曲播放结束，可以自动切换到下一首
+      // 歌曲播放结束，根据播放模式决定下一步
       // eslint-disable-next-line ts/no-use-before-define
-      playNext()
+      handleSongEnded()
     })
 
     audio.addEventListener('error', () => {
@@ -136,6 +279,7 @@ export const useMusicStore = defineStore(musicStoreId, () => {
 
       // 异步获取播放URL
       const playUrl = await getSongPlayUrl(song.songmid)
+
       audioElement.value.src = playUrl
 
       // 重置播放状态
@@ -150,24 +294,34 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     }
   }
 
+  // 处理歌曲播放结束
+  const handleSongEnded = () => {
+    const nextSong = getNextSong()
+    if (nextSong) {
+      // 自动播放下一首
+      playSong(nextSong)
+    }
+    else {
+      // 没有下一首，停止播放
+      stop()
+      console.log('[MusicStore] 播放列表结束')
+    }
+  }
+
   // 播放下一首
   const playNext = () => {
-    if (!playerState.currentSong || songs.value.length === 0)
-      return
-
-    const currentIndex = songs.value.findIndex(song => song.songmid === playerState.currentSong!.songmid)
-    const nextIndex = (currentIndex + 1) % songs.value.length
-    playSong(songs.value[nextIndex])
+    const nextSong = getNextSong()
+    if (nextSong) {
+      playSong(nextSong)
+    }
   }
 
   // 播放上一首
   const playPrevious = () => {
-    if (!playerState.currentSong || songs.value.length === 0)
-      return
-
-    const currentIndex = songs.value.findIndex(song => song.songmid === playerState.currentSong!.songmid)
-    const prevIndex = currentIndex === 0 ? songs.value.length - 1 : currentIndex - 1
-    playSong(songs.value[prevIndex])
+    const prevSong = getPreviousSong()
+    if (prevSong) {
+      playSong(prevSong)
+    }
   }
 
   // 设置播放进度
@@ -213,7 +367,13 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     playlist: readonly(playlist),
     songs: readonly(songs),
     playerState: readonly(playerState),
+    playMode: readonly(playMode),
     isLoadingPlaylist: readonly(isLoadingPlaylist),
+    currentLyric: readonly(currentLyric),
+    isLoadingLyric: readonly(isLoadingLyric),
+    parsedLyrics: readonly(parsedLyrics),
+    currentLyricIndex: readonly(currentLyricIndex),
+    scrollLyricLines: readonly(scrollLyricLines),
 
     // 方法
     refreshPlaylist,
@@ -226,6 +386,7 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     toggleMute,
     playNext,
     playPrevious,
+    togglePlayMode,
     initAudioElement,
     cleanup,
   }

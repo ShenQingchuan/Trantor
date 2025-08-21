@@ -28,14 +28,10 @@ musicRouter.get('/songlist', async (c) => {
       throw new Error(`QQ音乐API请求失败: ${response.status}`)
     }
 
-        const data: any = await response.json()
-    
-    // 直接返回QQ音乐API的响应，并添加CORS头
-    c.header('Access-Control-Allow-Origin', '*')
-    c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-    c.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    const data: any = await response.json() as any
 
-    return c.json(data as any)
+    // 直接返回QQ音乐API的响应
+    return c.json(data)
   }
   catch (error) {
     console.error('音乐代理错误:', error)
@@ -68,14 +64,9 @@ musicRouter.get('/song/urls', async (c) => {
       throw new Error(`QQ音乐API请求失败: ${response.status}`)
     }
 
-    const data: any = await response.json()
+    const data: any = await response.json() as any
 
-    // 直接返回QQ音乐API的响应，并添加CORS头
-    c.header('Access-Control-Allow-Origin', '*')
-    c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-    c.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-    return c.json(data as any)
+    return c.json(data)
   }
   catch (error) {
     console.error('音乐播放链接代理错误:', error)
@@ -87,13 +78,37 @@ musicRouter.get('/song/urls', async (c) => {
 })
 
 /**
- * 处理CORS预检请求
+ * 代理QQ音乐歌词接口
+ * GET /api/music/lyric?songmid=xxxx
  */
-musicRouter.options('*', (c) => {
-  c.header('Access-Control-Allow-Origin', '*')
-  c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  c.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  return c.text('')
+musicRouter.get('/lyric', async (c) => {
+  try {
+    const songmid = c.req.query('songmid')
+
+    if (!songmid) {
+      return c.json({
+        success: false,
+        message: '缺少歌曲ID参数',
+      }, 400)
+    }
+
+    // 转发请求到QQ音乐API
+    const response = await fetch(`${QQ_MUSIC_API_BASE}/lyric?songmid=${songmid}`)
+
+    if (!response.ok) {
+      throw new Error(`QQ音乐API请求失败: ${response.status}`)
+    }
+
+    const data: any = await response.json() as any
+    return c.json(data)
+  }
+  catch (error) {
+    console.error('音乐歌词代理错误:', error)
+    return c.json({
+      success: false,
+      message: error instanceof Error ? error.message : '获取歌词失败',
+    }, 500)
+  }
 })
 
 export { musicRouter }

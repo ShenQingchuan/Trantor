@@ -56,7 +56,24 @@ export default {
 
   about_myos_title: 'About MyOS',
   about_myos_version: 'Version {version}',
-  about_myos_description: 'Be a hacker🧑🏻‍💻 and painter🎨',
+  about_myos_description: 'Be a hacker🧑🏻‍�� and painter🎨',
+
+  // 音乐播放器
+  music_play_mode_list_loop: 'List Loop',
+  music_play_mode_random: 'Random',
+  music_play_mode_single_loop: 'Single Loop',
+  music_play_mode_sequential: 'Sequential',
+  music_previous: 'Previous',
+  music_next: 'Next',
+  music_play: 'Play',
+  music_pause: 'Pause',
+  music_mute: 'Mute',
+  music_unmute: 'Unmute',
+  music_volume: 'Volume',
+  music_select_song: 'Please select a song to play',
+  music_lyrics: 'Lyrics',
+  music_lyrics_show: 'Show Lyrics',
+  music_lyrics_hide: 'Hide Lyrics',
 
   dialog__cancel: 'Cancel',
   dialog__confirm: 'Confirm',

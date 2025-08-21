@@ -1,4 +1,4 @@
-import type { QQMusicApiResponse, QQMusicPlaylist, QQMusicSinger, QQMusicUrlResponse } from '../../bridge/types/music'
+import type { QQMusicApiResponse, QQMusicLyric, QQMusicLyricResponse, QQMusicPlaylist, QQMusicSinger, QQMusicUrlResponse } from '../../bridge/types/music'
 
 // 使用本地服务器代理
 const MUSIC_API_BASE = '/api/music'
@@ -53,7 +53,7 @@ export async function getSongPlayUrl(songmid: string): Promise<string> {
  */
 export function formatDuration(seconds: number): string {
   // 确保输入是有效数字，避免NaN和Infinity
-  if (!isFinite(seconds) || seconds < 0) {
+  if (!Number.isFinite(seconds) || seconds < 0) {
     return '0:00'
   }
   
@@ -70,4 +70,22 @@ export function formatDuration(seconds: number): string {
  */
 export function getArtistNames(singers: readonly QQMusicSinger[]): string {
   return singers.map(singer => singer.name).join(', ')
+}
+
+/**
+ * 获取歌曲歌词
+ */
+export async function getSongLyric(songmid: string): Promise<QQMusicLyric> {
+  const response = await fetch(`${MUSIC_API_BASE}/lyric?songmid=${songmid}`)
+  if (!response.ok) {
+    throw new Error(`获取歌词失败: ${response.status}`)
+  }
+
+  const result: QQMusicLyricResponse = await response.json()
+
+  if (result.result !== 100) {
+    throw new Error(`API 错误: ${result.message || result.result}`)
+  }
+
+  return result.data
 }

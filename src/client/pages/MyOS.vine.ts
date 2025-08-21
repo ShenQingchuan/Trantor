@@ -4,6 +4,7 @@ import { chatAppWindowConfig } from '../components/MyOS/apps/ChatApp.vine'
 import { musicAppWindowConfig } from '../components/MyOS/apps/MusicApp.vine'
 import { DesktopBackground } from '../components/MyOS/DesktopBackground.vine'
 import { Dock } from '../components/MyOS/Dock.vine'
+import { IdleScreen } from '../components/MyOS/IdleScreen.vine'
 import { LoginCard } from '../components/MyOS/LoginCard.vine'
 import { StatusBar } from '../components/MyOS/StatusBar.vine'
 import { DesktopWindowManager } from '../components/MyOS/WindowManager.vine'
@@ -21,8 +22,26 @@ export function PageMyOS() {
 
   // 初始化认证存储
   onMounted(async () => {
+    console.log('[MyOS] 页面挂载，开始初始化认证...')
     await authStore.initialize()
+    console.log('[MyOS] 认证初始化完成')
   })
+
+  // 监听认证状态变化
+  watch(
+    () => authStore.isInitializing,
+    (isInitializing) => {
+      console.log('[MyOS] 认证初始化状态变化:', isInitializing)
+    },
+  )
+
+  // 监听认证状态变化
+  watch(
+    () => authStore.isAuthenticated,
+    (isAuthenticated) => {
+      console.log('[MyOS] 认证状态变化:', isAuthenticated)
+    },
+  )
 
   // 监听窗口状态变化，更新状态栏的活跃应用
   watch(
@@ -104,34 +123,41 @@ export function PageMyOS() {
 
   return vine`
     <div class="page-my-os col-flex w-full h-full flex-1 relative">
+      <!-- 系统初始化时的 Idle 状态 -->
+      <IdleScreen v-if="authStore.isInitializing" />
       <!-- 桌面背景 -->
-      <DesktopBackground />
+      <template v-else>
+        <DesktopBackground />
 
-      <!-- macOS 风格状态栏 -->
-      <StatusBar v-if="!isPhoneMode" />
+        <!-- 主内容区域 -->
+        <template v-if="!authStore.isInitializing">
+          <!-- macOS 风格状态栏 -->
+          <StatusBar v-if="!isPhoneMode" />
 
-      <!-- 主内容区域：桌面模式下需要留出状态栏空间 -->
-      <div class="flex-1 col-flex w-full h-full relative" :class="{ 'pt-8': !isPhoneMode }">
-        <!-- 未登录时的居中登录界面 -->
-        <LoginCard v-if="!authStore.isAuthenticated" />
+          <!-- 主内容区域：桌面模式下需要留出状态栏空间 -->
+          <div class="flex-1 col-flex w-full h-full relative" :class="{ 'pt-8': !isPhoneMode }">
+            <!-- 未登录时的居中登录界面 -->
+            <LoginCard v-if="!authStore.isAuthenticated" />
 
-        <!-- 桌面模式：Dock + WindowManager -->
-        <template v-else-if="!isPhoneMode">
-          <Dock @appClick="handleAppClick" />
-          <DesktopWindowManager />
-        </template>
+            <!-- 桌面模式：Dock + WindowManager -->
+            <template v-else-if="!isPhoneMode">
+              <Dock @appClick="handleAppClick" />
+              <DesktopWindowManager />
+            </template>
 
-        <!-- 手机模式 -->
-        <template v-else="authStore.isAuthenticated && isPhoneMode">
-          <div v-motion-fade-visible class="col-flex flex-1 flex-center w-full h-full">
-            <div class="col-flex flex-center gap-2 text-center flex-1">
-              <div class="i-twemoji:building-construction text-8xl" />
-              <div class="mt-4 text-2xl font-bold">{{ t('os_mobile_coming_soon') }}</div>
-              <div class="text-xl text-zinc-500">{{ t('os_mobile_coming_soon_subtitle') }}</div>
-            </div>
+            <!-- 手机模式 -->
+            <template v-else="authStore.isAuthenticated && isPhoneMode">
+              <div v-motion-fade-visible class="col-flex flex-1 flex-center w-full h-full">
+                <div class="col-flex flex-center gap-2 text-center flex-1">
+                  <div class="i-twemoji:building-construction text-8xl" />
+                  <div class="mt-4 text-2xl font-bold">{{ t('os_mobile_coming_soon') }}</div>
+                  <div class="text-xl text-zinc-500">{{ t('os_mobile_coming_soon_subtitle') }}</div>
+                </div>
+              </div>
+            </template>
           </div>
         </template>
-      </div>
+      </template>
     </div>
   `
 }

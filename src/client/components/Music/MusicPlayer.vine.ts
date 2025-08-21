@@ -1,56 +1,37 @@
-import { formatDuration, getArtistNames } from '../../requests/music'
-import { useMusicStore } from '../../stores/musicStore'
+import { useToggle } from '@vueuse/core'
+import { useI18n } from 'vue-i18n'
+import { getArtistNames } from '../../requests/music'
+import { PlayMode, useMusicStore } from '../../stores/musicStore'
+import { LyricsDisplay } from './LyricsDisplay.vine'
+import { PlaybackControls } from './PlaybackControls.vine'
+import { VolumeControl } from './VolumeControl.vine'
 
 export function MusicPlayer() {
   const musicStore = useMusicStore()
-  const { playerState, songs } = storeToRefs(musicStore)
+  const { playerState, songs, playMode } = storeToRefs(musicStore)
+  const { t } = useI18n()
 
-  const progressPercentage = computed(() => {
-    if (playerState.value.duration === 0)
-      return 0
-    return (playerState.value.currentTime / playerState.value.duration) * 100
+  // 歌词界面显示状态
+  const [showLyrics, toggleLyrics] = useToggle(false)
+
+  // 播放模式图标和提示
+  const playModeInfo = computed(() => {
+    switch (playMode.value) {
+      case PlayMode.LIST_LOOP:
+        return { icon: 'i-ic:sharp-repeat', title: t('music_play_mode_list_loop') }
+      case PlayMode.RANDOM:
+        return { icon: 'i-ic:sharp-shuffle', title: t('music_play_mode_random') }
+      case PlayMode.SINGLE_LOOP:
+        return { icon: 'i-ic:sharp-repeat-one', title: t('music_play_mode_single_loop') }
+      case PlayMode.SEQUENTIAL:
+        return { icon: 'i-ic:sharp-playlist-play', title: t('music_play_mode_sequential') }
+      default:
+        return { icon: 'i-ic:sharp-repeat', title: t('music_play_mode_list_loop') }
+    }
   })
 
-  const volumePercentage = computed(() => playerState.value.volume * 100)
-  const progressPercentageStyle = computed(() => ({ width: `${progressPercentage.value}%` }))
-  const volumePercentageStyle = computed(() => ({ width: `${volumePercentage.value}%` }))
-
-  const handlePlayPause = () => {
-    if (playerState.value.isPlaying) {
-      musicStore.pause()
-    }
-    else {
-      musicStore.play()
-    }
-  }
-
-  const handleProgressSeek = (event: MouseEvent) => {
-    const progressBar = event.currentTarget as HTMLElement
-    const rect = progressBar.getBoundingClientRect()
-    const clickX = event.clientX - rect.left
-    const percentage = clickX / rect.width
-    const seekTime = percentage * playerState.value.duration
-    musicStore.seekTo(seekTime)
-  }
-
-  const handleVolumeChange = (event: MouseEvent) => {
-    const volumeBar = event.currentTarget as HTMLElement
-    const rect = volumeBar.getBoundingClientRect()
-    const clickX = event.clientX - rect.left
-    const percentage = Math.max(0, Math.min(1, clickX / rect.width))
-    musicStore.setVolume(percentage)
-  }
-
-  const handlePrevious = () => {
-    musicStore.playPrevious()
-  }
-
-  const handleNext = () => {
-    musicStore.playNext()
-  }
-
-  const handleToggleMute = () => {
-    musicStore.toggleMute()
+  const handleTogglePlayMode = () => {
+    musicStore.togglePlayMode()
   }
 
   return vine`
@@ -61,7 +42,7 @@ export function MusicPlayer() {
       <div class="flex-1 col-flex items-center justify-center p-4">
         <div v-if="!playerState.currentSong" class="col-flex items-center gap-3 text-center">
           <div class="i-ic:music-note text-6xl text-zinc-300 dark:text-zinc-600" />
-          <div class="text-sm text-zinc-500 dark:text-zinc-400">请选择歌曲播放</div>
+          <div class="text-sm text-zinc-500 dark:text-zinc-400">{{ t('music_select_song') }}</div>
         </div>
 
         <div v-else class="col-flex items-center gap-4 max-w-sm w-full">
@@ -78,92 +59,42 @@ export function MusicPlayer() {
             </p>
           </div>
 
-          <!-- 紧凑进度条 -->
-          <div class="w-full col-flex gap-1">
-            <div
-              @click="handleProgressSeek"
-              class="w-full h-1.5 bg-zinc-300 dark:bg-zinc-700 rounded-full cursor-pointer group"
-            >
-              <div
-                class="h-full bg-blue-500 rounded-full transition-all group-hover:bg-blue-600"
-                :style="progressPercentageStyle"
-              />
-            </div>
-            <div class="row-flex justify-between text-xs text-zinc-500 tabular-nums">
-              <span>{{ formatDuration(playerState.currentTime) }}</span>
-              <span>{{ formatDuration(playerState.duration) }}</span>
-            </div>
+          <!-- 滚动歌词显示界面 -->
+          <div v-if="showLyrics" class="w-full col-flex gap-4">
+            <LyricsDisplay />
           </div>
 
-          <!-- iPod 风格控制按钮 -->
-          <div class="row-flex items-center justify-center gap-6 mt-2">
-            <!-- 上一首 -->
-            <button
-              @click="handlePrevious"
-              :disabled="!playerState.currentSong || songs.length <= 1"
-              class="w-8 h-8 rounded-full bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 row-flex flex-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              title="上一首"
-            >
-              <div class="i-ic:skip-previous text-lg text-zinc-700 dark:text-zinc-300" />
-            </button>
-
-            <!-- 播放/暂停 -->
-            <button
-              @click="handlePlayPause"
-              :disabled="!playerState.currentSong"
-              class="w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 text-white row-flex flex-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
-              :title="playerState.isPlaying ? '暂停' : '播放'"
-            >
-              <div v-if="playerState.isPlaying" class="i-ic:pause text-2xl" />
-              <div v-else class="i-ic:play-arrow text-2xl" />
-            </button>
-
-            <!-- 下一首 -->
-            <button
-              @click="handleNext"
-              :disabled="!playerState.currentSong || songs.length <= 1"
-              class="w-8 h-8 rounded-full bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 row-flex flex-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              title="下一首"
-            >
-              <div class="i-ic:skip-next text-lg text-zinc-700 dark:text-zinc-300" />
-            </button>
-          </div>
+          <!-- 播放控制按钮 -->
+          <PlaybackControls />
         </div>
       </div>
 
-      <!-- 底部音量控制 -->
+      <!-- 底部控制区域：播放模式 + 音量控制 -->
       <div
-        class="row-flex items-center justify-center gap-3 p-3 border-t border-zinc-200 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-900/50"
+        class="row-flex items-center justify-center gap-6 p-3 border-t border-zinc-200 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-900/50"
       >
+        <!-- 播放模式切换 -->
         <button
-          @click="handleToggleMute"
-          class="p-1.5 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
-          :title="playerState.isMuted ? '取消静音' : '静音'"
+          @click="handleTogglePlayMode"
+          :disabled="!playerState.currentSong || songs.length <= 1"
+          class="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 row-flex flex-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          :title="playModeInfo.title"
         >
-          <div
-            v-if="playerState.isMuted || playerState.volume === 0"
-            class="i-ic:volume-off text-sm text-zinc-600 dark:text-zinc-400"
-          />
-          <div
-            v-else-if="playerState.volume < 0.5"
-            class="i-ic:volume-down text-sm text-zinc-600 dark:text-zinc-400"
-          />
-          <div v-else class="i-ic:volume-up text-sm text-zinc-600 dark:text-zinc-400" />
+          <div :class="[playModeInfo.icon, 'text-lg text-zinc-700 dark:text-zinc-300']" />
         </button>
 
-        <div
-          @click="handleVolumeChange"
-          class="w-20 h-1 bg-zinc-300 dark:bg-zinc-700 rounded-full cursor-pointer group"
+        <!-- 歌词切换按钮 -->
+        <button
+          @click="toggleLyrics()"
+          :disabled="!playerState.currentSong"
+          class="p-2 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 row-flex flex-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          :title="showLyrics ? t('music_lyrics_hide') : t('music_lyrics_show')"
         >
-          <div
-            class="h-full bg-blue-500 rounded-full transition-all group-hover:bg-blue-600"
-            :style="volumePercentageStyle"
-          />
-        </div>
+          <div class="i-ic:baseline-lyrics text-lg text-zinc-700 dark:text-zinc-300" />
+        </button>
 
-        <span class="text-xs text-zinc-500 tabular-nums w-6 font-sans">
-          {{ Math.round(volumePercentage) }}
-        </span>
+        <!-- 音量控制 -->
+        <VolumeControl />
       </div>
     </div>
   `
