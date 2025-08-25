@@ -1,6 +1,7 @@
-import type { AuthenticatedUser, AuthToken, OSApp, OSConfig, UserPermission } from '../../../bridge/types/auth.js'
+import type { AuthenticatedUser, AuthToken, OSConfig, UserPermission } from '../../../bridge/types/auth.js'
 import process from 'node:process'
 import { nanoid } from 'nanoid'
+import { MYOS_APPS } from '../../constants/myos-apps.js'
 
 // Simple in-memory storage (can be replaced with database later)
 class AuthStorage {
@@ -22,62 +23,8 @@ class AuthStorage {
     this.initializeOwner()
   }
 
-  private getDefaultApps(): OSApp[] {
-    return [
-      {
-        id: 'chat',
-        name: 'AI Chat',
-        description: 'Chat with AI assistant',
-        version: '1.0.0',
-        category: 'productivity',
-        permissions: [
-          {
-            id: 'chat.send',
-            name: 'Send Messages',
-            description: 'Send messages to AI assistant',
-            level: 'write',
-            required: true,
-          },
-          {
-            id: 'chat.history',
-            name: 'View History',
-            description: 'View conversation history',
-            level: 'read',
-            required: true,
-          },
-          {
-            id: 'chat.mcp',
-            name: 'MCP Tools',
-            description: 'Use Model Context Protocol tools',
-            level: 'write',
-            required: false,
-          },
-        ],
-      },
-      {
-        id: 'music',
-        name: 'Music',
-        description: 'Music player application',
-        version: '1.0.0',
-        category: 'entertainment',
-        permissions: [
-          {
-            id: 'music.list',
-            name: 'List Music',
-            description: 'List music',
-            level: 'read',
-            required: true,
-          },
-          {
-            id: 'music.play',
-            name: 'Play Music',
-            description: 'Play music',
-            level: 'read',
-            required: true,
-          },
-        ],
-      },
-    ]
+  private getDefaultApps() {
+    return MYOS_APPS
   }
 
   private initializeOwner() {
@@ -292,19 +239,19 @@ class AuthStorage {
   }
 
   // App and config management
-  getApps(): OSApp[] {
+  getApps() {
     return this.config.apps
   }
 
-  getApp(appId: string): OSApp | undefined {
+  getApp(appId: string) {
     return this.config.apps.find(app => app.id === appId)
   }
 
-  getConfig(): OSConfig {
+  getConfig() {
     return this.config
   }
 
-  updateConfig(updates: Partial<OSConfig>): void {
+  updateConfig(updates: Partial<OSConfig>) {
     this.config = { ...this.config, ...updates }
   }
 }
