@@ -34,10 +34,7 @@ export function IdleScreen() {
 
         <!-- 加载指示器 -->
         <div class="row-flex gap-0.8">
-          <div class="w-1.2 h-4 bg-cyan-400 animate-bounce animate-delay-0" />
-          <div class="w-1.2 h-4 bg-teal animate-bounce animate-delay-200" />
-          <div class="w-1.2 h-4 bg-purple animate-bounce animate-delay-300" />
-          <div class="w-1.2 h-4 bg-blue-400 animate-bounce animate-delay-150" />
+          <div class="i-svg-spinners:3-dots-fade" />
         </div>
       </div>
     </div>
