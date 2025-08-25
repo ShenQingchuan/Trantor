@@ -12,6 +12,8 @@ export function PageArticles() {
   const { state, asyncStatus } = useQuery<ArticleMetadata[]>({
     key: ['articlesList'],
     query: () => ofetch('/api/articles/list').then(res => res.data),
+    staleTime: 5 * 60 * 1000, // 5分钟内认为数据是新鲜的，不会重新请求
+    gcTime: 10 * 60 * 1000, // 10分钟内保持缓存，即使组件卸载
   })
 
   const articlePath = (article: ArticleMetadata) => {
