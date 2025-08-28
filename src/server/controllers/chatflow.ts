@@ -192,11 +192,6 @@ chatFlowRouter.post('/sessions/:sessionId/summarize', async (c) => {
     // 获取会话的消息列表
     const messages = await pocketBaseService.getChatMessages(sessionId)
 
-    // 如果消息数量少于4条，返回固定标题
-    if (messages.length < 4) {
-      return successResponse(c, { title: '新对话' })
-    }
-
     // 构建用于总结的对话内容
     const conversationText = messages
       .map(msg => `${msg.role}: ${msg.content}`)
