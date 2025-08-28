@@ -8,11 +8,11 @@ import { VolumeControl } from './VolumeControl.vine'
 
 export function MusicPlayer() {
   const musicStore = useMusicStore()
-  const { playerState, songs, playMode } = storeToRefs(musicStore)
+  const { playerState, songs, playMode, cannotPlayCurrent } = storeToRefs(musicStore)
   const { t } = useI18n()
 
   // 歌词界面显示状态
-  const [showLyrics, toggleLyrics] = useToggle(false)
+  const [showLyrics, toggleLyrics] = useToggle(true)
 
   // 播放模式图标和提示
   const playModeInfo = computed(() => {
@@ -59,13 +59,28 @@ export function MusicPlayer() {
             </p>
           </div>
 
-          <!-- 滚动歌词显示界面 -->
-          <div v-if="showLyrics" class="w-full col-flex gap-4">
-            <LyricsDisplay />
+          <!-- 无法播放提示（例如版权限制） -->
+          <div
+            v-if="cannotPlayCurrent"
+            class="w-full col-flex items-center gap-2 p-3 rounded-md bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700"
+          >
+            <div class="row-flex gap-2 text-sm text-amber-700 dark:text-amber-300 text-center">
+              <div class="i-ic:sharp-warning text-2xl text-amber-500" />
+              <span>{{ t('music_cannot_play_due_to_rights') }}</span>
+            </div>
+            <div class="text-xs text-amber-600 dark:text-amber-400 text-center">
+              {{ t('music_cannot_play_due_to_rights_tip') }}
+            </div>
           </div>
+          <template v-else>
+            <!-- 滚动歌词显示界面 -->
+            <div v-if="showLyrics" class="w-full col-flex gap-4">
+              <LyricsDisplay />
+            </div>
 
-          <!-- 播放控制按钮 -->
-          <PlaybackControls />
+            <!-- 播放控制按钮 -->
+            <PlaybackControls />
+          </template>
         </div>
       </div>
 

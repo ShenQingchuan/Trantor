@@ -75,6 +75,8 @@ export default {
   music_lyrics: '歌词',
   music_lyrics_show: '显示歌词',
   music_lyrics_hide: '隐藏歌词',
+  music_cannot_play_due_to_rights: '抱歉，因版权限制，当前歌曲无法播放',
+  music_cannot_play_due_to_rights_tip: '您可以尝试播放列表中的其他歌曲',
 
   dialog__cancel: '取消',
   dialog__confirm: '确认',

@@ -33,6 +33,16 @@ export const useMusicStore = defineStore(musicStoreId, () => {
   // 当前播放的音频元素
   const audioElement = ref<HTMLAudioElement | null>(null)
 
+  // 当前歌曲是否不可播放（例如版权限制或无有效播放链接）
+  const cannotPlayCurrent = ref(false)
+  // 不可播放歌曲集合（当获取不到播放链接时记录）
+  const unplayableSongmids = reactive(new Set<string>())
+  const isSongUnplayable = (songmid?: string | null): boolean => {
+    if (!songmid)
+      return false
+    return unplayableSongmids.has(songmid)
+  }
+
   // 获取歌单详情
   const {
     state: playlistState,
@@ -53,8 +63,9 @@ export const useMusicStore = defineStore(musicStoreId, () => {
   const {
     state: lyricState,
     asyncStatus: lyricStatus,
+    refresh: refreshLyric,
   } = useQuery<QQMusicLyric>({
-    key: ['qqmusicLyric', playerState.currentSong?.songmid || ''],
+    key: computed(() => ['qqmusicLyric', playerState.currentSong?.songmid || '']),
     query: () => {
       if (!playerState.currentSong?.songmid) {
         throw new Error('没有当前播放歌曲')
@@ -71,17 +82,20 @@ export const useMusicStore = defineStore(musicStoreId, () => {
 
   // 歌词解析和滚动逻辑
   const parsedLyrics = computed(() => {
-    if (!currentLyric.value?.lyric) return []
+    if (!currentLyric.value?.lyric)
+      return []
     return parseLyric(currentLyric.value.lyric)
   })
 
   const currentLyricIndex = computed(() => {
-    if (parsedLyrics.value.length === 0) return -1
+    if (parsedLyrics.value.length === 0)
+      return -1
     return getCurrentLyricIndex(parsedLyrics.value, playerState.currentTime)
   })
 
   const scrollLyricLines = computed(() => {
-    if (currentLyricIndex.value === -1) return { lines: [], currentIndex: -1 }
+    if (currentLyricIndex.value === -1)
+      return { lines: [], currentIndex: -1 }
     return getScrollLyricLines(parsedLyrics.value, currentLyricIndex.value)
   })
 
@@ -263,6 +277,18 @@ export const useMusicStore = defineStore(musicStoreId, () => {
       return
 
     try {
+      // 若已经标记为不可播放，则直接提示并返回
+      if (isSongUnplayable(song.songmid)) {
+        console.warn('[MusicStore] 已知不可播放，跳过:', song.songmid)
+        cannotPlayCurrent.value = true
+        if (audioElement.value) {
+          audioElement.value.pause()
+          audioElement.value.src = ''
+        }
+        playerState.isPlaying = false
+        return
+      }
+
       // 如果是同一首歌，切换播放/暂停状态
       if (playerState.currentSong?.songmid === song.songmid) {
         if (playerState.isPlaying) {
@@ -276,6 +302,8 @@ export const useMusicStore = defineStore(musicStoreId, () => {
 
       // 播放新歌曲
       playerState.currentSong = song as QQMusicSong
+      // 切歌时重置不可播放标记
+      cannotPlayCurrent.value = false
 
       // 异步获取播放URL
       const playUrl = await getSongPlayUrl(song.songmid)
@@ -291,6 +319,15 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     }
     catch (error) {
       console.error('播放歌曲失败:', error)
+      // 标记为不可播放，供侧边栏禁用
+      if (song.songmid)
+        unplayableSongmids.add(song.songmid)
+      cannotPlayCurrent.value = true
+      if (audioElement.value) {
+        audioElement.value.pause()
+        audioElement.value.src = ''
+      }
+      playerState.isPlaying = false
     }
   }
 
@@ -374,9 +411,12 @@ export const useMusicStore = defineStore(musicStoreId, () => {
     parsedLyrics: readonly(parsedLyrics),
     currentLyricIndex: readonly(currentLyricIndex),
     scrollLyricLines: readonly(scrollLyricLines),
+    cannotPlayCurrent: readonly(cannotPlayCurrent),
+    isSongUnplayable,
 
     // 方法
     refreshPlaylist,
+    refreshLyric,
     playSong,
     play,
     pause,

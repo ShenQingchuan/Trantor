@@ -72,7 +72,7 @@ export function Dock() {
     />
 
     <div
-      class="dock shadow fixed bottom-0 row-flex py-2 px-6 self-center rounded bg-zinc-100/80 backdrop-blur dark:bg-dark-500 backdrop-blur-md backdrop-saturate-150 z-9000"
+      class="dock shadow fixed bottom-0 row-flex py-2 px-6 self-center rounded bg-zinc-100/20 backdrop-blur dark:bg-dark-500 backdrop-blur-md backdrop-saturate-150 z-9000"
       :class="{
         'translate-y-full opacity-0 pointer-events-none': autoHideActive && !showDock,
         'translate-y-0 opacity-100 pointer-events-auto': !autoHideActive || showDock,

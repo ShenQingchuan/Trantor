@@ -7,6 +7,37 @@ export interface LyricLine {
 }
 
 /**
+ * 解码歌词中的 HTML 实体到实际字符
+ */
+function decodeHtmlEntities(text: string): string {
+  if (!text)
+    return ''
+
+  // 先处理常见命名实体
+  let decoded = text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, '\'')
+    .replace(/&#39;/g, '\'')
+    .replace(/&#x27;/gi, '\'')
+
+  // 处理数字实体：十进制 &#1234; 和十六进制 &#x1F60A;
+  decoded = decoded.replace(/&#(\d+);/g, (_, dec) => {
+    const code = Number.parseInt(dec, 10)
+    return Number.isFinite(code) ? String.fromCodePoint(code) : _
+  })
+
+  decoded = decoded.replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+    const code = Number.parseInt(hex, 16)
+    return Number.isFinite(code) ? String.fromCodePoint(code) : _
+  })
+
+  return decoded
+}
+
+/**
  * 解析LRC格式歌词
  */
 export function parseLyric(lrcText: string): LyricLine[] {
@@ -22,7 +53,7 @@ export function parseLyric(lrcText: string): LyricLine[] {
       const milliseconds = timeMatch[3] ? Number.parseInt(timeMatch[3], 10) : 0
 
       const time = minutes * 60 + seconds + milliseconds / 100
-      const text = line.replace(/\[.*?\]/g, '').trim()
+      const text = decodeHtmlEntities(line.replace(/\[.*?\]/g, '').trim())
 
       if (text) {
         lyricLines.push({ time, text })

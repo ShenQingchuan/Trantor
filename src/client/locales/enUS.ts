@@ -74,6 +74,8 @@ export default {
   music_lyrics: 'Lyrics',
   music_lyrics_show: 'Show Lyrics',
   music_lyrics_hide: 'Hide Lyrics',
+  music_cannot_play_due_to_rights: 'Sorry, this song cannot be played due to copyright restrictions',
+  music_cannot_play_due_to_rights_tip: 'Please try another song in the list',
 
   dialog__cancel: 'Cancel',
   dialog__confirm: 'Confirm',

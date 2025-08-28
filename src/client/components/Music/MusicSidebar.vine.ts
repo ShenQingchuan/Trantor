@@ -11,10 +11,13 @@ export function MusicSidebar(props?: {
 
   const musicStore = useMusicStore()
   const { playlist, songs, isLoadingPlaylist, playerState } = storeToRefs(musicStore)
+  const isSongUnplayable = (song: ReadonlyQQMusicSong) => musicStore.isSongUnplayable(song.songmid)
 
   const handlePlaySong = (song: ReadonlyQQMusicSong) => {
+    if (isSongUnplayable(song))
+      return
     musicStore.playSong(song)
-    // 在选择歌曲后触发事件
+    musicStore.refreshLyric()
     emits('songSelect')
   }
 
@@ -95,8 +98,11 @@ export function MusicSidebar(props?: {
             v-for="(song, index) in songs"
             :key="song.songmid"
             @click="handlePlaySong(song)"
-            class="group row-flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
             :class="[
+              'group row-flex items-center gap-3 p-3 rounded-lg transition-colors',
+              isSongUnplayable(song)
+                ? 'opacity-50 cursor-not-allowed'
+                : 'cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800',
               isCurrentSong(song)
                 ? 'bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700'
                 : 'border border-transparent',

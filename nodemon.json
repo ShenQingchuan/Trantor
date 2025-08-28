@@ -2,5 +2,5 @@
   "restartable": "rs",
   "watch": ["dist/server/"],
   "delay": "1000",
-  "exec": "node dist/server/main.js"
+  "exec": "node --env-file=.env.local dist/server/main.js"
 }

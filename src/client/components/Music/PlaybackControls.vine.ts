@@ -36,7 +36,7 @@ export function PlaybackControls() {
         <button
           @click="musicStore.playNext"
           :disabled="!playerState.currentSong || songs.length <= 1"
-          class="w-8 h-8 rounded-full bg-zinc-700 dark:hover:bg-zinc-600 row-flex flex-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-8 h-8 rounded-full bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 row-flex flex-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           :title="t('music_next')"
         >
           <div class="i-ic:skip-next text-lg text-zinc-700 dark:text-zinc-300" />
